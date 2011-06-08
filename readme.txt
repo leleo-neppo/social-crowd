@@ -6,7 +6,7 @@ Donate link: http://www.macnative.com/development/donate
 Tags: social, network, count, friends, contacts, stats, statistics, followers, readers, facebook, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
 Tested up to: 3.1.2
-Stable tag: 1.0
+Stable tag: 0.1
 
 This plugin retrieves the number of Friends/Followers/Fans from your favorite social networks and displays those on any page of your wordpress blog.
 
@@ -73,7 +73,7 @@ Drop me a line and I will work on getting it added.
 
 == Changelog ==
 
-= 1.0 [2011-05-17] = 
+= 0.1 [2011-05-17] = 
 * Initial Release
 
 
