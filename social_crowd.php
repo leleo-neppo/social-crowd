@@ -2,7 +2,7 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 1.0
+ * @version 0.1
  */
 /*
 Plugin Name: Social Crowd
@@ -18,7 +18,7 @@ register_activation_hook( __FILE__, 'SocialCrowd_Activate' );
 /**
  * Check for the former plugin version and deactivates it, otherwise set default settings
  *
- * @since 1.0
+ * @since 0.1
  * @author randall@macnative.com
  */
 function SocialCrowd_Activate() {
@@ -35,7 +35,7 @@ if ( is_admin() ) {
 /**
  * Adds the plugin's default settings
  *
- * @since 1.0
+ * @since 0.1
  * @author randall@macnative.com
  */
 function SocialCrowd_DefaultSettings() {
@@ -66,7 +66,7 @@ function SocialCrowd_DefaultSettings() {
 /**
  * Gets Social Stats From Requested Social Networks
  *
- * @since 1.0
+ * @since 0.1
  * @author randall@macnative.com
  */
 function SocialCrowd_GetCounts()
@@ -174,7 +174,7 @@ function SocialCrowd_GetCounts()
 /**
  * Add XML Loading Function
  * 
- * @since 1.0
+ * @since 0.1
  * @author randall@macnative.com
  */
 function SocialCrowd_Load_XML($url) 
@@ -190,7 +190,7 @@ function SocialCrowd_Load_XML($url)
 /**
  * Add JSON Loading Function
  * 
- * @since 1.0
+ * @since 0.1
  * @author randall@macnative.com
  */
 function SocialCrowd_Load_JSON($url) 
@@ -206,7 +206,7 @@ function SocialCrowd_Load_JSON($url)
 /**
  * Outputs Count Variables individually or as an array
  *
- * @since 1.0
+ * @since 0.1
  * @author randall@macnative.com
  */
 function SocialCrowd_Stats($which = "all")
@@ -244,7 +244,7 @@ function SocialCrowd_Stats($which = "all")
 /**
  * Gets options string from the DB and converts it into an array
  *
- * @since 1.0
+ * @since 0.1
  * @author randall@macnative.com
  */
 function SocialCrowd_GetOptions()
@@ -261,7 +261,7 @@ function SocialCrowd_GetOptions()
 /**
  * Return Select Form Element
  *
- * @since 1.0
+ * @since 0.1
  * @author randall@macnative.com
  */
 function SocialCrowd_Make_Select($x = "", $fields, $class="", $id="select", $name="select") {
@@ -279,7 +279,7 @@ function SocialCrowd_Make_Select($x = "", $fields, $class="", $id="select", $nam
 /**
  * Adds the plugin's options page
  * 
- * @since 1.0
+ * @since 0.1
  * @author randall@macnative.com
  */
 function SocialCrowd_Add_Option_Menu() {
@@ -289,7 +289,7 @@ function SocialCrowd_Add_Option_Menu() {
 /**
  * Adds content to the plugin's options page
  *
- * @since 1.0
+ * @since 0.1
  * @author randall@macnative.com
  */
 function SocialCrowd_Options_Page() {
