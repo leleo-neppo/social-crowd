@@ -2,14 +2,14 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 0.1
+ * @version 0.2
  */
 /*
 Plugin Name: Social Crowd
 Plugin URI: http://www.macnative.com/socialCrowd
 Description: This plugin retrieves the raw number of Friends/Followers/Fans etc from your favorite social networks and allows you to show that raw number on any page of your wordpress blog using a simple php function **Requires PHP Curl Module**
 Author: Randall Hinton
-Version: 0.1
+Version: 0.2
 Author URI: http://www.macnative.com/
 */
 
@@ -51,11 +51,38 @@ function SocialCrowd_DefaultSettings() {
 	if( !get_option('Social_Crowd_Twitter_Count') ) {
 		add_option('Social_Crowd_Twitter_Count', '0');
 	}
+	if( !get_option('Social_Crowd_Twitter_friendsCount') ) {
+		add_option('Social_Crowd_Twitter_friendsCount', '0');
+	}
+	if( !get_option('Social_Crowd_Twitter_statusesCount') ) {
+		add_option('Social_Crowd_Twitter_statusesCount', '0');
+	}
+	if( !get_option('Social_Crowd_Twitter_listedCount') ) {
+		add_option('Social_Crowd_Twitter_listedCount', '0');
+	}
 	if( !get_option('Social_Crowd_Youtube_Count') ) {
 		add_option('Social_Crowd_Youtube_Count', '0');
 	}
+	if( !get_option('Social_Crowd_Youtube_subscriberCount') ) {
+		add_option('Social_Crowd_Youtube_subscriberCount', '0');
+	}
+	if( !get_option('Social_Crowd_Youtube_viewCount') ) {
+		add_option('Social_Crowd_Youtube_viewCount', '0');
+	}
+	if( !get_option('Social_Crowd_Youtube_uploadViewCount') ) {
+		add_option('Social_Crowd_Youtube_uploadViewCount', '0');
+	}
 	if( !get_option('Social_Crowd_Vimeo_Count') ) {
 		add_option('Social_Crowd_Vimeo_Count', '0');
+	}
+	if( !get_option('Social_Crowd_Vimeo_uploadedCount') ) {
+		add_option('Social_Crowd_Vimeo_uploadedCount', '0');
+	}
+	if( !get_option('Social_Crowd_Vimeo_appearsInCount') ) {
+		add_option('Social_Crowd_Vimeo_appearsInCount', '0');
+	}
+	if( !get_option('Social_Crowd_Vimeo_likedCount') ) {
+		add_option('Social_Crowd_Vimeo_likedCount', '0');
 	}
 
 	if( !get_option('Social_Crowd_Options') ) {
@@ -119,10 +146,34 @@ function SocialCrowd_GetCounts()
 		        { 
 	                update_option('Social_Crowd_Twitter_Count',  (string) $xml->followers_count); 
 	            }
+				if ($xml->friends_count != '' && $xml->friends_count > get_option('Social_Crowd_Twitter_friendsCount')) 
+		        { 
+	                update_option('Social_Crowd_Twitter_friendsCount',  (string) $xml->friends_count); 
+	            }
+				if ($xml->statuses_count != '' && $xml->statuses_count > get_option('Social_Crowd_Twitter_statusesCount')) 
+		        { 
+	                update_option('Social_Crowd_Twitter_statusesCount',  (string) $xml->statuses_count); 
+	            }
+				if ($xml->listed_count != '' && $xml->listed_count > get_option('Social_Crowd_Twitter_listedCount')) 
+		        { 
+	                update_option('Social_Crowd_Twitter_listedCount',  (string) $xml->listed_count); 
+	            }
 			}else{
 				if ($xml->followers_count != '' && $xml->followers_count > 0) 
 		        { 
 	                update_option('Social_Crowd_Twitter_Count',  (string) $xml->followers_count); 
+	            }
+				if ($xml->friends_count != '' && $xml->friends_count > 0) 
+		        { 
+	                update_option('Social_Crowd_Twitter_friendsCount',  (string) $xml->friends_count); 
+	            }
+				if ($xml->statuses_count != '' && $xml->statuses_count > 0) 
+		        { 
+	                update_option('Social_Crowd_Twitter_statusesCount',  (string) $xml->statuses_count); 
+	            }
+				if ($xml->listed_count != '' && $xml->listed_count > 0) 
+		        { 
+	                update_option('Social_Crowd_Twitter_listedCount',  (string) $xml->listed_count); 
 	            }
 			}
 		}
@@ -147,6 +198,32 @@ function SocialCrowd_GetCounts()
 					}
 				}
 			}
+				
+			//Get Youtube Statistics
+			$yt = $xml->children('http://gdata.youtube.com/schemas/2007');
+			
+			$stats = $yt->statistics->attributes();
+			if($sc_options["update"]){
+				if($stats["subscriberCount"] != '' && $stats["subscriberCount"] > get_option('Social_Crowd_Youtube_subscriberCount')){
+					update_option('Social_Crowd_Youtube_subscriberCount', (string) $stats['subscriberCount']);
+				}
+				if($stats["subscriberCount"] != '' && $stats["viewCount"] > get_option('Social_Crowd_Youtube_viewCount')){
+					update_option('Social_Crowd_Youtube_viewCount', (string) $stats['viewCount']);
+				}
+				if($stats["subscriberCount"] != '' && $stats["totalUploadViews"] > get_option('Social_Crowd_Youtube_uploadViewCount')){
+					update_option('Social_Crowd_Youtube_uploadViewCount', (string) $stats['totalUploadViews']);
+				}
+			}else{
+				if($stats["subscriberCount"] != '' && $stats["subscriberCount"] > 0){
+					update_option('Social_Crowd_Youtube_subscriberCount', (string) $stats['subscriberCount']);
+				}
+				if($stats["subscriberCount"] != '' && $stats["viewCount"] > 0){
+					update_option('Social_Crowd_Youtube_viewCount', (string) $stats['viewCount']);
+				}
+				if($stats["subscriberCount"] != '' && $stats["totalUploadViews"] > 0){
+					update_option('Social_Crowd_Youtube_uploadViewCount', (string) $stats['totalUploadViews']);
+				}
+			}
 		}
 		
 		//Get Vimeo Contacts
@@ -157,10 +234,34 @@ function SocialCrowd_GetCounts()
 		        { 
 	                update_option('Social_Crowd_Vimeo_Count',  (string) $xml->user->total_contacts); 
 	            }
+				if ($xml->user->total_videos_uploaded != '' && $xml->user->total_videos_uploaded > get_option('Social_Crowd_Vimeo_uploadedCount')) 
+		        { 
+	                update_option('Social_Crowd_Vimeo_uploadedCount',  (string) $xml->user->total_videos_uploaded); 
+	            }
+				if ($xml->user->total_videos_appears_in != '' && $xml->user->total_videos_appears_in > get_option('Social_Crowd_Vimeo_appearsInCount')) 
+		        { 
+	                update_option('Social_Crowd_Vimeo_appearsInCount',  (string) $xml->user->total_videos_appears_in); 
+	            }
+				if ($xml->user->total_videos_liked != '' && $xml->user->total_videos_liked > get_option('Social_Crowd_Vimeo_likedCount')) 
+		        { 
+	                update_option('Social_Crowd_Vimeo_likedCount',  (string) $xml->user->total_videos_liked); 
+	            }
 			}else{
 				if ($xml->user->total_contacts != '' && $xml->user->total_contacts > 0) 
 		        { 
 	                update_option('Social_Crowd_Vimeo_Count',  (string) $xml->user->total_contacts); 
+	            }
+				if ($xml->user->total_videos_uploaded != '' && $xml->user->total_videos_uploaded > 0) 
+		        { 
+	                update_option('Social_Crowd_Vimeo_uploadedCount',  (string) $xml->user->total_videos_uploaded); 
+	            }
+				if ($xml->user->total_videos_appears_in != '' && $xml->user->total_videos_appears_in > 0) 
+		        { 
+	                update_option('Social_Crowd_Vimeo_appearsInCount',  (string) $xml->user->total_videos_appears_in); 
+	            }
+				if ($xml->user->total_videos_liked != '' && $xml->user->total_videos_liked > 0) 
+		        { 
+	                update_option('Social_Crowd_Vimeo_likedCount',  (string) $xml->user->total_videos_liked); 
 	            }
 			}
 		}
@@ -217,8 +318,17 @@ function SocialCrowd_Stats($which = "all")
 		$stats["feedburner"] = get_option('Social_Crowd_Feedburner_Count');
 		$stats["facebook"] = get_option('Social_Crowd_Facebook_Count');
 		$stats["twitter"] = get_option('Social_Crowd_Twitter_Count');
+		$stats["twitterFriends"] = get_option('Social_Crowd_Twitter_friendsCount');
+		$stats["twitterStatuses"] = get_option('Social_Crowd_Twitter_statusesCount');
+		$stats["twitterListed"] = get_option('Social_Crowd_Twitter_listedCount');
 		$stats["youtube"] = get_option('Social_Crowd_Youtube_Count');
+		$stats["youtubeSubscribers"] = get_option('Social_Crowd_Youtube_subscriberCount');
+		$stats["youtubeViews"] = get_option('Social_Crowd_Youtube_viewCount');
+		$stats["youtubeUploadViews"] = get_option('Social_Crowd_Youtube_uploadViewCount');
 		$stats["vimeo"] = get_option('Social_Crowd_Vimeo_Count');
+		$stats["vimeoUploads"] = get_option('Social_Crowd_Vimeo_uploadedCount');
+		$stats["vimeoAppearsIn"] = get_option('Social_Crowd_Vimeo_appearsInCount');
+		$stats["vimeoLikes"] = get_option('Social_Crowd_Vimeo_likedCount');
 		return $stats;
 	}else{
 		switch($which){
@@ -231,11 +341,38 @@ function SocialCrowd_Stats($which = "all")
 			case twitter:
 				echo get_option('Social_Crowd_Twitter_Count');
 			break;
+			case twitterFriends:
+				echo get_option('Social_Crowd_Twitter_friendsCount');
+			break;
+			case twitterStatuses:
+				echo get_option('Social_Crowd_Twitter_statusesCount');
+			break;
+			case twitterListed:
+				echo get_option('Social_Crowd_Twitter_listedCount');
+			break;
 			case youtube:
 				echo get_option('Social_Crowd_Youtube_Count');
 			break;
+			case youtubeSubscribers:
+				echo get_option('Social_Crowd_Youtube_subscriberCount');
+			break;
+			case youtubeViews:
+				echo get_option('Social_Crowd_Youtube_viewCount');
+			break;
+			case youtubeUploadViews:
+				echo get_option('Social_Crowd_Youtube_uploadViewCount');
+			break;
 			case vimeo:
 				echo get_option('Social_Crowd_Vimeo_Count');
+			break;
+			case vimeoUploads:
+				echo get_option('Social_Crowd_Vimeo_uploadedCount');
+			break;
+			case vimeoAppearsIn:
+				echo get_option('Social_Crowd_Vimeo_appearsInCount');
+			break;
+			case vimeoLikes:
+				echo get_option('Social_Crowd_Vimeo_likedCount');
 			break;
 		}
 	}
@@ -365,25 +502,17 @@ function SocialCrowd_Options_Page() {
 		
 		
 		if(update_option("Social_Crowd_Options", $options_string)){
-			$successmessage = "Social Crowd Options Updated Successfully";
+			$update_success = "Social Crowd Options Updated Successfully";
 		}else{
-			$successmessage = "Social Crowd Options Did Not Update";
+			$update_error = "Social Crowd Options Failed To Update";
 		}
-
-		echo '<div id="message0" class="updated fade">
-			<p>
-				<strong>
-					' . $successmessage . '
-				</strong>
-			</p>
-		</div><br />';
 	
 		echo '<script type="text/javascript">
-		function OptionsUpdated() {
-			window.location.href = "' . $_SERVER['REQUEST_URI'] . '";
-		}
-
-		window.setTimeout("OptionsUpdated()", 2000);
+		
+		jQuery(document).ready(function($) {
+			$(".fade").delay(4000).slideUp(1000);
+		});
+		
 		</script>';
 	}
 		
@@ -490,7 +619,27 @@ function enable_options() {
 
 	<div class="wrap">
 		<div id="icon-plugins" class="icon32"></div><h2>Social Crowd Admin Options</h2>
-		<br class="clear" />
+		<?php
+		if(isset($update_success)){	
+			echo '<div id="message" class="updated fade">
+				<p>
+					<strong>
+						' . $update_success . '
+					</strong>
+				</p>
+			</div>';
+		}
+		
+		if(isset($update_error)){	
+			echo '<div id="message" class="error">
+				<p>
+					<strong>
+						' . $update_error . '
+					</strong>
+				</p>
+			</div>';
+		}
+		?>
 		<form name="sc_form" id="sc_form" action="" method="post">
 		<input type="hidden" name="action" value="edit" />
 			<div id="poststuff" class="ui-sortable">
