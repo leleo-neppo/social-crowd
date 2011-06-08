@@ -5,13 +5,8 @@ Author URI: http://www.macnative.com
 Donate link: http://www.macnative.com/development/donate 
 Tags: social, network, count, friends, contacts, stats, statistics, followers, readers, facebook, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
-<<<<<<< .mine
 Tested up to: 3.1.3
-Stable tag: 0.1
-=======
-Tested up to: 3.1.2
-Stable tag: 0.1
->>>>>>> .r394608
+Stable tag: 0.2
 
 Social Crowd retrieves the raw number of Friends/Followers from your favorite social networks and displays without formatting on any page of your blog
 
@@ -19,6 +14,7 @@ Social Crowd retrieves the raw number of Friends/Followers from your favorite so
 
 The Social Crowd Plugin grabs the latest counts of your Friends/Fans/Followers etc from your Favorite Social Networks and then displays them on your Blog. The counts that are reported come raw and without styling, so you can make them look and feel like your website. It is the perfect solution to encourage more users to join your network.
 
+**Important:** This plugin **REQUIRES** the PHP Curl Module in order to function. Please make sure it is installed.
 
 #### Supported Networks:
 
@@ -158,16 +154,12 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Changelog ==
 
-<<<<<<< .mine
 = 0.2 [2011-06-00] =
 * Added additional statistics gathering for Twitter, Youtube, and Vimeo.
 * Added additional detail and information in the Readme file. 
 * Small UI tweaks to the Admin.
 
 = 0.1 [2011-05-17] = 
-=======
-= 0.1 [2011-05-17] = 
->>>>>>> .r394608
 * Initial Release
 
 == Upgrade Notice == 
