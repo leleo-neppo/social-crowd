@@ -84,9 +84,15 @@ function SocialCrowd_DefaultSettings() {
 	if( !get_option('Social_Crowd_Vimeo_likedCount') ) {
 		add_option('Social_Crowd_Vimeo_likedCount', '0');
 	}
+	if( !get_option('Social_Crowd_Gplus_circled') ) {
+		add_option('Social_Crowd_Gplus_circled', '0');
+	}
+	if( !get_option('Social_Crowd_Gplus_in_circles') ) {
+		add_option('Social_Crowd_Gplus_in_circles', '0');
+	}
 
 	if( !get_option('Social_Crowd_Options') ) {
-		add_option('Social_Crowd_Options', 'interval:7200~get_feedburner:0~feedburner_token:0~get_facebook:0~facebook_token:0~get_twitter:0~twitter_token:0~get_youtube:0~youtube_token:0~get_vimeo:0~vimeo_token:0');
+		add_option('Social_Crowd_Options', 'interval:7200~get_feedburner:0~feedburner_token:0~get_facebook:0~facebook_token:0~get_twitter:0~twitter_token:0~get_youtube:0~youtube_token:0~get_vimeo:0~vimeo_token:0~get_gplus:0~gplus_token:0');
 	}
 }
 
@@ -266,6 +272,38 @@ function SocialCrowd_GetCounts()
 			}
 		}
 		
+		//Get Google Plus Circles
+		if($sc_options["get_gplus"]){
+			$scrape = SocialCrowd_Load_JSON('https://plus.google.com/'.$sc_options['gplus_token'].'/posts');
+
+			$temp1 = explode('Pv a-l-k', $scrape);
+			$temp2 = explode('(',$temp1[1]);
+			$self = explode(')',$temp2[1]);
+			$temp1 = explode('Pv rla', $scrape);
+			$temp2 = explode('(',$temp1[1]);
+			$others = explode(')',$temp2[1]);
+
+			if($sc_options["update"]){
+				if ($self[0] != '' && $self[0] > get_option('Social_Crowd_Gplus_circled')) 
+				{ 
+					update_option('Social_Crowd_Gplus_circled', (string) $self[0]); 
+				}
+				if ($others[0] != '' && $others[0] > get_option('Social_Crowd_Gplus_in_circles')) 
+				{ 
+					update_option('Social_Crowd_Gplus_in_circles', (string) $others[0]); 
+				}
+			}else{
+				if ($self[0] != '' && $self[0] > 0) 
+				{ 
+					update_option('Social_Crowd_Gplus_circled', (string) $self[0]); 
+				}
+				if ($others[0] != '' && $others[0] > 0) 
+				{ 
+					update_option('Social_Crowd_Gplus_in_circles', (string) $others[0]); 
+				}
+			}
+		}
+		
 		//Mailchimp api call = http://us1.api.mailchimp.com/1.3/?method=lists&apikey=1fa32d83fc746903f28067258f2e70d6-us1
 		
 		update_option('Social_Crowd_Timer', mktime());		
@@ -329,6 +367,8 @@ function SocialCrowd_Stats($which = "all")
 		$stats["vimeoUploads"] = get_option('Social_Crowd_Vimeo_uploadedCount');
 		$stats["vimeoAppearsIn"] = get_option('Social_Crowd_Vimeo_appearsInCount');
 		$stats["vimeoLikes"] = get_option('Social_Crowd_Vimeo_likedCount');
+		$stats["gplusCircles"] = get_option('Social_Crowd_Gplus_circled');
+		$stats["gplusInCircles"] = get_option('Social_Crowd_Gplus_in_circles');
 		return $stats;
 	}else{
 		switch($which){
@@ -374,8 +414,44 @@ function SocialCrowd_Stats($which = "all")
 			case vimeoLikes:
 				echo get_option('Social_Crowd_Vimeo_likedCount');
 			break;
+			case gplusCircles:
+				echo get_option('Social_Crowd_Gplus_circled');
+			break;
+			case gplusInCircles:
+				echo get_option('Social_Crowd_Gplus_in_circles');
+			break;
 		}
 	}
+}
+
+/**
+ * Shortcode for displaying the Social Crowd Stats.
+ *
+ * @since 0.3
+ * @author randall@macnative.com
+ */
+
+add_shortcode('SC_Stats', 'SocialCrowd_Stats_SC');
+
+//define shortcode to display Social Crowd Stats on your wordpress site
+//
+//shortcode options:
+// type -> code for the stats to display ie: type=facebook
+//
+function SocialCrowd_Stats_SC( $atts ) {
+	extract( shortcode_atts( array(
+			'type' => 'facebook'
+		), $atts ) );
+
+ob_start();
+
+SocialCrowd_Stats($type);
+
+$output = ob_get_contents();
+ob_end_clean();
+
+return $output;
+
 }
 
 /**
@@ -401,13 +477,13 @@ function SocialCrowd_GetOptions()
  * @since 0.1
  * @author randall@macnative.com
  */
-function SocialCrowd_Make_Select($x = "", $fields, $class="", $id="select", $name="select") {
+function SocialCrowd_Make_Select($x = "", $fields, $class="select", $id="select", $name="select") {
 	echo '<select name="'.$name.'" id="'.$id.'" class="'.$class.'">';
 		foreach ($fields as $shown => $value) {
 			if($x == $value){
-				echo '<option value="'.$value.'" selected />'.$shown.'</option>';
+				echo '<option value="'.$value.'" selected="selected" >'.$shown.'</option>';
 			}else{
-				echo '<option value="'.$value.'" />'.$shown.'</option>';
+				echo '<option value="'.$value.'" >'.$shown.'</option>';
 			}
 		}
 	echo '</select>';
@@ -498,6 +574,18 @@ function SocialCrowd_Options_Page() {
 			$options_string .= "~vimeo_token:".$_POST["sc_vimeo"];
 		}else{
 			$options_string .= "~vimeo_token:0";
+		}
+		
+		if(isset($_POST["sc_gplus_enabled"])){
+			$options_string .= "~get_gplus:1";
+		}else{
+			$options_string .= "~get_gplus:0";
+		}
+		
+		if(isset($_POST["sc_gplus"]) && $_POST["sc_gplus"] != ""){
+			$options_string .= "~gplus_token:".$_POST["sc_gplus"];
+		}else{
+			$options_string .= "~gplus_token:0";
 		}
 		
 		
@@ -599,9 +687,10 @@ function enable_options() {
 	var elements = new Array();
 	elements[0] = "feedburner";
 	elements[1] = "facebook";
-	elements[2] = "twitter";
-	elements[3] = "youtube";
-	elements[4] = "vimeo";
+	elements[2] = "gplus";
+	elements[3] = "twitter";
+	elements[4] = "youtube";
+	elements[5] = "vimeo";
 	for (i=0; i < elements.length; i++) {
 		if(eval('sc_' + elements[i] + '_enabled').checked){
 			document.getElementById('sc_' + elements[i] + '_row').className = "";
@@ -696,6 +785,20 @@ function enable_options() {
 						</dd>
 					</dl>
 				</li>
+				<li id="sc_gplus_row">
+					<dl>
+						<dt>
+							<label for"sc_gplus" class="labels">
+								<input type="checkbox" name="sc_gplus_enabled" id="sc_gplus_enabled" class="checkboxr" <?php echo ( $sc_options['get_gplus']=='1' ) ? ' checked="checked"' : '' ?> onchange="enable_options()" >
+								<img src="<?php echo $img_url."google.png" ?>" title="Google+">&nbsp;Google+ (beta)
+							</label>
+						</dt>
+						<dd>
+							<input type="input" maxlength="64" size="25" name="sc_gplus" id="sc_gplus" value="<?php echo ( $sc_options['gplus_token']!='0' ) ? $sc_options['gplus_token'] : '' ?>">
+							&nbsp;&nbsp;Your Google+ ID <br /><span class="sc_example">ie: http://plus.google.com/<span class="sc_example sc_example2">123456789012</span>/posts (search for yourself on google+ after signing out).</span>
+						</dd>
+					</dl>
+				</li>
 				<li id="sc_twitter_row">
 					<dl>
 						<dt>
@@ -757,4 +860,7 @@ function enable_options() {
  	</div>
 <?php
 }
+
+require_once('sc_widget.php');
+require_once('sc_widget_advanced.php');
 ?>
