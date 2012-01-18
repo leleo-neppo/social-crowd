@@ -3,12 +3,12 @@ Contributors: bdoga, tdawg2
 Plugin URI: http://www.macnative.com/development/socialCrowd
 Author URI: http://www.macnative.com
 Donate link: http://www.macnative.com/development/donate 
-Tags: social, network, count, friends, contacts, stats, statistics, followers, readers, facebook, twitter, feedburner, youtube, vimeo, number, raw
+Tags: social, network, networks, count, friends, crowd, clan, contacts, stats, statistics, followers, readers, facebook, google+, google plus, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
-Tested up to: 3.1.3
+Tested up to: 3.3.1
 Stable tag: 0.2
 
-Social Crowd retrieves the raw number of Friends/Followers from your favorite social networks and displays without formatting on any page of your blog
+Social Crowd retrieves the raw number of Friends/Followers from your favorite social networks and displays them throughout your blog
 
 == Description ==
 
@@ -19,6 +19,7 @@ The Social Crowd Plugin grabs the latest counts of your Friends/Fans/Followers e
 #### Supported Networks:
 
 * Facebook
+* Google+ (Beta Support)
 * Twitter
 * Youtube
 * Vimeo
@@ -27,6 +28,25 @@ The Social Crowd Plugin grabs the latest counts of your Friends/Fans/Followers e
 
 #### Plugin Usage
 
+**Basic Usage**
+
+After setting up the options on the 'Social Crowd Options' page in the wordpress administrator (setting the Social Networks that you want to collect stats from), you can go to the Widgets manager and enable the 'Social Crowd' widget. This widget will automatically display the networks that you have selected on the options page, with some limited customizability, and you are good to go.
+
+**Intermediate Usage**
+
+After configuring the options as indicated in the 'basic usage' above, you can enable the 'Social Crowd Advanced' widget in the widget administrator. This widget gives you the ability to specifically select the networks that you want to display in the widget area, and also allows you to customize the text that is displayed with the stats. 
+
+Additionally there is a shortcode that allows you to access the stats and output them throughout your posts and pages. 
+The shortcode is used as follows:
+
+[SC_Stats type=network]
+
+where network is the social network that you want to display stats for ie: 'facebook', 'twitter', etc... or any of the available stats listed in the 'Available Stats' list below. If you do not include a 'type' of network in the shortcode it will return your facebook stat count by default.
+
+**Advanced (Designer/Developer) Usage**
+
+The Social Crowd Plugin provides function calls that you can use throughout your theme files to better promote your or your clients social networks. The function documentation is as follows.
+ 
 The Social Crowd function you will call is:
 
 	SocialCrowd_Stats();
@@ -73,14 +93,27 @@ Type of statistic ('keyword'), use the keyowrd in the Social Crowd function to r
 * Vimeo Uploads Count  (' **vimeoUploads** ')  *Number of videos you have uploaded to Vimeo.*
 * Vimeo Appears In Count  (' **vimeoAppearsIn** ')  *Number of videos you appear in on Vimeo.*
 * Vimeo Likes Count  (' **vimeoLikes** ')  *Number of videos that you have liked on Vimeo.*
+* Google+ Your Circles Count  (' **gplusCircles** ')  *Number of people that you have in your circles.*
+* Google+ Others Circles Count  (' **gplusInCircles** ')  *Number of people that have you in their circles.*
 
 I hope to expand this list to include your favorites ( just leave me some comments on the [plugin homepage][1] ). 
 
  [1]: http://www.macnative.com/development/social-crowd/
 
-A big thanks to DeviantArt's jwloh for creating the Social.me Icon Set that is used in the plugin's Administrator, You can check out [his work][2].
+A big thanks to DeviantArt's jwloh for creating the Social.me and Aquaticus Icon Sets that is used in the plugin's Administrator and Widgets, You can check out [his work][2].
 
  [2]: http://jwloh.deviantart.com/
+
+Other icons used with the Widget are:
+[Elegant Media Icon Set][4]
+[4]: http://www.elegantthemes.com
+[Picons Icon Set][5]
+[5]: http://www.picons.me
+[Social Balloon Icon Set][6]
+[6]: http://www.doublejdesign.co.uk/
+[Socialize Sticker Icon Set][7]
+[7]: http://dryicons.com/free-icons/
+
 
 == Installation ==
 
@@ -89,6 +122,42 @@ A big thanks to DeviantArt's jwloh for creating the Social.me Icon Set that is u
 1. Installation finished.
 
 == Frequently Asked Questions ==
+
+= How do I customize the appearance of the widget? = 
+
+In the widget options there is a checkbox titled 'Default Styling' if you uncheck that box, you can include the following CSS in your own css file with any required changes to apply your custom look and feel to the widget.
+
+	<style type="text/css">
+		#scWidget {
+			margin-bottom: 10px;
+		}
+		#scWidget li.scItems {
+			padding: 0px !important;
+			clear: both;
+		}
+		#scWidget img {
+			width:48px;
+			height:48px;
+			float:left;
+			margin: 5px 10px;
+		}
+		#scWidget div {
+			padding-top: 10px;
+			float: left;
+			font-size: 14px;
+		}
+		#scWidget div span {
+			font-weight: bold;
+		}
+		#scBottom {
+			margin: 5px 0 5px 20px;
+			clear: both;
+			font-size: 8px;
+		}
+		#scBottom a {
+			
+		}
+	</style>
 
 = How do I call the function =
 
@@ -101,9 +170,9 @@ You have two options:
 * Calling the function with a specific network:
 	1. Place the function wherever you want the data to be displayed. 
 	1. Call the function with a specific network name (all lowercase):
-		* SocialCrowd_Stats('facebook')
-		* SocialCrowd_Stats('twitter')
-		* SocialCrowd_Stats('youtube')
+		* `<?php echo SocialCrowd_Stats('facebook') ?>`
+		* `<?php echo SocialCrowd_Stats('twitter') ?>`
+		* `<?php echo SocialCrowd_Stats('youtube') ?>`
 		* etc...
 	1. Function will echo out the requested Network Stats.
 
@@ -113,9 +182,9 @@ You have two options:
 		$stats = SocialCrowd_Stats()
 	1. The function will return an array with the stats for all your networks.
 	1. the array is an associative array that you can you can access like so:
-		* $stats['facebook']
-		* $stats['twitter']
-		* $stats['youtube']
+		* `<?php echo $stats['facebook'] ?>`
+		* `<?php echo $stats['twitter'] ?>`
+		* `<?php echo $stats['youtube'] ?>`
 		* etc...
 
 = What stats can I grab? =
@@ -139,6 +208,8 @@ Type of statistic ('keyword'), use the keyowrd in the Social Crowd function to r
 * Vimeo Uploads Count  (' **vimeoUploads** ')  *Number of videos you have uploaded to Vimeo.*
 * Vimeo Appears In Count  (' **vimeoAppearsIn** ')  *Number of videos you appear in on Vimeo.*
 * Vimeo Likes Count  (' **vimeoLikes** ')  *Number of videos that you have liked on Vimeo.*
+* Google+ Your Circles Count  (' **gplusCircles** ')  *Number of people that you have in your circles.*
+* Google+ Others Circles Count  (' **gplusInCircles** ')  *Number of people that have you in their circles.*
 
 I hope to expand this list to include your favorites ( just leave me some comments on the [plugin homepage][1] ).
 
@@ -150,11 +221,19 @@ I hope to expand this list to include your favorites ( just leave me some commen
 == Screenshots == 
 
 1. Admin Interface
-2. Example Usage
+2. Example Widget Output
+3. Simple Widget Interface
+4. Example Designer Custom Usage
 
 == Changelog ==
 
-= 0.2 [2011-06-00] =
+= 0.5 [2012-01-17] =
+* Added Shortcode to access stats more easily in posts and pages
+* Added Widget to make it very easy to share your stats with others
+* Added Widget with Advanced Options
+* Added (Beta) Google+ support
+
+= 0.2 [2011-06-08] =
 * Added additional statistics gathering for Twitter, Youtube, and Vimeo.
 * Added additional detail and information in the Readme file. 
 * Small UI tweaks to the Admin.
@@ -164,6 +243,6 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Upgrade Notice == 
 
-= 0.2 =
-Added additional statistics gathering for Twitter, Youtube, and Vimeo
+= 0.5 =
+Added Google+ (Beta) Stats, Shortcodes, and 2 new Widgets
 
