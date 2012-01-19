@@ -6,7 +6,7 @@ Donate link: http://www.macnative.com/development/donate
 Tags: social, network, networks, count, friends, crowd, clan, contacts, stats, statistics, followers, readers, facebook, google+, google plus, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 0.2
+Stable tag: 0.5
 
 Social Crowd retrieves the raw number of Friends/Followers from your favorite social networks and displays them throughout your blog
 
