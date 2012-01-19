@@ -227,7 +227,7 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Changelog ==
 
-= 0.5 [2012-01-17] =
+= 0.5 [2012-01-19] =
 * Added Shortcode to access stats more easily in posts and pages
 * Added Widget to make it very easy to share your stats with others
 * Added Widget with Advanced Options
