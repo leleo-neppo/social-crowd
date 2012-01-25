@@ -3,7 +3,7 @@ Contributors: bdoga, tdawg2
 Plugin URI: http://www.macnative.com/development/socialCrowd
 Author URI: http://www.macnative.com
 Donate link: http://www.macnative.com/development/donate 
-Tags: social, network, networks, count, friends, crowd, clan, contacts, stats, statistics, followers, readers, facebook, google+, google plus, twitter, feedburner, youtube, vimeo, number, raw
+Tags: social, network, networks, count, friends, crowd, clan, contacts, display, show, vanity, stats, statistics, followers, readers, facebook, google+, google plus, linkedin, linked in, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
 Tested up to: 3.3.1
 Stable tag: 0.5
@@ -21,6 +21,7 @@ The Social Crowd Plugin grabs the latest counts of your Friends/Fans/Followers e
 * Facebook
 * Google+ (Beta Support)
 * Twitter
+* Linked In (Beta Support)
 * Youtube
 * Vimeo
 * Feedburner
@@ -95,6 +96,7 @@ Type of statistic ('keyword'), use the keyowrd in the Social Crowd function to r
 * Vimeo Likes Count  (' **vimeoLikes** ')  *Number of videos that you have liked on Vimeo.*
 * Google+ Your Circles Count  (' **gplusCircles** ')  *Number of people that you have in your circles.*
 * Google+ Others Circles Count  (' **gplusInCircles** ')  *Number of people that have you in their circles.*
+* Linked In Connections  (' **linkedIn** ')  *Number of Connections.*
 
 I hope to expand this list to include your favorites ( just leave me some comments on the [plugin homepage][1] ). 
 
@@ -210,6 +212,7 @@ Type of statistic ('keyword'), use the keyowrd in the Social Crowd function to r
 * Vimeo Likes Count  (' **vimeoLikes** ')  *Number of videos that you have liked on Vimeo.*
 * Google+ Your Circles Count  (' **gplusCircles** ')  *Number of people that you have in your circles.*
 * Google+ Others Circles Count  (' **gplusInCircles** ')  *Number of people that have you in their circles.*
+* Linked In Connections  (' **linkedIn** ')  *Number of Connections.*
 
 I hope to expand this list to include your favorites ( just leave me some comments on the [plugin homepage][1] ).
 
@@ -227,6 +230,10 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Changelog ==
 
+= 0.6 [2012-01-19] =
+* Added Settings link on the Plugin Administration Panel for easy access
+* Added (Beta) Linked In Support
+
 = 0.5 [2012-01-19] =
 * Added Shortcode to access stats more easily in posts and pages
 * Added Widget to make it very easy to share your stats with others
@@ -243,6 +250,6 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Upgrade Notice == 
 
-= 0.5 =
-Added Google+ (Beta) Stats, Shortcodes, and 2 new Widgets
+= 0.6 =
+Added Linked In (Beta) Stats, and Settings link for the Plugin Panel
 

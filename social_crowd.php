@@ -31,6 +31,31 @@ if ( is_admin() ) {
 	add_action('admin_menu', 'SocialCrowd_DefaultSettings');
 }
 
+/**
+ * Adds the plugin's options page
+ * 
+ * @since 0.1
+ * @author randall@macnative.com
+ */
+function SocialCrowd_Add_Option_Menu() {
+		add_submenu_page('options-general.php', 'Social Crowd Options', 'Social Crowd Options', 8, __FILE__, 'SocialCrowd_Options_Page');
+}
+
+/**
+ * Adds settings link on the plugin administration page
+ * 
+ * @since 0.6
+ * @author randall@macnative.com
+ */
+function SocialCrowd_Add_Settings_Link($links) {
+		$settings_link = '<a href="options-general.php?page=social-crowd/social_crowd.php">Settings</a>'; 
+		array_unshift($links, $settings_link); 
+		return $links;
+}
+
+$plugin = plugin_basename(__FILE__); 
+add_filter("plugin_action_links_$plugin", 'SocialCrowd_Add_Settings_Link' );
+
 
 /**
  * Adds the plugin's default settings
@@ -90,9 +115,12 @@ function SocialCrowd_DefaultSettings() {
 	if( !get_option('Social_Crowd_Gplus_in_circles') ) {
 		add_option('Social_Crowd_Gplus_in_circles', '0');
 	}
+	if( !get_option('Social_Crowd_Linked_In_Connections') ) {
+		add_option('Social_Crowd_Linked_In_Connections', '0');
+	}
 
 	if( !get_option('Social_Crowd_Options') ) {
-		add_option('Social_Crowd_Options', 'interval:7200~get_feedburner:0~feedburner_token:0~get_facebook:0~facebook_token:0~get_twitter:0~twitter_token:0~get_youtube:0~youtube_token:0~get_vimeo:0~vimeo_token:0~get_gplus:0~gplus_token:0');
+		add_option('Social_Crowd_Options', 'interval:7200~get_feedburner:0~feedburner_token:0~get_facebook:0~facebook_token:0~get_twitter:0~twitter_token:0~get_youtube:0~youtube_token:0~get_vimeo:0~vimeo_token:0~get_gplus:0~gplus_token:0get_linkedin:0~linkedin_token:0');
 	}
 }
 
@@ -272,7 +300,7 @@ function SocialCrowd_GetCounts()
 			}
 		}
 		
-		//Get Google Plus Circles
+		//Get Google Plus Circles added 0.5
 		if($sc_options["get_gplus"]){
 			$scrape = SocialCrowd_Load_JSON('https://plus.google.com/'.$sc_options['gplus_token'].'/posts');
 
@@ -282,24 +310,47 @@ function SocialCrowd_GetCounts()
 			$temp1 = explode('Pv rla', $scrape);
 			$temp2 = explode('(',$temp1[1]);
 			$others = explode(')',$temp2[1]);
+			if(is_numeric($self[0]) && is_numeric($others[0])){
+				if($sc_options["update"]){
+					if ($self[0] != '' && $self[0] > get_option('Social_Crowd_Gplus_circled')) 
+					{ 
+						update_option('Social_Crowd_Gplus_circled', (string) $self[0]); 
+					}
+					if ($others[0] != '' && $others[0] > get_option('Social_Crowd_Gplus_in_circles')) 
+					{ 
+						update_option('Social_Crowd_Gplus_in_circles', (string) $others[0]); 
+					}
+				}else{
+					if ($self[0] != '' && $self[0] > 0) 
+					{ 
+						update_option('Social_Crowd_Gplus_circled', (string) $self[0]); 
+					}
+					if ($others[0] != '' && $others[0] > 0) 
+					{ 
+						update_option('Social_Crowd_Gplus_in_circles', (string) $others[0]); 
+					}
+				}
+			}
+		}
+		
+		//Get LinkedIn Connections added 0.6
+		if($sc_options["get_linkedin"]){
+			$scrape = SocialCrowd_Load_JSON('http://www.linkedin.com/in/'.$sc_options['linkedin_token']);
 
-			if($sc_options["update"]){
-				if ($self[0] != '' && $self[0] > get_option('Social_Crowd_Gplus_circled')) 
-				{ 
-					update_option('Social_Crowd_Gplus_circled', (string) $self[0]); 
-				}
-				if ($others[0] != '' && $others[0] > get_option('Social_Crowd_Gplus_in_circles')) 
-				{ 
-					update_option('Social_Crowd_Gplus_in_circles', (string) $others[0]); 
-				}
-			}else{
-				if ($self[0] != '' && $self[0] > 0) 
-				{ 
-					update_option('Social_Crowd_Gplus_circled', (string) $self[0]); 
-				}
-				if ($others[0] != '' && $others[0] > 0) 
-				{ 
-					update_option('Social_Crowd_Gplus_in_circles', (string) $others[0]); 
+			$temp1 = explode('overview-connections', $scrape);
+			$temp2 = explode('<strong>',$temp1[1]);
+			$self = explode('</strong>',$temp2[1]);
+			if(is_numeric($self[0])){
+				if($sc_options["update"]){
+					if ($self[0] != '' && $self[0] > get_option('Social_Crowd_Linked_In_Connections')) 
+					{ 
+						update_option('Social_Crowd_Linked_In_Connections', (string) $self[0]); 
+					}
+				}else{
+					if ($self[0] != '' && $self[0] > 0) 
+					{ 
+						update_option('Social_Crowd_Linked_In_Connections', (string) $self[0]); 
+					}
 				}
 			}
 		}
@@ -369,6 +420,7 @@ function SocialCrowd_Stats($which = "all")
 		$stats["vimeoLikes"] = get_option('Social_Crowd_Vimeo_likedCount');
 		$stats["gplusCircles"] = get_option('Social_Crowd_Gplus_circled');
 		$stats["gplusInCircles"] = get_option('Social_Crowd_Gplus_in_circles');
+		$stats["linkedIn"] = get_option('Social_Crowd_Linked_In_Connections');
 		return $stats;
 	}else{
 		switch($which){
@@ -419,6 +471,9 @@ function SocialCrowd_Stats($which = "all")
 			break;
 			case gplusInCircles:
 				echo get_option('Social_Crowd_Gplus_in_circles');
+			break;
+			case linkedIn:
+				echo get_option('Social_Crowd_Linked_In_Connections');
 			break;
 		}
 	}
@@ -487,16 +542,6 @@ function SocialCrowd_Make_Select($x = "", $fields, $class="select", $id="select"
 			}
 		}
 	echo '</select>';
-}
-
-/**
- * Adds the plugin's options page
- * 
- * @since 0.1
- * @author randall@macnative.com
- */
-function SocialCrowd_Add_Option_Menu() {
-		add_submenu_page('options-general.php', 'Social Crowd Options', 'Social Crowd Options', 8, __FILE__, 'SocialCrowd_Options_Page');
 }
 
 /**
@@ -586,6 +631,18 @@ function SocialCrowd_Options_Page() {
 			$options_string .= "~gplus_token:".$_POST["sc_gplus"];
 		}else{
 			$options_string .= "~gplus_token:0";
+		}
+		
+		if(isset($_POST["sc_linkedin_enabled"])){
+			$options_string .= "~get_linkedin:1";
+		}else{
+			$options_string .= "~get_linkedin:0";
+		}
+		
+		if(isset($_POST["sc_linkedin"]) && $_POST["sc_linkedin"] != ""){
+			$options_string .= "~linkedin_token:".$_POST["sc_linkedin"];
+		}else{
+			$options_string .= "~linkedin_token:0";
 		}
 		
 		
@@ -810,6 +867,20 @@ function enable_options() {
 						<dd>
 							<input type="input" maxlength="64" size="25" name="sc_twitter" id="sc_twitter" value="<?php echo ( $sc_options['twitter_token']!='0' ) ? $sc_options['twitter_token'] : '' ?>">
 							&nbsp;&nbsp;Your Twitter ID <br /><span class="sc_example">ie: http://www.twitter.com/</span><span class="sc_example sc_example2">username</span> 
+						</dd>
+					</dl>
+				</li>
+				<li id="sc_linkedin_row">
+					<dl>
+						<dt>
+							<label for"sc_linkedin" class="labels">
+								<input type="checkbox" name="sc_linkedin_enabled" id="sc_linkedin_enabled" class="checkboxr" <?php echo ( $sc_options['get_linkedin']=='1' ) ? ' checked="checked"' : '' ?> onchange="enable_options()" >
+								<img src="<?php echo $img_url."linkedin.png" ?>" title="LinkedIn">&nbsp;Linked In (beta)
+							</label>
+						</dt>
+						<dd>
+							<input type="input" maxlength="64" size="25" name="sc_linkedin" id="sc_linkedin" value="<?php echo ( $sc_options['linkedin_token']!='0' ) ? $sc_options['linkedin_token'] : '' ?>">
+							&nbsp;&nbsp;Your Linked In Profile ID <br /><span class="sc_example">ie: http://www.linkedin.com/in/<span class="sc_example sc_example2">johndoe</span></span>
 						</dd>
 					</dl>
 				</li>

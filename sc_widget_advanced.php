@@ -37,6 +37,9 @@ if (!class_exists('SC_Widget_Advanced')) :
 			$twitter = $instance['twitter'];
 			$twitter_stat = $instance['twitter_stat'];
 			$twitter_link = $instance['twitter_link'];
+			$linkedin = $instance['linkedin'];
+			$linkedin_stat = $instance['linkedin_stat'];
+			$linkedin_link = $instance['linkedin_link'];
 			$youtube = $instance['youtube'];
 			$youtube_stat = $instance['youtube_stat'];
 			$youtube_link = $instance['youtube_link'];
@@ -118,6 +121,12 @@ if (!class_exists('SC_Widget_Advanced')) :
 					<?php
 				}
 				
+				if($instance['linkedin']){
+					?>
+					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/linkedin.png" ?>" /><div ><span><?php echo str_replace('%s', $stats["linkedIn"], $linkedin_stat) ?></span><br /><a href="http://www.linkedin.com/in/<?php echo $sc_options['linkedin_token'] ?>"><?php echo $linkedin_link ?></a></div></li>
+					<?php
+				}
+				
 				if($instance['youtube']){
 					?>
 					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /><div ><span><?php echo str_replace('%s', $stats["youtube"], $youtube_stat) ?></span><br /><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>"><?php echo $youtube_link ?></a></div></li>
@@ -166,6 +175,9 @@ if (!class_exists('SC_Widget_Advanced')) :
 			$instance['twitter'] = $new_instance['twitter'];
 			$instance['twitter_stat'] = $new_instance['twitter_stat'];
 			$instance['twitter_link'] = $new_instance['twitter_link'];
+			$instance['linkedin'] = $new_instance['linkedin'];
+			$instance['linkedin_stat'] = $new_instance['linkedin_stat'];
+			$instance['linkedin_link'] = $new_instance['linkedin_link'];
 			$instance['youtube'] = $new_instance['youtube'];
 			$instance['youtube_stat'] = $new_instance['youtube_stat'];
 			$instance['youtube_link'] = $new_instance['youtube_link'];
@@ -184,7 +196,7 @@ if (!class_exists('SC_Widget_Advanced')) :
 
 			// Set up some default widget settings
 			//$defaults = array('title' => 'Latest Tweets', 'username' => '', 'posts' => 5, 'interval' => 1800, 'date' => 'j F Y', 'facebook' => true, 'twitter' => true, 'feedburner' => true, 'youtube' => true, 'vimeo' => false);
-			$defaults = array('title' => 'Join The Crowd', 'set' => 'aquaticus', 'style' => true, 'link' => true, 'facebook' => true, 'facebook_stat' => '%s Likes', 'facebook_link' => 'Like Us on Facebook', 'google' => true, 'google_stat' => 'In %s Circles', 'google_link' => 'Add us on Google+', 'twitter' => true, 'twitter_stat' => '%s Followers', 'twitter_link' => 'Follow us on Twitter', 'youtube' => true, 'youtube_stat' => '%s Subscribers', 'youtube_link' => 'Watch us on Youtube', 'vimeo' => true, 'vimeo_stat' => '%s Contacts', 'vimeo_link' => 'See us on Vimeo', 'feedburner' => true, 'feedburner_stat' => '%s Readers', 'feedburner_link' => 'Read On Feedburner');
+			$defaults = array('title' => 'Join The Crowd', 'set' => 'aquaticus', 'style' => true, 'link' => true, 'facebook' => true, 'facebook_stat' => '%s Likes', 'facebook_link' => 'Like Us on Facebook', 'google' => true, 'google_stat' => 'In %s Circles', 'google_link' => 'Add us on Google+', 'twitter' => true, 'twitter_stat' => '%s Followers', 'twitter_link' => 'Follow us on Twitter', 'linkedin' => true, 'linkedin_stat' => '%s Connections', 'linkedin_link' => 'Join Us On Linked In', 'youtube' => true, 'youtube_stat' => '%s Subscribers', 'youtube_link' => 'Watch us on Youtube', 'vimeo' => true, 'vimeo_stat' => '%s Contacts', 'vimeo_link' => 'See us on Vimeo', 'feedburner' => true, 'feedburner_stat' => '%s Readers', 'feedburner_link' => 'Read On Feedburner');
 			$instance = wp_parse_args((array) $instance, $defaults);
 ?>
 				
@@ -225,6 +237,13 @@ if (!class_exists('SC_Widget_Advanced')) :
 				<input class="widefat" type="text" id="<?php echo $this->get_field_id('twitter_stat'); ?>" name="<?php echo $this->get_field_name('twitter_stat'); ?>" value="<?php echo $instance['twitter_stat']; ?>"><br />
 				<label for="<?php echo $this->get_field_id('twitter_link'); ?>">Twitter Link Title:</label>
 				<input class="widefat" type="text" id="<?php echo $this->get_field_id('twitter_link'); ?>" name="<?php echo $this->get_field_name('twitter_link'); ?>" value="<?php echo $instance['twitter_link']; ?>"><br /><br />
+				
+				<input class="checkbox" type="checkbox" <?php if ($instance['linkedin']) echo 'checked="checked" '; ?>id="<?php echo $this->get_field_id('linkedin'); ?>" name="<?php echo $this->get_field_name('linkedin'); ?>">
+				<label for="<?php echo $this->get_field_id('linkedin'); ?>">&nbsp;&nbsp;Display Linked In Stats</label><br />
+				<label for="<?php echo $this->get_field_id('linkedin_stat'); ?>">Linked In Stats String:</label>
+				<input class="widefat" type="text" id="<?php echo $this->get_field_id('linkedin_stat'); ?>" name="<?php echo $this->get_field_name('linkedin_stat'); ?>" value="<?php echo $instance['linkedin_stat']; ?>"><br />
+				<label for="<?php echo $this->get_field_id('linkedin_link'); ?>">Linked In Link Title:</label>
+				<input class="widefat" type="text" id="<?php echo $this->get_field_id('linkedin_link'); ?>" name="<?php echo $this->get_field_name('linkedin_link'); ?>" value="<?php echo $instance['linkedin_link']; ?>"><br /><br />
 				
 				<input class="checkbox" type="checkbox" <?php if ($instance['youtube']) echo 'checked="checked" '; ?>id="<?php echo $this->get_field_id('youtube'); ?>" name="<?php echo $this->get_field_name('youtube'); ?>">
 				<label for="<?php echo $this->get_field_id('youtube'); ?>">&nbsp;&nbsp;Display Youtube Stats</label><br />
