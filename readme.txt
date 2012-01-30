@@ -6,9 +6,9 @@ Donate link: http://www.macnative.com/development/donate
 Tags: social, network, networks, count, friends, crowd, clan, contacts, display, show, vanity, stats, statistics, followers, readers, facebook, google+, google plus, linkedin, linked in, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 0.6
+Stable tag: 0.7
 
-Social Crowd retrieves the raw number of Friends/Followers from your favorite social networks and displays them throughout your blog
+Social Crowd retrieves the count/number of Friends/Followers from your favorite social networks and displays them throughout your blog
 
 == Description ==
 
@@ -230,7 +230,11 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Changelog ==
 
-= 0.6 [2012-01-19] =
+= 0.7 [2012-01-30] =
+* Fix Minor UI issue in the plugin Admin.
+* Added capacity to insert full url in the profile ID fields of the Admin panel, for ease of use for some users (based on feedback)
+
+= 0.6 [2012-01-25] =
 * Added Settings link on the Plugin Administration Panel for easy access
 * Added (Beta) Linked In Support
 

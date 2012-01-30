@@ -2,14 +2,14 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 0.6
+ * @version 0.7
  */
 /*
 Plugin Name: Social Crowd
 Plugin URI: http://www.macnative.com/socialCrowd
 Description: This plugin retrieves the raw number of Friends/Followers/Fans etc from your favorite social networks and allows you to show that raw number on any page of your wordpress blog using a simple php function **Requires PHP Curl Module**
 Author: Randall Hinton
-Version: 0.6
+Version: 0.7
 Author URI: http://www.macnative.com/
 */
 
@@ -568,7 +568,13 @@ function SocialCrowd_Options_Page() {
 		}
 		
 		if(isset($_POST["sc_feedburner"]) && $_POST["sc_feedburner"] != ""){
-			$options_string .= "~feedburner_token:".$_POST["sc_feedburner"];
+			if(stristr($_POST["sc_feedburner"],"http")){
+				$temp = explode("/",$_POST["sc_feedburner"]);
+				$fb_token = $temp[3];
+			}else{
+				$fb_token = $_POST["sc_feedburner"];
+			}
+			$options_string .= "~feedburner_token:".$fb_token;
 		}else{
 			$options_string .= "~feedburner_token:0";
 		}
@@ -580,7 +586,13 @@ function SocialCrowd_Options_Page() {
 		}
 		
 		if(isset($_POST["sc_facebook"]) && $_POST["sc_facebook"] != ""){
-			$options_string .= "~facebook_token:".$_POST["sc_facebook"];
+			if(stristr($_POST["sc_facebook"],"http")){
+				$temp = explode("/",$_POST["sc_facebook"]);
+				$fb_token = $temp[3];
+			}else{
+				$fb_token = $_POST["sc_facebook"];
+			}
+			$options_string .= "~facebook_token:".$fb_token;
 		}else{
 			$options_string .= "~facebook_token:0";
 		}
@@ -592,7 +604,13 @@ function SocialCrowd_Options_Page() {
 		}
 		
 		if(isset($_POST["sc_twitter"]) && $_POST["sc_twitter"] != ""){
-			$options_string .= "~twitter_token:".$_POST["sc_twitter"];
+			if(stristr($_POST["sc_twitter"],"http")){
+				$temp = explode("/",$_POST["sc_twitter"]);
+				$t_token = $temp[3];
+			}else{
+				$t_token = $_POST["sc_twitter"];
+			}
+			$options_string .= "~twitter_token:".$t_token;
 		}else{
 			$options_string .= "~twitter_token:0";
 		}
@@ -604,7 +622,13 @@ function SocialCrowd_Options_Page() {
 		}
 		
 		if(isset($_POST["sc_youtube"]) && $_POST["sc_youtube"] != ""){
-			$options_string .= "~youtube_token:".$_POST["sc_youtube"];
+			if(stristr($_POST["sc_youtube"],"http")){
+				$temp = explode("/",$_POST["sc_youtube"]);
+				$yt_token = $temp[4];
+			}else{
+				$yt_token = $_POST["sc_youtube"];
+			}
+			$options_string .= "~youtube_token:".$yt_token;
 		}else{
 			$options_string .= "~youtube_token:0";
 		}
@@ -616,7 +640,13 @@ function SocialCrowd_Options_Page() {
 		}
 		
 		if(isset($_POST["sc_vimeo"]) && $_POST["sc_vimeo"] != ""){
-			$options_string .= "~vimeo_token:".$_POST["sc_vimeo"];
+			if(stristr($_POST["sc_vimeo"],"http")){
+				$temp = explode("/",$_POST["sc_vimeo"]);
+				$v_token = $temp[3];
+			}else{
+				$v_token = $_POST["sc_vimeo"];
+			}
+			$options_string .= "~vimeo_token:".$v_token;
 		}else{
 			$options_string .= "~vimeo_token:0";
 		}
@@ -628,7 +658,13 @@ function SocialCrowd_Options_Page() {
 		}
 		
 		if(isset($_POST["sc_gplus"]) && $_POST["sc_gplus"] != ""){
-			$options_string .= "~gplus_token:".$_POST["sc_gplus"];
+			if(stristr($_POST["sc_gplus"],"http")){
+				$temp = explode("/",$_POST["sc_gplus"]);
+				$gp_token = $temp[3];
+			}else{
+				$gp_token = $_POST["sc_gplus"];
+			}
+			$options_string .= "~gplus_token:".$gp_token;
 		}else{
 			$options_string .= "~gplus_token:0";
 		}
@@ -640,7 +676,13 @@ function SocialCrowd_Options_Page() {
 		}
 		
 		if(isset($_POST["sc_linkedin"]) && $_POST["sc_linkedin"] != ""){
-			$options_string .= "~linkedin_token:".$_POST["sc_linkedin"];
+			if(stristr($_POST["sc_linkedin"],"http")){
+				$temp = explode("/",$_POST["sc_linkedin"]);
+				$li_token = $temp[4];
+			}else{
+				$li_token = $_POST["sc_linkedin"];
+			}
+			$options_string .= "~linkedin_token:".$li_token;
 		}else{
 			$options_string .= "~linkedin_token:0";
 		}
@@ -746,8 +788,9 @@ function enable_options() {
 	elements[1] = "facebook";
 	elements[2] = "gplus";
 	elements[3] = "twitter";
-	elements[4] = "youtube";
-	elements[5] = "vimeo";
+	elements[4] = "linkedin";
+	elements[5] = "youtube";
+	elements[6] = "vimeo";
 	for (i=0; i < elements.length; i++) {
 		if(eval('sc_' + elements[i] + '_enabled').checked){
 			document.getElementById('sc_' + elements[i] + '_row').className = "";
