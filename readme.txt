@@ -6,7 +6,7 @@ Donate link: http://www.macnative.com/development/donate
 Tags: social, network, networks, count, friends, crowd, clan, contacts, display, show, vanity, stats, statistics, followers, readers, facebook, google+, google plus, linkedin, linked in, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 0.7
+Stable tag: 0.7.1
 
 Social Crowd retrieves the count/number of Friends/Followers from your favorite social networks and displays them throughout your blog
 
@@ -230,6 +230,10 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Changelog ==
 
+= 0.7.1 [2012-02-2] =
+* Bugfix for Linked-In Profiles - Now adding full url in admin to retrieve correct profile data
+* Added Check for CURL module and indicator to show wether it is loaded
+
 = 0.7 [2012-01-30] =
 * Fix Minor UI issue in the plugin Admin.
 * Added capacity to insert full url in the profile ID fields of the Admin panel, for ease of use for some users (based on feedback)
@@ -254,6 +258,6 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Upgrade Notice == 
 
-= 0.6 =
-Added Linked In (Beta) Stats, and Settings link for the Plugin Panel
+= 0.7.1 =
+Fixed some problems with Linked-In (Beta) Support, should work better for many now.
 

@@ -123,7 +123,7 @@ if (!class_exists('SC_Widget_Advanced')) :
 				
 				if($instance['linkedin']){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/linkedin.png" ?>" /><div ><span><?php echo str_replace('%s', $stats["linkedIn"], $linkedin_stat) ?></span><br /><a href="http://www.linkedin.com/in/<?php echo $sc_options['linkedin_token'] ?>"><?php echo $linkedin_link ?></a></div></li>
+					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/linkedin.png" ?>" /><div ><span><?php echo str_replace('%s', $stats["linkedIn"], $linkedin_stat) ?></span><br /><a href="<?php echo (stristr($sc_options["linkedin_token"],"//")) ? 'http:' : 'http://www.linkedin.com/in/'; echo $sc_options['linkedin_token'] ?>"><?php echo $linkedin_link ?></a></div></li>
 					<?php
 				}
 				

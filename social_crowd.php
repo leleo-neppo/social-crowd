@@ -2,14 +2,14 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 0.7
+ * @version 0.7.1
  */
 /*
 Plugin Name: Social Crowd
 Plugin URI: http://www.macnative.com/socialCrowd
 Description: This plugin retrieves the raw number of Friends/Followers/Fans etc from your favorite social networks and allows you to show that raw number on any page of your wordpress blog using a simple php function **Requires PHP Curl Module**
 Author: Randall Hinton
-Version: 0.7
+Version: 0.7.1
 Author URI: http://www.macnative.com/
 */
 
@@ -335,7 +335,12 @@ function SocialCrowd_GetCounts()
 		
 		//Get LinkedIn Connections added 0.6
 		if($sc_options["get_linkedin"]){
-			$scrape = SocialCrowd_Load_JSON('http://www.linkedin.com/in/'.$sc_options['linkedin_token']);
+			//$scrape = SocialCrowd_Load_JSON('http://www.linkedin.com/in/'.$sc_options['linkedin_token']);
+			if(stristr($sc_options["linkedin_token"],"//")){
+				$scrape = SocialCrowd_Load_JSON('http:'.$sc_options['linkedin_token']);
+			}else{
+				$scrape = SocialCrowd_Load_JSON('http://www.linkedin.com/in/'.$sc_options['linkedin_token']);
+			}
 
 			$temp1 = explode('overview-connections', $scrape);
 			$temp2 = explode('<strong>',$temp1[1]);
@@ -677,8 +682,8 @@ function SocialCrowd_Options_Page() {
 		
 		if(isset($_POST["sc_linkedin"]) && $_POST["sc_linkedin"] != ""){
 			if(stristr($_POST["sc_linkedin"],"http")){
-				$temp = explode("/",$_POST["sc_linkedin"]);
-				$li_token = $temp[4];
+				$temp = explode(":",$_POST["sc_linkedin"]);
+				$li_token = $temp[1];
 			}else{
 				$li_token = $_POST["sc_linkedin"];
 			}
@@ -779,6 +784,27 @@ function SocialCrowd_Options_Page() {
 	color: #888;
 }
 
+#curlMsg {
+	width: 70%;
+	border: 1px solid;
+	padding: 10px 20px;
+	margin: 10px auto;
+	text-align: auto;
+	font-size: 12px;
+}
+
+.loaded {
+	border-color: #007E0C;
+	color: #007E0C;
+	background-color: #AEDB59;
+}
+
+.notloaded {
+	border-color: #6C141A;
+	color: #6C141A;
+	background-color: #F6B9BB;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -828,12 +854,22 @@ function enable_options() {
 				</p>
 			</div>';
 		}
+		
+		if(extension_loaded(curl)){
+			$curl_class = "loaded";
+			$curl_msg = "Congratulations the PHP Curl Module is loaded, Social Crowd will Function Properly";
+		}else {
+			$curl_class = "notloaded";
+			$curl_msg = "Sorry but the PHP Curl Module is not loaded, it is required for Social Crowd to Function";
+		}
+		
 		?>
 		<form name="sc_form" id="sc_form" action="" method="post">
 		<input type="hidden" name="action" value="edit" />
 			<div id="poststuff" class="ui-sortable">
 			<div id="sc_ids_box" class="postbox if-js-open">
 			<h3>Social Crowd Admin Options</h3>
+			<div id="curlMsg" class="<?php echo $curl_class ?>"><?php echo $curl_msg ?></div>
      		<ul>
 				<li id="sc_interval_row">
 					<dl>
@@ -866,7 +902,7 @@ function enable_options() {
 							</label>
 						</dt>
 						<dd>
-							<input type="input" maxlength="64" size="25" name="sc_feedburner" id="sc_feedburner" value="<?php echo ( $sc_options['feedburner_token']!='0' ) ? $sc_options['feedburner_token'] : '' ?>">
+							<input type="input" maxlength="128" size="25" name="sc_feedburner" id="sc_feedburner" value="<?php echo ( $sc_options['feedburner_token']!='0' ) ? $sc_options['feedburner_token'] : '' ?>">
 							&nbsp;&nbsp;Your Feedburner ID <br /><span class="sc_example">ie: http://feeds.feedburner.com/</span><span class="sc_example sc_example2">feedname</span>
 						</dd>
 					</dl>
@@ -880,7 +916,7 @@ function enable_options() {
 							</label>
 						</dt>
 						<dd>
-							<input type="input" maxlength="64" size="25" name="sc_facebook" id="sc_facebook" value="<?php echo ( $sc_options['facebook_token']!='0' ) ? $sc_options['facebook_token'] : '' ?>">
+							<input type="input" maxlength="128" size="25" name="sc_facebook" id="sc_facebook" value="<?php echo ( $sc_options['facebook_token']!='0' ) ? $sc_options['facebook_token'] : '' ?>">
 							&nbsp;&nbsp;Your Facebook ID <br /><span class="sc_example">ie: http://www.facebook.com/<span class="sc_example sc_example2">123456789012</span> or http://www.facebook.com/<span class="sc_example sc_example2">VanityID</span></span>
 						</dd>
 					</dl>
@@ -894,7 +930,7 @@ function enable_options() {
 							</label>
 						</dt>
 						<dd>
-							<input type="input" maxlength="64" size="25" name="sc_gplus" id="sc_gplus" value="<?php echo ( $sc_options['gplus_token']!='0' ) ? $sc_options['gplus_token'] : '' ?>">
+							<input type="input" maxlength="128" size="25" name="sc_gplus" id="sc_gplus" value="<?php echo ( $sc_options['gplus_token']!='0' ) ? $sc_options['gplus_token'] : '' ?>">
 							&nbsp;&nbsp;Your Google+ ID <br /><span class="sc_example">ie: http://plus.google.com/<span class="sc_example sc_example2">123456789012</span>/posts (search for yourself on google+ after signing out).</span>
 						</dd>
 					</dl>
@@ -908,7 +944,7 @@ function enable_options() {
 							</label>
 						</dt>
 						<dd>
-							<input type="input" maxlength="64" size="25" name="sc_twitter" id="sc_twitter" value="<?php echo ( $sc_options['twitter_token']!='0' ) ? $sc_options['twitter_token'] : '' ?>">
+							<input type="input" maxlength="128" size="25" name="sc_twitter" id="sc_twitter" value="<?php echo ( $sc_options['twitter_token']!='0' ) ? $sc_options['twitter_token'] : '' ?>">
 							&nbsp;&nbsp;Your Twitter ID <br /><span class="sc_example">ie: http://www.twitter.com/</span><span class="sc_example sc_example2">username</span> 
 						</dd>
 					</dl>
@@ -922,8 +958,8 @@ function enable_options() {
 							</label>
 						</dt>
 						<dd>
-							<input type="input" maxlength="64" size="25" name="sc_linkedin" id="sc_linkedin" value="<?php echo ( $sc_options['linkedin_token']!='0' ) ? $sc_options['linkedin_token'] : '' ?>">
-							&nbsp;&nbsp;Your Linked In Profile ID <br /><span class="sc_example">ie: http://www.linkedin.com/in/<span class="sc_example sc_example2">johndoe</span></span>
+							<input type="input" maxlength="128" size="25" name="sc_linkedin" id="sc_linkedin" value="<?php echo ( $sc_options['linkedin_token']!='0' ) ? $sc_options['linkedin_token'] : '' ?>">
+							&nbsp;&nbsp;Your Linked In Public Profile URL <br /><span class="sc_example">ie: <span class="sc_example sc_example2">http://www.linkedin.com/in/johndoe</span> or <span class="sc_example sc_example2">http://www.linkedin.com/pub/janedoe/12/232/123</span></span>
 						</dd>
 					</dl>
 				</li>
@@ -936,7 +972,7 @@ function enable_options() {
 							</label>
 						</dt>
 						<dd>
-							<input type="input" maxlength="64" size="25" name="sc_youtube" id="sc_youtube" value="<?php echo ( $sc_options['youtube_token']!='0' ) ? $sc_options['youtube_token'] : '' ?>">
+							<input type="input" maxlength="128" size="25" name="sc_youtube" id="sc_youtube" value="<?php echo ( $sc_options['youtube_token']!='0' ) ? $sc_options['youtube_token'] : '' ?>">
 							&nbsp;&nbsp;Your YouTube User ID <br /><span class="sc_example">ie: http://www.youtube.com/user/</span><span class="sc_example sc_example2">username</span>
 						</dd>
 					</dl>
@@ -950,7 +986,7 @@ function enable_options() {
 							</label>
 						</dt>
 						<dd>
-							<input type="input" maxlength="64" size="25" name="sc_vimeo" id="sc_vimeo" value="<?php echo ( $sc_options['vimeo_token']!='0' ) ? $sc_options['vimeo_token'] : '' ?>">
+							<input type="input" maxlength="128" size="25" name="sc_vimeo" id="sc_vimeo" value="<?php echo ( $sc_options['vimeo_token']!='0' ) ? $sc_options['vimeo_token'] : '' ?>">
 							&nbsp;&nbsp;Your Vimeo User ID <br /><span class="sc_example">ie: http://www.vimeo.com/<span class="sc_example sc_example2">username</span>
 						</dd>
 					</dl>

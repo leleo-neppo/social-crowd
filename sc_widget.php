@@ -102,7 +102,7 @@ if (!class_exists('SC_Widget')) :
 				
 				if($sc_options["get_linkedin"]=='1'){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/linkedin.png" ?>" /><div ><span><?php echo $stats["linkedIn"] ?> Connections</span><br /><a href="http://www.linkedin.com/in/<?php echo $sc_options['linkedin_token'] ?>">Join Us On Linked In</a></div></li>
+					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/linkedin.png" ?>" /><div ><span><?php echo $stats["linkedIn"] ?> Connections</span><br /><a href="<?php echo (stristr($sc_options["linkedin_token"],"//")) ? 'http:' : 'http://www.linkedin.com/in/'; echo $sc_options['linkedin_token'] ?>">Join Us On Linked In</a></div></li>
 					<?php
 				}
 				
