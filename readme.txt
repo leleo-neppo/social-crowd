@@ -235,7 +235,7 @@ I hope to expand this list to include your favorites ( just leave me some commen
 == Changelog ==
 
 = 0.7.3 [2012-02-18] =
-* Bugfix for Google+ Algorithm to correct problems grabbing G+ stats.
+* Bugfix for Google+ Algorithm to correct problems grabbing Google+ stats.
 
 = 0.7.2 [2012-02-17] =
 * Added new instructions on how to fix the issue many have had with Feedburner
