@@ -2,14 +2,14 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 0.7.1
+ * @version 0.7.2
  */
 /*
 Plugin Name: Social Crowd
 Plugin URI: http://www.macnative.com/socialCrowd
 Description: This plugin retrieves the raw number of Friends/Followers/Fans etc from your favorite social networks and allows you to show that raw number on any page of your wordpress blog using a simple php function **Requires PHP Curl Module**
 Author: Randall Hinton
-Version: 0.7.1
+Version: 0.7.2
 Author URI: http://www.macnative.com/
 */
 
@@ -903,7 +903,7 @@ function enable_options() {
 						</dt>
 						<dd>
 							<input type="input" maxlength="128" size="25" name="sc_feedburner" id="sc_feedburner" value="<?php echo ( $sc_options['feedburner_token']!='0' ) ? $sc_options['feedburner_token'] : '' ?>">
-							&nbsp;&nbsp;Your Feedburner ID <br /><span class="sc_example">ie: http://feeds.feedburner.com/</span><span class="sc_example sc_example2">feedname</span>
+							&nbsp;&nbsp;Your Feedburner ID <br /><span class="sc_example">ie: http://feeds.feedburner.com/</span><span class="sc_example sc_example2">feedname</span> <span class="sc_example">Also ensure that the "Awareness API" access is enabled in your feedburner settings under the Publicize tab.</span>
 						</dd>
 					</dl>
 				</li>

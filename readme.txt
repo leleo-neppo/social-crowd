@@ -6,7 +6,7 @@ Donate link: http://www.macnative.com/development/donate
 Tags: social, network, networks, count, friends, crowd, clan, contacts, display, show, vanity, stats, statistics, followers, readers, facebook, google+, google plus, linkedin, linked in, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 0.7.1
+Stable tag: 0.7.2
 
 Social Crowd retrieves the count/number of Friends/Followers from your favorite social networks and displays them throughout your blog
 
@@ -28,6 +28,10 @@ The Social Crowd Plugin grabs the latest counts of your Friends/Fans/Followers e
 
 
 #### Plugin Usage
+
+**Feedburner Instructions**
+If you wish to use the Feedburner stats you must enable access by logging into your Feedburner admin panel http://feedburner.google.com, selecting the feed you want Social Crowd to access, Click on the "Publicize" tab, Select "Awareness API" from the Sidebar, and then click the "Activate" button. This will allow Social Crowd to correctly acquire your Feedburner stats and display them for you.
+
 
 **Basic Usage**
 
@@ -230,6 +234,9 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Changelog ==
 
+= 0.7.2 [2012-02-17] =
+* Added new instructions on how to fix the issue many have had with Feedburner
+
 = 0.7.1 [2012-02-2] =
 * Bugfix for Linked-In Profiles - Now adding full url in admin to retrieve correct profile data
 * Added Check for CURL module and indicator to show wether it is loaded
@@ -258,6 +265,6 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Upgrade Notice == 
 
-= 0.7.1 =
-Fixed some problems with Linked-In (Beta) Support, should work better for many now.
+= 0.7.2 =
+Added instructions on how to correct the feedburner issue some have experienced.
 
