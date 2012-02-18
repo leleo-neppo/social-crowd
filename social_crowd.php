@@ -2,14 +2,14 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 0.7.2
+ * @version 0.7.3
  */
 /*
 Plugin Name: Social Crowd
 Plugin URI: http://www.macnative.com/socialCrowd
 Description: This plugin retrieves the raw number of Friends/Followers/Fans etc from your favorite social networks and allows you to show that raw number on any page of your wordpress blog using a simple php function **Requires PHP Curl Module**
 Author: Randall Hinton
-Version: 0.7.2
+Version: 0.7.3
 Author URI: http://www.macnative.com/
 */
 
@@ -241,20 +241,20 @@ function SocialCrowd_GetCounts()
 				if($stats["subscriberCount"] != '' && $stats["subscriberCount"] > get_option('Social_Crowd_Youtube_subscriberCount')){
 					update_option('Social_Crowd_Youtube_subscriberCount', (string) $stats['subscriberCount']);
 				}
-				if($stats["subscriberCount"] != '' && $stats["viewCount"] > get_option('Social_Crowd_Youtube_viewCount')){
+				if($stats["viewCount"] != '' && $stats["viewCount"] > get_option('Social_Crowd_Youtube_viewCount')){
 					update_option('Social_Crowd_Youtube_viewCount', (string) $stats['viewCount']);
 				}
-				if($stats["subscriberCount"] != '' && $stats["totalUploadViews"] > get_option('Social_Crowd_Youtube_uploadViewCount')){
+				if($stats["totalUploadViews"] != '' && $stats["totalUploadViews"] > get_option('Social_Crowd_Youtube_uploadViewCount')){
 					update_option('Social_Crowd_Youtube_uploadViewCount', (string) $stats['totalUploadViews']);
 				}
 			}else{
 				if($stats["subscriberCount"] != '' && $stats["subscriberCount"] > 0){
 					update_option('Social_Crowd_Youtube_subscriberCount', (string) $stats['subscriberCount']);
 				}
-				if($stats["subscriberCount"] != '' && $stats["viewCount"] > 0){
+				if($stats["viewCount"] != '' && $stats["viewCount"] > 0){
 					update_option('Social_Crowd_Youtube_viewCount', (string) $stats['viewCount']);
 				}
-				if($stats["subscriberCount"] != '' && $stats["totalUploadViews"] > 0){
+				if($stats["totalUploadViews"] != '' && $stats["totalUploadViews"] > 0){
 					update_option('Social_Crowd_Youtube_uploadViewCount', (string) $stats['totalUploadViews']);
 				}
 			}
@@ -304,30 +304,28 @@ function SocialCrowd_GetCounts()
 		if($sc_options["get_gplus"]){
 			$scrape = SocialCrowd_Load_JSON('https://plus.google.com/'.$sc_options['gplus_token'].'/posts');
 
-			$temp1 = explode('Pv a-l-k', $scrape);
-			$temp2 = explode('(',$temp1[1]);
-			$self = explode(')',$temp2[1]);
-			$temp1 = explode('Pv rla', $scrape);
-			$temp2 = explode('(',$temp1[1]);
-			$others = explode(')',$temp2[1]);
-			if(is_numeric($self[0]) && is_numeric($others[0])){
+			$pattern = "|(?<=circles \()(.*?)(?=\)<)|";
+			$pattern2 = "|(?<=in circles \()(.*?)(?=\)<)|";
+			$temp1 = preg_match($pattern, $scrape, $matches);
+			$temp2 = preg_match($pattern2, $scrape, $matches2);
+			if(is_numeric($matches[0]) && is_numeric($matches2[0])){
 				if($sc_options["update"]){
-					if ($self[0] != '' && $self[0] > get_option('Social_Crowd_Gplus_circled')) 
+					if ($matches[0] != '' && $matches[0] > get_option('Social_Crowd_Gplus_circled')) 
 					{ 
-						update_option('Social_Crowd_Gplus_circled', (string) $self[0]); 
+						update_option('Social_Crowd_Gplus_circled', (string) $matches[0]); 
 					}
-					if ($others[0] != '' && $others[0] > get_option('Social_Crowd_Gplus_in_circles')) 
+					if ($matches2[0] != '' && $matches2[0] > get_option('Social_Crowd_Gplus_in_circles')) 
 					{ 
-						update_option('Social_Crowd_Gplus_in_circles', (string) $others[0]); 
+						update_option('Social_Crowd_Gplus_in_circles', (string) $matches2[0]); 
 					}
 				}else{
-					if ($self[0] != '' && $self[0] > 0) 
+					if ($matches[0] != '' && $matches[0] > 0) 
 					{ 
-						update_option('Social_Crowd_Gplus_circled', (string) $self[0]); 
+						update_option('Social_Crowd_Gplus_circled', (string) $matches[0]); 
 					}
-					if ($others[0] != '' && $others[0] > 0) 
+					if ($matches2[0] != '' && $matches2[0] > 0) 
 					{ 
-						update_option('Social_Crowd_Gplus_in_circles', (string) $others[0]); 
+						update_option('Social_Crowd_Gplus_in_circles', (string) $matches2[0]); 
 					}
 				}
 			}
