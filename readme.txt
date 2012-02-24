@@ -272,6 +272,6 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Upgrade Notice == 
 
-= 0.7.3 =
-Addressed the issues with Google+ stats code.
+= 0.7.4 =
+Added minor fixes to Widgets.
 
