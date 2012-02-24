@@ -27,6 +27,7 @@ if (!class_exists('SC_Widget_Advanced')) :
 			$title = $instance['title'];
 			$icon_set = $instance['set'];
 			$style = $instance['style'];
+			$newWindow = $instance['newWindow'];
 			$link = $instance['link'];
 			$facebook = $instance['facebook'];
 			$facebook_stat = $instance['facebook_stat'];
@@ -105,43 +106,43 @@ if (!class_exists('SC_Widget_Advanced')) :
 				
 				if($instance['facebook']){
 					?>
-						<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/facebook.png" ?>" /><div><span><?php echo str_replace('%s', $stats["facebook"], $facebook_stat) ?></span><br /><a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>"><?php echo $facebook_link ?></a></div></li>
+						<li class="scItems"><a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/facebook.png" ?>" /></a><div><span><?php echo str_replace('%s', $stats["facebook"], $facebook_stat) ?></span><br /><a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $facebook_link ?></a></div></li>
 					<?php
 				}
 				
 				if($instance['google']){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/google.png" ?>" /><div ><span><?php echo str_replace('%s', $stats["gplusInCircles"], $google_stat) ?></span><br /><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>"><?php echo $google_link ?></a></div></li>
+					<li class="scItems"><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/google.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats["gplusInCircles"], $google_stat) ?></span><br /><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $google_link ?></a></div></li>
 					<?php
 				}
 				
 				if($instance['twitter']){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>" /><div ><span><?php echo str_replace('%s', $stats["twitter"], $twitter_stat) ?></span><br /><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>"><?php echo $twitter_link ?></a></div></li>
+					<li class="scItems"><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats["twitter"], $twitter_stat) ?></span><br /><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $twitter_link ?></a></div></li>
 					<?php
 				}
 				
 				if($instance['linkedin']){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/linkedin.png" ?>" /><div ><span><?php echo str_replace('%s', $stats["linkedIn"], $linkedin_stat) ?></span><br /><a href="<?php echo (stristr($sc_options["linkedin_token"],"//")) ? 'http:' : 'http://www.linkedin.com/in/'; echo $sc_options['linkedin_token'] ?>"><?php echo $linkedin_link ?></a></div></li>
+					<li class="scItems"><a href="<?php echo (stristr($sc_options["linkedin_token"],"//")) ? 'http:' : 'http://www.linkedin.com/in/'; echo $sc_options['linkedin_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/linkedin.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats["linkedIn"], $linkedin_stat) ?></span><br /><a href="<?php echo (stristr($sc_options["linkedin_token"],"//")) ? 'http:' : 'http://www.linkedin.com/in/'; echo $sc_options['linkedin_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $linkedin_link ?></a></div></li>
 					<?php
 				}
 				
 				if($instance['youtube']){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /><div ><span><?php echo str_replace('%s', $stats["youtube"], $youtube_stat) ?></span><br /><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>"><?php echo $youtube_link ?></a></div></li>
+					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats["youtube"], $youtube_stat) ?></span><br /><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $youtube_link ?></a></div></li>
 					<?php
 				}
 				
 				if($instance['vimeo']){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/vimeo.png" ?>" /><div ><span><?php echo str_replace('%s', $stats["vimeo"], $vimeo_stat) ?></span><br /><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>"><?php echo $vimeo_link ?></a></div></li>
+					<li class="scItems"><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/vimeo.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats["vimeo"], $vimeo_stat) ?></span><br /><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $vimeo_link ?></a></div></li>
 					<?php
 				}
 				
 				if($instance['feedburner']){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/feed.png" ?>" /><div ><span><?php echo str_replace('%s', $stats["feedburner"], $feedburner_stat) ?></span><br /><a href="http://feedburner.google.com/fb/a/mailverify?uri=<?php echo $sc_options['feedburner_token'] ?>&loc=en_US"><?php echo $feedburner_link ?></a></div></li>
+					<li class="scItems"><a href="http://feedburner.google.com/fb/a/mailverify?uri=<?php echo $sc_options['feedburner_token'] ?>&loc=en_US" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/feed.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats["feedburner"], $feedburner_stat) ?></span><br /><a href="http://feedburner.google.com/fb/a/mailverify?uri=<?php echo $sc_options['feedburner_token'] ?>&loc=en_US" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $feedburner_link ?></a></div></li>
 					<?php
 				}
 
@@ -150,7 +151,7 @@ if (!class_exists('SC_Widget_Advanced')) :
 			<?php
 			echo "<div id='scBottom'>";
 			if($link){
-				echo "Stats Provided By <a href='http://www.macnative.com/development/social-crowd/'>Social Crowd</a>";
+				echo "<a href='http://www.macnative.com/development/social-crowd/'>Social Stats</a> Provided By <a href='http://www.macnative.com/development/social-crowd/'>Social Crowd</a>";
 			}
 			echo "</div>";
 			// After widget (defined by themes)
@@ -165,6 +166,7 @@ if (!class_exists('SC_Widget_Advanced')) :
 			$instance['title'] = $new_instance['title'];
 			$instance['set'] = strip_tags( $new_instance['set'] );
 			$instance['style'] = $new_instance['style'];
+			$instance['newWindow'] = $new_instance['newWindow'];
 			$instance['link'] = $new_instance['link'];
 			$instance['facebook'] = $new_instance['facebook'];
 			$instance['facebook_stat'] = $new_instance['facebook_stat'];
@@ -196,7 +198,7 @@ if (!class_exists('SC_Widget_Advanced')) :
 
 			// Set up some default widget settings
 			//$defaults = array('title' => 'Latest Tweets', 'username' => '', 'posts' => 5, 'interval' => 1800, 'date' => 'j F Y', 'facebook' => true, 'twitter' => true, 'feedburner' => true, 'youtube' => true, 'vimeo' => false);
-			$defaults = array('title' => 'Join The Crowd', 'set' => 'aquaticus', 'style' => true, 'link' => true, 'facebook' => true, 'facebook_stat' => '%s Likes', 'facebook_link' => 'Like Us on Facebook', 'google' => true, 'google_stat' => 'In %s Circles', 'google_link' => 'Add us on Google+', 'twitter' => true, 'twitter_stat' => '%s Followers', 'twitter_link' => 'Follow us on Twitter', 'linkedin' => true, 'linkedin_stat' => '%s Connections', 'linkedin_link' => 'Join Us On Linked In', 'youtube' => true, 'youtube_stat' => '%s Subscribers', 'youtube_link' => 'Watch us on Youtube', 'vimeo' => true, 'vimeo_stat' => '%s Contacts', 'vimeo_link' => 'See us on Vimeo', 'feedburner' => true, 'feedburner_stat' => '%s Readers', 'feedburner_link' => 'Read On Feedburner');
+			$defaults = array('title' => 'Join The Crowd', 'set' => 'aquaticus', 'style' => true, 'newWindow' => false, 'link' => true, 'facebook' => true, 'facebook_stat' => '%s Likes', 'facebook_link' => 'Like Us on Facebook', 'google' => true, 'google_stat' => 'In %s Circles', 'google_link' => 'Add us on Google+', 'twitter' => true, 'twitter_stat' => '%s Followers', 'twitter_link' => 'Follow us on Twitter', 'linkedin' => true, 'linkedin_stat' => '%s Connections', 'linkedin_link' => 'Join Us On Linked In', 'youtube' => true, 'youtube_stat' => '%s Subscribers', 'youtube_link' => 'Watch us on Youtube', 'vimeo' => true, 'vimeo_stat' => '%s Contacts', 'vimeo_link' => 'See us on Vimeo', 'feedburner' => true, 'feedburner_stat' => '%s Readers', 'feedburner_link' => 'Read On Feedburner');
 			$instance = wp_parse_args((array) $instance, $defaults);
 ?>
 				
@@ -265,6 +267,12 @@ if (!class_exists('SC_Widget_Advanced')) :
 				<input class="widefat" type="text" id="<?php echo $this->get_field_id('feedburner_stat'); ?>" name="<?php echo $this->get_field_name('feedburner_stat'); ?>" value="<?php echo $instance['feedburner_stat']; ?>"><br />
 				<label for="<?php echo $this->get_field_id('feedburner_link'); ?>">Feedburner Link Title:</label>
 				<input class="widefat" type="text" id="<?php echo $this->get_field_id('feedburner_link'); ?>" name="<?php echo $this->get_field_name('feedburner_link'); ?>" value="<?php echo $instance['feedburner_link']; ?>"><br /><br />
+				
+				</p>
+				<p>
+					
+				<input class="checkbox" type="checkbox" <?php if ($instance['newWindow']) echo 'checked="checked" '; ?>id="<?php echo $this->get_field_id('newWindow'); ?>" name="<?php echo $this->get_field_name('newWindow'); ?>">
+				<label for="<?php echo $this->get_field_id('newWindow'); ?>">&nbsp;&nbsp;Open Links in a New Window?</label><br />
 				
 				</p>
 				<b>Custom or Default Styling?</b><br>

@@ -84,43 +84,43 @@ if (!class_exists('SC_Widget')) :
 				
 				if($sc_options["get_facebook"]=='1'){
 					?>
-						<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/facebook.png" ?>" /><div><span><?php echo $stats["facebook"] ?> Likes</span><br /><a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>">Like us on Facebook</a></div></li>
+						<li class="scItems"><a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/facebook.png" ?>" /></a><div><span><?php echo $stats["facebook"] ?> Likes</span><br /><a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>">Like us on Facebook</a></div></li>
 					<?php
 				}
 				
 				if($sc_options["get_gplus"]=='1'){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/google.png" ?>" /><div ><span>In <?php echo $stats["gplusInCircles"] ?> Circles</span><br /><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>">Add us on Google+</a></div></li>
+					<li class="scItems"><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/google.png" ?>" /></a><div ><span>In <?php echo $stats["gplusInCircles"] ?> Circles</span><br /><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>">Add us on Google+</a></div></li>
 					<?php
 				}
 				
 				if($sc_options["get_twitter"]=='1'){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>" /><div ><span><?php echo $stats["twitter"] ?> Followers</span><br /><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>">Follow us on Twitter</a></div></li>
+					<li class="scItems"><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>" /></a><div ><span><?php echo $stats["twitter"] ?> Followers</span><br /><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>">Follow us on Twitter</a></div></li>
 					<?php
 				}
 				
 				if($sc_options["get_linkedin"]=='1'){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/linkedin.png" ?>" /><div ><span><?php echo $stats["linkedIn"] ?> Connections</span><br /><a href="<?php echo (stristr($sc_options["linkedin_token"],"//")) ? 'http:' : 'http://www.linkedin.com/in/'; echo $sc_options['linkedin_token'] ?>">Join Us On Linked In</a></div></li>
+					<li class="scItems"><a href="<?php echo (stristr($sc_options["linkedin_token"],"//")) ? 'http:' : 'http://www.linkedin.com/in/'; echo $sc_options['linkedin_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/linkedin.png" ?>" /></a><div ><span><?php echo $stats["linkedIn"] ?> Connections</span><br /><a href="<?php echo (stristr($sc_options["linkedin_token"],"//")) ? 'http:' : 'http://www.linkedin.com/in/'; echo $sc_options['linkedin_token'] ?>">Join Us On Linked In</a></div></li>
 					<?php
 				}
 				
 				if($sc_options["get_youtube"]=='1'){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /><div ><span><?php echo $stats["youtube"] ?> Subscribers</span><br /><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>">Watch us on Youtube</a></div></li>
+					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /></a><div ><span><?php echo $stats["youtube"] ?> Subscribers</span><br /><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>">Watch us on Youtube</a></div></li>
 					<?php
 				}
 				
 				if($sc_options["get_vimeo"]=='1'){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/vimeo.png" ?>" /><div ><span><?php echo $stats["vimeo"] ?> Contacts</span><br /><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>">See us on Vimeo</a></div></li>
+					<li class="scItems"><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/vimeo.png" ?>" /></a><div ><span><?php echo $stats["vimeo"] ?> Contacts</span><br /><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>">See us on Vimeo</a></div></li>
 					<?php
 				}
 				
 				if($sc_options["get_feedburner"]=='1'){
 					?>
-					<li class="scItems"><img src="<?php echo $img_url."large/".$icon_set."/feed.png" ?>" /><div ><span><?php echo $stats["feedburner"] ?> Readers</span><br /><a href="http://feedburner.google.com/fb/a/mailverify?uri=<?php echo $sc_options['feedburner_token'] ?>&loc=en_US">Read On Feedburner</a></div></li>
+					<li class="scItems"><a href="http://feedburner.google.com/fb/a/mailverify?uri=<?php echo $sc_options['feedburner_token'] ?>&loc=en_US"><img src="<?php echo $img_url."large/".$icon_set."/feed.png" ?>" /></a><div ><span><?php echo $stats["feedburner"] ?> Readers</span><br /><a href="http://feedburner.google.com/fb/a/mailverify?uri=<?php echo $sc_options['feedburner_token'] ?>&loc=en_US">Read On Feedburner</a></div></li>
 					<?php
 				}
 
@@ -129,7 +129,7 @@ if (!class_exists('SC_Widget')) :
 			<?php
 			echo "<div id='scBottom'>";
 			if($link){
-				echo "Stats Provided By <a href='http://www.macnative.com/development/social-crowd/'>Social Crowd</a>";
+				echo "<a href='http://www.macnative.com/development/social-crowd/'>Social Stats</a> Provided By <a href='http://www.macnative.com/development/social-crowd/'>Social Crowd</a>";
 			}
 			echo "</div>";
 			// After widget (defined by themes)

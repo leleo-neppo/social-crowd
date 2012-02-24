@@ -6,7 +6,7 @@ Donate link: http://www.macnative.com/development/donate
 Tags: social, network, networks, count, friends, crowd, clan, contacts, display, show, vanity, stats, statistics, followers, readers, facebook, google+, google plus, linkedin, linked in, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 0.7.3
+Stable tag: 0.7.4
 
 Social Crowd retrieves the count/number of Friends/Followers from your favorite social networks and displays them throughout your blog
 
@@ -233,6 +233,10 @@ I hope to expand this list to include your favorites ( just leave me some commen
 4. Example Designer Custom Usage
 
 == Changelog ==
+
+= 0.7.4 [2012-02-25] =
+* Added option in advanced widget to have social network links open in a new window.
+* Added widget links to the social network icons.
 
 = 0.7.3 [2012-02-18] =
 * Bugfix for Google+ Algorithm to correct problems grabbing Google+ stats.
