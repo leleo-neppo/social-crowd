@@ -6,7 +6,7 @@ Donate link: http://www.macnative.com/development/donate
 Tags: social, network, networks, count, friends, crowd, clan, contacts, display, show, vanity, stats, statistics, followers, readers, facebook, google+, google plus, linkedin, linked in, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 0.7.4
+Stable tag: 0.8
 
 Social Crowd retrieves the count/number of Friends/Followers from your favorite social networks and displays them throughout your blog
 
@@ -133,6 +133,7 @@ Other icons used with the Widget are:
 
 In the widget options there is a checkbox titled 'Default Styling' if you uncheck that box, you can include the following CSS in your own css file with any required changes to apply your custom look and feel to the widget.
 
+*Vertical Styling*
 	<style type="text/css">
 		#scWidget {
 			margin-bottom: 10px;
@@ -164,6 +165,76 @@ In the widget options there is a checkbox titled 'Default Styling' if you unchec
 			
 		}
 	</style>
+	
+*Horizontal Styling* 
+	
+	<style type="text/css">
+		#scWidget {
+			margin-bottom: 10px;
+			font-size: 14px;
+		}
+		#scWidget li.scItems {
+			list-style: none !important;
+			background: none !important;
+			padding: 10px !important;
+			display: inline;
+			text-align: center;
+			float: left;
+			border-radius: 5px;
+		}
+		#scWidget li.scItems:hover {
+			background: #EEE !important;
+		}
+		#scWidget img {
+			width:48px;
+			height:48px;
+			float:none;
+			margin: 0 5px;
+		}
+		#scWidget span {
+			font-weight: bold;
+		}
+		#scBottom {
+			margin: 5px 0 5px 20px;
+			clear: both;
+			font-size: 8px;
+		}
+		#scBottom a {
+			
+		}
+	</style>
+
+= How do I use the Horizontal Layout Shortcode/Function Call = 
+
+If you would like to display the Social Crowd Stats outside of the provided widget you can now simply call the following php function or the associated shortcode to display your social stats throughout your website.
+
+The Shortcode is:
+	[SC_Horiz_Stats]
+
+Simply place this anywhere within your posts or pages to display your Social Crowd Stats. By Default this will display all of the networks that you have enabled in the plugin administrator panel.
+
+Shortcode Options:
+	icons -> Icon Set to Use ie: icons=aquaticus (aquaticus, elegantmedia, picons, picons_inverted, socialballoon, socialize, socialme, socialnet)
+	networks -> Comma Delimited List of Networks to display or (all) ie: networks=all or networks=facebook,twitter,google
+	desctext -> Show Description Text ie: desctext=true or desctext=none
+	facebookicon -> URL for Facebook Icon (if none given default will be used)
+	facebooktext -> Text Under the Facebook Icon (if none given default will be used)
+	twittericon -> URL for Twitter Icon
+	twittertext -> Text Under the Twitter Icon
+	googleicon -> URL for Google+ Icon
+	googletext -> Text Under the Facebook Icon
+	linkedinicon -> URL for LinkedIn Icon
+	linkedintext -> Text Under the Facebook Icon
+	youtubeicon -> URL for Youtube Icon
+	youtubetext -> Text Under the Facebook Icon
+	vimeoicon -> URL for Vimeo Icon
+	vimeotext -> Text Under the Facebook Icon
+	feedburnericon -> URL for Feedburner Icon
+	feedburnertext -> Text Under the Facebook Icon
+	
+	Example Usage: 
+	[SC_Horiz_Stats icons=socialize desctext=false networks=facebook,twitter,feedburner,vimeo facebooktext=friends facebookicon=http://www.example.com/facebookicon.png ]
+	
 
 = How do I call the function =
 
@@ -234,6 +305,10 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Changelog ==
 
+= 0.8 [2012-03-07] =
+* Added a much requested horizontal layout for the widgets
+* Added php function call and shortcode to add the same horizontal layout throughout your site
+
 = 0.7.4 [2012-02-25] =
 * Added option in advanced widget to have social network links open in a new window.
 * Added widget links to the social network icons.
@@ -272,6 +347,6 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Upgrade Notice == 
 
-= 0.7.4 =
-Added minor fixes to Widgets.
+= 0.8 =
+Added new widget layouts and a new shortcode.
 
