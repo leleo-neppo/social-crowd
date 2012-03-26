@@ -2,14 +2,14 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 0.8.1
+ * @version 0.8.2
  */
 /*
 Plugin Name: Social Crowd
 Plugin URI: http://www.macnative.com/socialCrowd
 Description: This plugin retrieves the raw number of Friends/Followers/Fans etc from your favorite social networks and allows you to show that raw number on any page of your wordpress blog using a simple php function **Requires PHP Curl Module**
 Author: Randall Hinton
-Version: 0.8.1
+Version: 0.8.2
 Author URI: http://www.macnative.com/
 */
 
@@ -528,7 +528,7 @@ function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctex
 	
 	$display = explode(',',$networks);
 	
-	if($includecss){
+	if($includecss == "true"){
 	?>
 	<style type="text/css">
 		ul.scHoriz {
