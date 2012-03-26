@@ -2,14 +2,14 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 0.8.2
+ * @version 0.8.3
  */
 /*
 Plugin Name: Social Crowd
 Plugin URI: http://www.macnative.com/socialCrowd
 Description: This plugin retrieves the raw number of Friends/Followers/Fans etc from your favorite social networks and allows you to show that raw number on any page of your wordpress blog using a simple php function **Requires PHP Curl Module**
 Author: Randall Hinton
-Version: 0.8.2
+Version: 0.8.3
 Author URI: http://www.macnative.com/
 */
 
@@ -518,7 +518,7 @@ return $output;
  * @since 0.8
  * @author randall@macnative.com
  */
-function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctext="true", $includecss="true", $facebookIcon='none', $facebookText='none', $twitterIcon='none', $twitterText='none', $googleIcon='none', $googleText='none', $linkedinIcon='none', $linkedinText='none', $youtubeIcon='none', $youtubeText='none', $vimeoIcon='none', $vimeoText='none', $feedburnerIcon='none', $feedburnerText='none')
+function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctext="true", $includecss="true", $newwindow="true", $facebookIcon='none', $facebookText='none', $twitterIcon='none', $twitterText='none', $googleIcon='none', $googleText='none', $linkedinIcon='none', $linkedinText='none', $youtubeIcon='none', $youtubeText='none', $vimeoIcon='none', $vimeoText='none', $feedburnerIcon='none', $feedburnerText='none')
 {
 	
 	$siteurl = get_option('siteurl');
@@ -566,7 +566,7 @@ function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctex
 			}
 			?>
 		<li class="crowdStat">
-			<a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>"><img src="<?php echo $icon ?>" /></a><br />
+			<a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>" <?php echo ($newwindow=='true') ? 'target="_blank"' : '' ?> ><img src="<?php echo $icon ?>" /></a><br />
 			<?php if($desctext == 'true') { ?><span><?php echo ($facebookText!='none') ? $facebookText : 'Likes' ?></span><br /> <?php } ?>
 			<?php echo $stats["facebook"] ?>
 		</li>
@@ -580,7 +580,7 @@ function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctex
 			}
 			?>
 		<li class="crowdStat">
-			<a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>"><img src="<?php echo $icon ?>" /></a><br />
+			<a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>" <?php echo ($newwindow=='true') ? 'target="_blank"' : '' ?> ><img src="<?php echo $icon ?>" /></a><br />
 			<?php if($desctext == 'true') { ?><span><?php echo ($googleText!='none') ? $googleText : 'Circles' ?></span><br /><?php } ?>
 			<?php echo $stats["gplusInCircles"] ?>
 		</li>
@@ -594,7 +594,7 @@ function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctex
 			}
 			?>
 		<li class="crowdStat">
-			<a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>"><img src="<?php echo $icon ?>" /></a><br />
+			<a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newwindow=='true') ? 'target="_blank"' : '' ?> ><img src="<?php echo $icon ?>" /></a><br />
 			<?php if($desctext == 'true') { ?><span><?php echo ($twitterText!='none') ? $twitterText : 'Followers' ?></span><br /><?php } ?>
 			<?php echo $stats["twitter"] ?>
 		</li>
@@ -608,7 +608,7 @@ function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctex
 			}
 			?>
 		<li class="crowdStat">
-			<a href="<?php echo (stristr($sc_options["linkedin_token"],"//")) ? 'http:' : 'http://www.linkedin.com/in/'; echo $sc_options['linkedin_token'] ?>"><img src="<?php echo $icon ?>" /></a><br />
+			<a href="<?php echo (stristr($sc_options["linkedin_token"],"//")) ? 'http:' : 'http://www.linkedin.com/in/'; echo $sc_options['linkedin_token'] ?>" <?php echo ($newwindow=='true') ? 'target="_blank"' : '' ?> ><img src="<?php echo $icon ?>" /></a><br />
 			<?php if($desctext == 'true') { ?><span><?php echo ($linkedinText!='none') ? $linkedinText : 'Links' ?></span><br /><?php } ?>
 			<?php echo $stats["linkedIn"] ?>
 		</li>
@@ -622,7 +622,7 @@ function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctex
 			}
 			?>
 		<li class="crowdStat">
-			<a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>"><img src="<?php echo $icon ?>" /></a><br />
+			<a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newwindow=='true') ? 'target="_blank"' : '' ?> ><img src="<?php echo $icon ?>" /></a><br />
 			<?php if($desctext == 'true') { ?><span><?php echo ($youtubeText!='none') ? $youtubeText : 'Scribers' ?></span><br /><?php } ?>
 			<?php echo $stats["youtube"] ?>
 		</li>
@@ -636,7 +636,7 @@ function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctex
 			}
 			?>
 		<li class="crowdStat">
-			<a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>"><img src="<?php echo $icon ?>" /></a><br />
+			<a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newwindow=='true') ? 'target="_blank"' : '' ?> ><img src="<?php echo $icon ?>" /></a><br />
 			<?php if($desctext == 'true') { ?><span><?php echo ($vimeoText!='none') ? $vimeoText : 'Contacts' ?></span><br /><?php } ?>
 			<?php echo $stats["vimeo"] ?>
 		</li>
@@ -650,7 +650,7 @@ function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctex
 			}
 			?>
 		<li class="crowdStat">
-			<a href="http://feedburner.google.com/fb/a/mailverify?uri=<?php echo $sc_options['feedburner_token'] ?>&loc=en_US"><img src="<?php echo $icon ?>" /></a><br />
+			<a href="http://feedburner.google.com/fb/a/mailverify?uri=<?php echo $sc_options['feedburner_token'] ?>&loc=en_US" <?php echo ($newwindow=='true') ? 'target="_blank"' : '' ?> ><img src="<?php echo $icon ?>" /></a><br />
 			<?php if($desctext == 'true') { ?><span><?php echo ($feedburnerText!='none') ? $feedburnerText : 'Readers' ?></span><br /><?php } ?>
 			<?php echo $stats["feedburner"] ?>
 		</li>
@@ -677,6 +677,7 @@ add_shortcode('SC_Horiz_Stats', 'SocialCrowd_GetHorizontal_SC');
 // networks -> Comma Delimited List of Networks to display or (all) ie: networks=all networks=facebook,twitter,google
 // desctext -> Show Description Text ie: desctext=true
 // includecss -> Include Default CSS Style ie: includecss=true
+// newwindow -> Open Links in New Window ie: newwindow=true
 // facebookicon -> URL for Facebook Icon (if none given default will be used)
 // facebooktext -> Text Under the Facebook Icon (if none given default will be used)
 // twittericon -> URL for Twitter Icon (if none given default will be used)
@@ -698,6 +699,7 @@ function SocialCrowd_GetHorizontal_SC( $atts ) {
 			'networks' => 'all',
 			'desctext' => 'true',
 			'includecss' => 'true',
+			'newwindow' => 'true',
 			'facebookicon' => 'none',
 			'facebooktext' => 'none',
 			'twittericon' => 'none',
@@ -716,7 +718,7 @@ function SocialCrowd_GetHorizontal_SC( $atts ) {
 
 ob_start();
 
-SocialCrowd_GetHorizontal($icons, $networks, $desctext, $includecss, $facebookicon, $facebooktext, $twittericon, $twittertext, $googleicon, $googletext, $linkedinicon, $linkedintext, $youtubeicon, $youtubetext, $vimeoicon, $vimeotext, $feedburnericon, $feedburnertext);
+SocialCrowd_GetHorizontal($icons, $networks, $desctext, $includecss, $newwindow, $facebookicon, $facebooktext, $twittericon, $twittertext, $googleicon, $googletext, $linkedinicon, $linkedintext, $youtubeicon, $youtubetext, $vimeoicon, $vimeotext, $feedburnericon, $feedburnertext);
 
 $output = ob_get_contents();
 ob_end_clean();

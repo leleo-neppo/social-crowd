@@ -6,7 +6,7 @@ Donate link: http://www.macnative.com/development/donate
 Tags: social, network, networks, count, friends, crowd, clan, contacts, display, show, vanity, stats, statistics, followers, readers, facebook, google+, google plus, linkedin, linked in, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 0.8.2
+Stable tag: 0.8.3
 
 Social Crowd retrieves the count/number of Friends/Followers from your favorite social networks and displays them throughout your blog
 
@@ -218,6 +218,7 @@ Shortcode Options:
 	networks -> Comma Delimited List of Networks to display or (all) ie: networks=all or networks=facebook,twitter,google
 	desctext -> Show Description Text ie: desctext=true or desctext=none
 	includecss -> Include Default CSS Style ie: includecss=true
+	newwindow -> Open Links in New Window ie: newwindow=true
 	facebookicon -> URL for Facebook Icon (if none given default will be used)
 	facebooktext -> Text Under the Facebook Icon (if none given default will be used)
 	twittericon -> URL for Twitter Icon
@@ -305,6 +306,9 @@ I hope to expand this list to include your favorites ( just leave me some commen
 4. Example Designer Custom Usage
 
 == Changelog ==
+
+= 0.8.3 [2012-03-26] =
+* Added Option to open social networks in new window/tab for horizontal output shortcode
 
 = 0.8.2 [2012-03-26] =
 * Fixed a minor issue that stopped the default CSS from being removed in certain situations
