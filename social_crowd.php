@@ -2,14 +2,14 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 0.8
+ * @version 0.8.1
  */
 /*
 Plugin Name: Social Crowd
 Plugin URI: http://www.macnative.com/socialCrowd
 Description: This plugin retrieves the raw number of Friends/Followers/Fans etc from your favorite social networks and allows you to show that raw number on any page of your wordpress blog using a simple php function **Requires PHP Curl Module**
 Author: Randall Hinton
-Version: 0.8
+Version: 0.8.1
 Author URI: http://www.macnative.com/
 */
 
@@ -518,7 +518,7 @@ return $output;
  * @since 0.8
  * @author randall@macnative.com
  */
-function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctext="true", $facebookIcon='none', $facebookText='none', $twitterIcon='none', $twitterText='none', $googleIcon='none', $googleText='none', $linkedinIcon='none', $linkedinText='none', $youtubeIcon='none', $youtubeText='none', $vimeoIcon='none', $vimeoText='none', $feedburnerIcon='none', $feedburnerText='none')
+function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctext="true", $includecss="true", $facebookIcon='none', $facebookText='none', $twitterIcon='none', $twitterText='none', $googleIcon='none', $googleText='none', $linkedinIcon='none', $linkedinText='none', $youtubeIcon='none', $youtubeText='none', $vimeoIcon='none', $vimeoText='none', $feedburnerIcon='none', $feedburnerText='none')
 {
 	
 	$siteurl = get_option('siteurl');
@@ -528,6 +528,7 @@ function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctex
 	
 	$display = explode(',',$networks);
 	
+	if($includecss){
 	?>
 	<style type="text/css">
 		ul.scHoriz {
@@ -550,7 +551,12 @@ function SocialCrowd_GetHorizontal($icons='aquaticus', $networks='all', $desctex
 			height: 48px;
 		}
 	</style>
-	<?php $stats = SocialCrowd_Stats() ?>
+	<?php 
+	}
+	
+	$stats = SocialCrowd_Stats(); 
+	
+	?>
 	<ul class="scHoriz">
 		<?php if(($networks=='all' && $sc_options["get_facebook"]=='1') || (in_array('facebook',$display) && $sc_options["get_facebook"]=='1')){ 
 			if($facebookIcon=='none'){
@@ -669,7 +675,8 @@ add_shortcode('SC_Horiz_Stats', 'SocialCrowd_GetHorizontal_SC');
 //shortcode options:
 // icons -> Icon Set to Use (same options as the Widgets) ie: type=aquaticus (refer to documentation for full list)
 // networks -> Comma Delimited List of Networks to display or (all) ie: networks=all networks=facebook,twitter,google
-// desctext -> Show Description Text ie: desctext=none
+// desctext -> Show Description Text ie: desctext=true
+// includecss -> Include Default CSS Style ie: includecss=true
 // facebookicon -> URL for Facebook Icon (if none given default will be used)
 // facebooktext -> Text Under the Facebook Icon (if none given default will be used)
 // twittericon -> URL for Twitter Icon (if none given default will be used)
@@ -690,6 +697,7 @@ function SocialCrowd_GetHorizontal_SC( $atts ) {
 			'icons' => 'aquaticus',
 			'networks' => 'all',
 			'desctext' => 'true',
+			'includecss' => 'true',
 			'facebookicon' => 'none',
 			'facebooktext' => 'none',
 			'twittericon' => 'none',
@@ -708,7 +716,7 @@ function SocialCrowd_GetHorizontal_SC( $atts ) {
 
 ob_start();
 
-SocialCrowd_GetHorizontal($icons, $networks, $desctext, $facebookicon, $facebooktext, $twittericon, $twittertext, $googleicon, $googletext, $linkedinicon, $linkedintext, $youtubeicon, $youtubetext, $vimeoicon, $vimeotext, $feedburnericon, $feedburnertext);
+SocialCrowd_GetHorizontal($icons, $networks, $desctext, $includecss, $facebookicon, $facebooktext, $twittericon, $twittertext, $googleicon, $googletext, $linkedinicon, $linkedintext, $youtubeicon, $youtubetext, $vimeoicon, $vimeotext, $feedburnericon, $feedburnertext);
 
 $output = ob_get_contents();
 ob_end_clean();
