@@ -205,7 +205,7 @@ if (!class_exists('SC_Widget')) :
 				
 				if($sc_options["get_youtube"]=='1'){
 					?>
-					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /></a><br /><span>Scribers</span><br /><?php echo $stats["youtube"] ?></li>
+					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /></a><br /><span>Scribers</span><br /><?php echo $stats["youtubeSubscribers"] ?></li>
 					<?php
 				}
 				

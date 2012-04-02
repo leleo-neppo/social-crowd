@@ -2,14 +2,14 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 0.8.3
+ * @version 0.8.4
  */
 /*
 Plugin Name: Social Crowd
 Plugin URI: http://www.macnative.com/socialCrowd
 Description: This plugin retrieves the raw number of Friends/Followers/Fans etc from your favorite social networks and allows you to show that raw number on any page of your wordpress blog using a simple php function **Requires PHP Curl Module**
 Author: Randall Hinton
-Version: 0.8.3
+Version: 0.8.4
 Author URI: http://www.macnative.com/
 */
 
@@ -38,7 +38,7 @@ if ( is_admin() ) {
  * @author randall@macnative.com
  */
 function SocialCrowd_Add_Option_Menu() {
-		add_submenu_page('options-general.php', 'Social Crowd Options', 'Social Crowd Options', 8, __FILE__, 'SocialCrowd_Options_Page');
+		add_submenu_page('options-general.php', 'Social Crowd', 'Social Crowd', 8, __FILE__, 'SocialCrowd_Options_Page');
 }
 
 /**
@@ -904,10 +904,11 @@ function SocialCrowd_Options_Page() {
 		}else{
 			$options_string .= "~linkedin_token:0";
 		}
-		
+
 		
 		if(update_option("Social_Crowd_Options", $options_string)){
 			$update_success = "Social Crowd Options Updated Successfully";
+			update_option('Social_Crowd_Timer', '0');
 		}else{
 			$update_error = "Social Crowd Options Failed To Update";
 		}

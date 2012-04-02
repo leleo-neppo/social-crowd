@@ -36,18 +36,22 @@ if (!class_exists('SC_Widget_Advanced')) :
 			$google = $instance['google'];
 			$google_stat = $instance['google_stat'];
 			$google_link = $instance['google_link'];
+			$google_type = $instance['google_type'];
 			$twitter = $instance['twitter'];
 			$twitter_stat = $instance['twitter_stat'];
 			$twitter_link = $instance['twitter_link'];
+			$twitter_type = $instance['twitter_type'];
 			$linkedin = $instance['linkedin'];
 			$linkedin_stat = $instance['linkedin_stat'];
 			$linkedin_link = $instance['linkedin_link'];
 			$youtube = $instance['youtube'];
 			$youtube_stat = $instance['youtube_stat'];
 			$youtube_link = $instance['youtube_link'];
+			$youtube_type = $instance['youtube_type'];
 			$vimeo = $instance['vimeo'];
 			$vimeo_stat = $instance['vimeo_stat'];
 			$vimeo_link = $instance['vimeo_link'];
+			$vimeo_type = $instance['vimeo_type'];
 			$feedburner = $instance['feedburner'];
 			$feedburner_stat = $instance['feedburner_stat'];
 			$feedburner_link = $instance['feedburner_link'];
@@ -115,13 +119,13 @@ if (!class_exists('SC_Widget_Advanced')) :
 				
 				if($instance['google']){
 					?>
-					<li class="scItems"><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/google.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats["gplusInCircles"], $google_stat) ?></span><br /><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $google_link ?></a></div></li>
+					<li class="scItems"><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/google.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats[$google_type], $google_stat) ?></span><br /><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $google_link ?></a></div></li>
 					<?php
 				}
 				
 				if($instance['twitter']){
 					?>
-					<li class="scItems"><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats["twitter"], $twitter_stat) ?></span><br /><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $twitter_link ?></a></div></li>
+					<li class="scItems"><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats[$twitter_type], $twitter_stat) ?></span><br /><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $twitter_link ?></a></div></li>
 					<?php
 				}
 				
@@ -133,13 +137,13 @@ if (!class_exists('SC_Widget_Advanced')) :
 				
 				if($instance['youtube']){
 					?>
-					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats["youtube"], $youtube_stat) ?></span><br /><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $youtube_link ?></a></div></li>
+					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats[$youtube_type], $youtube_stat) ?></span><br /><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $youtube_link ?></a></div></li>
 					<?php
 				}
 				
 				if($instance['vimeo']){
 					?>
-					<li class="scItems"><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/vimeo.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats["vimeo"], $vimeo_stat) ?></span><br /><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $vimeo_link ?></a></div></li>
+					<li class="scItems"><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/vimeo.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats[$vimeo_type], $vimeo_stat) ?></span><br /><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $vimeo_link ?></a></div></li>
 					<?php
 				}
 				
@@ -207,13 +211,13 @@ if (!class_exists('SC_Widget_Advanced')) :
 				
 				if($instance['google']){
 					?>
-					<li class="scItems"><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/google.png" ?>" /></a><br /><span><?php echo $google_stat ?></span><br /><?php echo $stats["gplusInCircles"] ?></li>
+					<li class="scItems"><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/google.png" ?>" /></a><br /><span><?php echo $google_stat ?></span><br /><?php echo $stats[$google_type] ?></li>
 					<?php
 				}
 				
 				if($instance['twitter']){
 					?>
-					<li class="scItems"><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>" /></a><br /><span><?php echo $twitter_stat ?></span><br /><?php echo $stats["twitter"] ?></li>
+					<li class="scItems"><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>" /></a><br /><span><?php echo $twitter_stat ?></span><br /><?php echo $stats[$twitter_type] ?></li>
 					<?php
 				}
 				
@@ -225,13 +229,13 @@ if (!class_exists('SC_Widget_Advanced')) :
 				
 				if($instance['youtube']){
 					?>
-					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /></a><br /><span><?php echo $youtube_stat ?></span><br /><?php echo $stats["youtube"] ?></li>
+					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /></a><br /><span><?php echo $youtube_stat ?></span><br /><?php echo $stats[$youtube_type] ?></li>
 					<?php
 				}
 				
 				if($instance['vimeo']){
 					?>
-					<li class="scItems"><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/vimeo.png" ?>" /></a><br /><span><?php echo $vimeo_stat ?></span><br /><?php echo $stats["vimeo"] ?></li>
+					<li class="scItems"><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/vimeo.png" ?>" /></a><br /><span><?php echo $vimeo_stat ?></span><br /><?php echo $stats[$vimeo_type] ?></li>
 					<?php
 				}
 				
@@ -271,18 +275,22 @@ if (!class_exists('SC_Widget_Advanced')) :
 			$instance['google'] = $new_instance['google'];
 			$instance['google_stat'] = $new_instance['google_stat'];
 			$instance['google_link'] = $new_instance['google_link'];
+			$instance['google_type'] = $new_instance['google_type'];
 			$instance['twitter'] = $new_instance['twitter'];
 			$instance['twitter_stat'] = $new_instance['twitter_stat'];
 			$instance['twitter_link'] = $new_instance['twitter_link'];
+			$instance['twitter_type'] = $new_instance['twitter_type'];
 			$instance['linkedin'] = $new_instance['linkedin'];
 			$instance['linkedin_stat'] = $new_instance['linkedin_stat'];
 			$instance['linkedin_link'] = $new_instance['linkedin_link'];
 			$instance['youtube'] = $new_instance['youtube'];
 			$instance['youtube_stat'] = $new_instance['youtube_stat'];
 			$instance['youtube_link'] = $new_instance['youtube_link'];
+			$instance['youtube_type'] = $new_instance['youtube_type'];
 			$instance['vimeo'] = $new_instance['vimeo'];
 			$instance['vimeo_stat'] = $new_instance['vimeo_stat'];
 			$instance['vimeo_link'] = $new_instance['vimeo_link'];
+			$instance['vimeo_type'] = $new_instance['vimeo_type'];
 			$instance['feedburner'] = $new_instance['feedburner'];
 			$instance['feedburner_stat'] = $new_instance['feedburner_stat'];
 			$instance['feedburner_link'] = $new_instance['feedburner_link'];
@@ -295,7 +303,7 @@ if (!class_exists('SC_Widget_Advanced')) :
 
 			// Set up some default widget settings
 			//$defaults = array('title' => 'Latest Tweets', 'username' => '', 'posts' => 5, 'interval' => 1800, 'date' => 'j F Y', 'facebook' => true, 'twitter' => true, 'feedburner' => true, 'youtube' => true, 'vimeo' => false);
-			$defaults = array('title' => 'Join The Crowd', 'set' => 'aquaticus', 'format' => 'vertical', 'style' => true, 'newWindow' => false, 'link' => true, 'facebook' => true, 'facebook_stat' => '%s Likes', 'facebook_link' => 'Like Us on Facebook', 'google' => true, 'google_stat' => 'In %s Circles', 'google_link' => 'Add us on Google+', 'twitter' => true, 'twitter_stat' => '%s Followers', 'twitter_link' => 'Follow us on Twitter', 'linkedin' => true, 'linkedin_stat' => '%s Connections', 'linkedin_link' => 'Join Us On Linked In', 'youtube' => true, 'youtube_stat' => '%s Subscribers', 'youtube_link' => 'Watch us on Youtube', 'vimeo' => true, 'vimeo_stat' => '%s Contacts', 'vimeo_link' => 'See us on Vimeo', 'feedburner' => true, 'feedburner_stat' => '%s Readers', 'feedburner_link' => 'Read On Feedburner');
+			$defaults = array('title' => 'Join The Crowd', 'set' => 'aquaticus', 'format' => 'vertical', 'style' => true, 'newWindow' => false, 'link' => true, 'facebook' => true, 'facebook_stat' => '%s Likes', 'facebook_link' => 'Like Us on Facebook', 'google' => true, 'google_stat' => 'In %s Circles', 'google_link' => 'Add us on Google+', 'google_type' => 'gplusInCircles', 'twitter' => true, 'twitter_stat' => '%s Followers', 'twitter_link' => 'Follow us on Twitter', 'twitter_type' => 'twitter', 'linkedin' => true, 'linkedin_stat' => '%s Connections', 'linkedin_link' => 'Join Us On Linked In', 'youtube' => true, 'youtube_stat' => '%s Subscribers', 'youtube_link' => 'Watch us on Youtube', 'youtube_type' => 'youtubeSubscribers', 'vimeo' => true, 'vimeo_stat' => '%s Contacts', 'vimeo_link' => 'See us on Vimeo', 'vimeo_type' => 'vimeo', 'feedburner' => true, 'feedburner_stat' => '%s Readers', 'feedburner_link' => 'Read On Feedburner');
 			$instance = wp_parse_args((array) $instance, $defaults);
 ?>
 				
@@ -336,14 +344,26 @@ if (!class_exists('SC_Widget_Advanced')) :
 				<label for="<?php echo $this->get_field_id('google_stat'); ?>">Google+ (Beta) Stats String:</label>
 				<input class="widefat" type="text" id="<?php echo $this->get_field_id('google_stat'); ?>" name="<?php echo $this->get_field_name('google_stat'); ?>" value="<?php echo $instance['google_stat']; ?>"><br />
 				<label for="<?php echo $this->get_field_id('google_link'); ?>">Google+ (Beta) Link Title:</label>
-				<input class="widefat" type="text" id="<?php echo $this->get_field_id('google_link'); ?>" name="<?php echo $this->get_field_name('google_link'); ?>" value="<?php echo $instance['google_link']; ?>"><br /><br />
+				<input class="widefat" type="text" id="<?php echo $this->get_field_id('google_link'); ?>" name="<?php echo $this->get_field_name('google_link'); ?>" value="<?php echo $instance['google_link']; ?>"><br />
+				<label for="<?php echo $this->get_field_id('google_type'); ?>">Which Google+ Stat To Display:</label><br />
+				<?php 
+				$google_circles = array("In Your Circles" => "gplusCircles", "In Others Circles" => "gplusInCircles");
+				SocialCrowd_Make_Select($instance['google_type'],$google_circles,"widefat",$this->get_field_id('google_type'),$this->get_field_name('google_type'));
+				?>
+				<br /><br />
 				
 				<input class="checkbox" type="checkbox" <?php if ($instance['twitter']) echo 'checked="checked" '; ?>id="<?php echo $this->get_field_id('twitter'); ?>" name="<?php echo $this->get_field_name('twitter'); ?>">
 				<label for="<?php echo $this->get_field_id('twitter'); ?>">&nbsp;&nbsp;Display Twitter Stats</label><br />
 				<label for="<?php echo $this->get_field_id('twitter_stat'); ?>">Twitter Stats String:</label>
 				<input class="widefat" type="text" id="<?php echo $this->get_field_id('twitter_stat'); ?>" name="<?php echo $this->get_field_name('twitter_stat'); ?>" value="<?php echo $instance['twitter_stat']; ?>"><br />
 				<label for="<?php echo $this->get_field_id('twitter_link'); ?>">Twitter Link Title:</label>
-				<input class="widefat" type="text" id="<?php echo $this->get_field_id('twitter_link'); ?>" name="<?php echo $this->get_field_name('twitter_link'); ?>" value="<?php echo $instance['twitter_link']; ?>"><br /><br />
+				<input class="widefat" type="text" id="<?php echo $this->get_field_id('twitter_link'); ?>" name="<?php echo $this->get_field_name('twitter_link'); ?>" value="<?php echo $instance['twitter_link']; ?>"><br />
+				<label for="<?php echo $this->get_field_id('twitter_type'); ?>">Which Twitter Stat to Display:</label><br />
+				<?php 
+				$twitter_stats = array("Followers" => "twitter", "Following" => "twitterFriends", "Status Updates" => "twitterStatuses", "Listed Count" => "twitterListed");
+				SocialCrowd_Make_Select($instance['twitter_type'],$twitter_stats,"widefat",$this->get_field_id('twitter_type'),$this->get_field_name('twitter_type'));
+				?>
+				<br /><br />
 				
 				<input class="checkbox" type="checkbox" <?php if ($instance['linkedin']) echo 'checked="checked" '; ?>id="<?php echo $this->get_field_id('linkedin'); ?>" name="<?php echo $this->get_field_name('linkedin'); ?>">
 				<label for="<?php echo $this->get_field_id('linkedin'); ?>">&nbsp;&nbsp;Display Linked In Stats</label><br />
@@ -357,14 +377,24 @@ if (!class_exists('SC_Widget_Advanced')) :
 				<label for="<?php echo $this->get_field_id('youtube_stat'); ?>">Youtube Stats String:</label>
 				<input class="widefat" type="text" id="<?php echo $this->get_field_id('youtube_stat'); ?>" name="<?php echo $this->get_field_name('youtube_stat'); ?>" value="<?php echo $instance['youtube_stat']; ?>"><br />
 				<label for="<?php echo $this->get_field_id('youtube_link'); ?>">Youtube Link Title:</label>
-				<input class="widefat" type="text" id="<?php echo $this->get_field_id('youtube_link'); ?>" name="<?php echo $this->get_field_name('youtube_link'); ?>" value="<?php echo $instance['youtube_link']; ?>"><br /><br />
+				<input class="widefat" type="text" id="<?php echo $this->get_field_id('youtube_link'); ?>" name="<?php echo $this->get_field_name('youtube_link'); ?>" value="<?php echo $instance['youtube_link']; ?>"><br />
+				<label for="<?php echo $this->get_field_id('youtube_type'); ?>">Which Youtube Stat to Display:</label><br />
+				<?php 
+				$youtube_stats = array("Friends" => "youtube", "Subscribers" => "youtubeSubscribers", "Videos Viewed" => "youtubeViews", "Total Upload Views" => "youtubeUploadViews");
+				SocialCrowd_Make_Select($instance['youtube_type'],$youtube_stats,"widefat",$this->get_field_id('youtube_type'),$this->get_field_name('youtube_type'));
+				?><br /><br />
 
 				<input class="checkbox" type="checkbox" <?php if ($instance['vimeo']) echo 'checked="checked" '; ?>id="<?php echo $this->get_field_id('vimeo'); ?>" name="<?php echo $this->get_field_name('vimeo'); ?>">
 				<label for="<?php echo $this->get_field_id('vimeo'); ?>">&nbsp;&nbsp;Display Vimeo Stats</label><br />
 				<label for="<?php echo $this->get_field_id('vimeo_stat'); ?>">Vimeo Stats String:</label>
 				<input class="widefat" type="text" id="<?php echo $this->get_field_id('vimeo_stat'); ?>" name="<?php echo $this->get_field_name('vimeo_stat'); ?>" value="<?php echo $instance['vimeo_stat']; ?>"><br />
 				<label for="<?php echo $this->get_field_id('vimeo_link'); ?>">Vimeo Link Title:</label>
-				<input class="widefat" type="text" id="<?php echo $this->get_field_id('vimeo_link'); ?>" name="<?php echo $this->get_field_name('vimeo_link'); ?>" value="<?php echo $instance['vimeo_link']; ?>"><br /><br />
+				<input class="widefat" type="text" id="<?php echo $this->get_field_id('vimeo_link'); ?>" name="<?php echo $this->get_field_name('vimeo_link'); ?>" value="<?php echo $instance['vimeo_link']; ?>"><br />
+				<label for="<?php echo $this->get_field_id('vimeo_type'); ?>">Which Vimeo Stat to Display:</label><br />
+				<?php 
+				$vimeo_stats = array("Contacts" => "vimeo", "Uploads" => "vimeoUploads", "Appearances" => "vimeoAppearsIn", "Videos Liked" => "vimeoLikes");
+				SocialCrowd_Make_Select($instance['vimeo_type'],$vimeo_stats,"widefat",$this->get_field_id('vimeo_type'),$this->get_field_name('vimeo_type'));
+				?><br /><br />
 				
 				<input class="checkbox" type="checkbox" <?php if ($instance['feedburner']) echo 'checked="checked" '; ?>id="<?php echo $this->get_field_id('feedburner'); ?>" name="<?php echo $this->get_field_name('feedburner'); ?>">
 				<label for="<?php echo $this->get_field_id('feedburner'); ?>">&nbsp;&nbsp;Display Feedburner Stats</label><br />
