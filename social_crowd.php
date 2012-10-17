@@ -2,14 +2,14 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 0.8.6
+ * @version 0.8.7
  */
 /*
 Plugin Name: Social Crowd
 Plugin URI: http://www.macnative.com/socialCrowd
 Description: This plugin retrieves the raw number of Friends/Followers/Fans etc from your favorite social networks and allows you to show that raw number on any page of your wordpress blog using a simple php function **Requires PHP Curl Module**
 Author: Randall Hinton
-Version: 0.8.6
+Version: 0.8.7
 Author URI: http://www.macnative.com/
 */
 
@@ -173,41 +173,41 @@ function SocialCrowd_GetCounts()
 		
 		//Get Twitter Followers
 		if($sc_options["get_twitter"]){
-			$xml = SocialCrowd_Load_XML("http://twitter.com/users/show.xml?screen_name=".$sc_options['twitter_token']);
+			$tjson = json_decode(SocialCrowd_Load_JSON("https://api.twitter.com/1/users/show.json?screen_name=".$sc_options['twitter_token']));
 			
 			if($sc_options["update"]){
-				if ($xml->followers_count != '' && $xml->followers_count > get_option('Social_Crowd_Twitter_Count')) 
+				if ($tjson->followers_count != '' && $tjson->followers_count > get_option('Social_Crowd_Twitter_Count')) 
 		        { 
-	                update_option('Social_Crowd_Twitter_Count',  (string) $xml->followers_count); 
+	                update_option('Social_Crowd_Twitter_Count',  (string) $tjson->followers_count); 
 	            }
-				if ($xml->friends_count != '' && $xml->friends_count > get_option('Social_Crowd_Twitter_friendsCount')) 
+				if ($tjson->friends_count != '' && $tjson->friends_count > get_option('Social_Crowd_Twitter_friendsCount')) 
 		        { 
-	                update_option('Social_Crowd_Twitter_friendsCount',  (string) $xml->friends_count); 
+	                update_option('Social_Crowd_Twitter_friendsCount',  (string) $tjson->friends_count); 
 	            }
-				if ($xml->statuses_count != '' && $xml->statuses_count > get_option('Social_Crowd_Twitter_statusesCount')) 
+				if ($tjson->statuses_count != '' && $tjson->statuses_count > get_option('Social_Crowd_Twitter_statusesCount')) 
 		        { 
-	                update_option('Social_Crowd_Twitter_statusesCount',  (string) $xml->statuses_count); 
+	                update_option('Social_Crowd_Twitter_statusesCount',  (string) $tjson->statuses_count); 
 	            }
-				if ($xml->listed_count != '' && $xml->listed_count > get_option('Social_Crowd_Twitter_listedCount')) 
+				if ($tjson->listed_count != '' && $tjson->listed_count > get_option('Social_Crowd_Twitter_listedCount')) 
 		        { 
-	                update_option('Social_Crowd_Twitter_listedCount',  (string) $xml->listed_count); 
+	                update_option('Social_Crowd_Twitter_listedCount',  (string) $tjson->listed_count); 
 	            }
 			}else{
-				if ($xml->followers_count != '' && $xml->followers_count > 0) 
+				if ($tjson->followers_count != '' && $tjson->followers_count > 0) 
 		        { 
-	                update_option('Social_Crowd_Twitter_Count',  (string) $xml->followers_count); 
+	                update_option('Social_Crowd_Twitter_Count',  (string) $tjson->followers_count); 
 	            }
-				if ($xml->friends_count != '' && $xml->friends_count > 0) 
+				if ($tjson->friends_count != '' && $tjson->friends_count > 0) 
 		        { 
-	                update_option('Social_Crowd_Twitter_friendsCount',  (string) $xml->friends_count); 
+	                update_option('Social_Crowd_Twitter_friendsCount',  (string) $tjson->friends_count); 
 	            }
-				if ($xml->statuses_count != '' && $xml->statuses_count > 0) 
+				if ($tjson->statuses_count != '' && $tjson->statuses_count > 0) 
 		        { 
-	                update_option('Social_Crowd_Twitter_statusesCount',  (string) $xml->statuses_count); 
+	                update_option('Social_Crowd_Twitter_statusesCount',  (string) $tjson->statuses_count); 
 	            }
-				if ($xml->listed_count != '' && $xml->listed_count > 0) 
+				if ($tjson->listed_count != '' && $tjson->listed_count > 0) 
 		        { 
-	                update_option('Social_Crowd_Twitter_listedCount',  (string) $xml->listed_count); 
+	                update_option('Social_Crowd_Twitter_listedCount',  (string) $tjson->listed_count); 
 	            }
 			}
 		}
@@ -1140,12 +1140,12 @@ function enable_options() {
 						<dt>
 							<label for"sc_gplus" class="labels">
 								<input type="checkbox" name="sc_gplus_enabled" id="sc_gplus_enabled" class="checkboxr" <?php echo ( $sc_options['get_gplus']=='1' ) ? ' checked="checked"' : '' ?> onchange="enable_options()" >
-								<img src="<?php echo $img_url."google.png" ?>" title="Google+">&nbsp;Google+ (beta)
+								<img src="<?php echo $img_url."google.png" ?>" title="Google+">&nbsp;Google+ <b>(Beta)</b>
 							</label>
 						</dt>
 						<dd>
 							<input type="input" maxlength="128" size="25" name="sc_gplus" id="sc_gplus" value="<?php echo ( $sc_options['gplus_token']!='0' ) ? $sc_options['gplus_token'] : '' ?>">
-							&nbsp;&nbsp;Your Google+ ID <br /><span class="sc_example">ie: http://plus.google.com/<span class="sc_example sc_example2">123456789012</span>/posts (search for yourself on google+ after signing out).</span>
+							&nbsp;&nbsp;Your Google+ ID - <span class="sc_example">probably won't work...</span><br /><span class="sc_example">ie: http://plus.google.com/<span class="sc_example sc_example2">123456789012</span>/posts (search for yourself on google+ after signing out).</span>
 						</dd>
 					</dl>
 				</li>
@@ -1168,12 +1168,12 @@ function enable_options() {
 						<dt>
 							<label for"sc_linkedin" class="labels">
 								<input type="checkbox" name="sc_linkedin_enabled" id="sc_linkedin_enabled" class="checkboxr" <?php echo ( $sc_options['get_linkedin']=='1' ) ? ' checked="checked"' : '' ?> onchange="enable_options()" >
-								<img src="<?php echo $img_url."linkedin.png" ?>" title="LinkedIn">&nbsp;Linked In (beta)
+								<img src="<?php echo $img_url."linkedin.png" ?>" title="LinkedIn">&nbsp;Linked In <b>(Beta)</b>
 							</label>
 						</dt>
 						<dd>
 							<input type="input" maxlength="128" size="25" name="sc_linkedin" id="sc_linkedin" value="<?php echo ( $sc_options['linkedin_token']!='0' ) ? $sc_options['linkedin_token'] : '' ?>">
-							&nbsp;&nbsp;Your Linked In Public Profile URL <br /><span class="sc_example">ie: <span class="sc_example sc_example2">http://www.linkedin.com/in/johndoe</span> or <span class="sc_example sc_example2">http://www.linkedin.com/pub/janedoe/12/232/123</span></span>
+							&nbsp;&nbsp;Your Linked In Public Profile URL - <span class="sc_example">probably won't work...</span><br /><span class="sc_example">ie: <span class="sc_example sc_example2">http://www.linkedin.com/in/johndoe</span> or <span class="sc_example sc_example2">http://www.linkedin.com/pub/janedoe/12/232/123</span></span>
 						</dd>
 					</dl>
 				</li>

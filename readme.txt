@@ -5,8 +5,8 @@ Author URI: http://www.macnative.com
 Donate link: http://www.macnative.com/development/donate 
 Tags: social, network, networks, count, friends, crowd, clan, contacts, display, show, vanity, stats, statistics, followers, readers, facebook, google+, google plus, linkedin, linked in, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
-Tested up to: 3.4
-Stable tag: 0.8.6
+Tested up to: 3.4.2
+Stable tag: 0.8.7
 
 Social Crowd retrieves the count/number of Friends/Followers from your favorite social networks and displays them throughout your blog
 
@@ -19,9 +19,9 @@ The Social Crowd Plugin grabs the latest counts of your Friends/Fans/Followers e
 #### Supported Networks:
 
 * Facebook
-* Google+ (Beta Support)
+* Google+ (Alpha Support)
 * Twitter
-* Linked In (Beta Support)
+* Linked In (Alpha Support)
 * Youtube
 * Vimeo
 * Feedburner
@@ -128,6 +128,15 @@ Other icons used with the Widget are:
 1. Installation finished.
 
 == Frequently Asked Questions ==
+
+= My Facebook stats aren't showing up what's wrong =
+
+ Your publicly available facebook stats are only available to the plugin if your Age Restrictions are set to anything other than "Anyone (13+)" [Read More Here][8]
+[8]: http://wordpress.org/support/topic/plugin-social-crowd-facebook-likes-0
+
+= My Favorite Social Network is not currently supported/working? =
+
+Many social networks including LinkedIn, Google+, and many others require specific authentication to get the social stats. Currently this plugin does not support those networks officially. We hope in the near future to add the features necessary to provide those stats as well. 
 
 = How do I customize the appearance of the widget? = 
 
@@ -306,6 +315,10 @@ I hope to expand this list to include your favorites ( just leave me some commen
 4. Example Designer Custom Usage
 
 == Changelog ==
+
+= 0.8.7 [2012-10-16] =
+* Updated for Wordpress 3.4.2
+* Bugifx - Updated Twitter Stats API 
 
 = 0.8.6 [2012-06-16] =
 * Updated for Wordpress 3.4
