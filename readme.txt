@@ -6,7 +6,7 @@ Donate link: http://www.macnative.com/development/donate
 Tags: social, network, networks, count, friends, crowd, clan, contacts, display, show, vanity, stats, statistics, followers, readers, facebook, google+, google plus, linkedin, linked in, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
 Tested up to: 3.5.1
-Stable tag: 0.9
+Stable tag: 0.9.1
 
 Social Crowd retrieves the count/number of Friends/Followers from your favorite social networks and displays them throughout your blog
 
@@ -328,8 +328,11 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 == Changelog ==
 
-= 0.9 [2012-12-24] =
-* Updated for Wordpress 3.5
+= 0.9.1 [2013-04-15]
+* Fixed issue created while updating to 0.9.1
+
+= 0.9 [2013-04-15] =
+* Updated for Wordpress 3.5.1
 * Removed Feedburner support (Google discontinued Feedburner API Support)
 * Removed Google+ support (Google Changes have broken existing functionality - possibly will return in a future release)
 * Removed LinkedIn support (Existing implementation was completely broken - possibly will return in a future release)
@@ -404,21 +407,6 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 = 0.9 =
 Removed Feedburner, Google+ and LinkedIn stats - Broken Implementations or discontinued API's forced their removal.
-
-= 0.8.4 =
-Added capacity to specify the type of stats displayed in the Advanced Widget.
-
-= 0.8 =
-Added new widget layouts and a new shortcode.
-
-r, Youtube, and Vimeo.
-* Added additional detail and information in the Readme file. 
-* Small UI tweaks to the Admin.
-
-= 0.1 [2011-05-17] = 
-* Initial Release
-
-== Upgrade Notice == 
 
 = 0.8.4 =
 Added capacity to specify the type of stats displayed in the Advanced Widget.
