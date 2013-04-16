@@ -294,45 +294,4 @@ if (class_exists('SC_Widget')) :
 
 endif;
 
-?>t'));
-					?>
-					
-				</p>
-				<b>Custom or Default Styling?</b><br>
-				<p>
-					
-				<input class="checkbox" type="checkbox" <?php if ($instance['style']) echo 'checked="checked" '; ?>id="<?php echo $this->get_field_id('style'); ?>" name="<?php echo $this->get_field_name('style'); ?>">
-				<label for="<?php echo $this->get_field_id('style'); ?>">&nbsp;&nbsp;Default Styling</label><br />
-				Check plugin documentation for instructions on using custom styles
-				
-				</p>
-				<b>Share the Love</b>
-				<p>
-				
-				<input class="checkbox" type="checkbox" <?php if ($instance['link']) echo 'checked="checked" '; ?>id="<?php echo $this->get_field_id('link'); ?>" name="<?php echo $this->get_field_name('link'); ?>">
-				<label for="<?php echo $this->get_field_id('link'); ?>">&nbsp;&nbsp;Display "Credit" Link</label>
-			
-			</p>
-			
-<?php
-		}
-	} 
-endif;
-
-
-
-
-
-// Register the plugin/widget
-if (class_exists('SC_Widget')) :
-
-	function loadSCWidget() {
-		
-		register_widget('SC_Widget');
-	}
-
-	add_action('widgets_init', 'loadSCWidget');
-
-endif;
-
 ?>
