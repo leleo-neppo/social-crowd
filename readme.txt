@@ -5,8 +5,8 @@ Author URI: http://www.macnative.com
 Donate link: http://www.macnative.com/development/donate 
 Tags: social, network, networks, count, friends, crowd, clan, contacts, display, show, vanity, stats, statistics, followers, readers, facebook, google+, google plus, linkedin, linked in, twitter, feedburner, youtube, vimeo, number, raw
 Requires at least: 3.0
-Tested up to: 3.4.2
-Stable tag: 0.8.7
+Tested up to: 3.5.1
+Stable tag: 0.9
 
 Social Crowd retrieves the count/number of Friends/Followers from your favorite social networks and displays them throughout your blog
 
@@ -19,18 +19,18 @@ The Social Crowd Plugin grabs the latest counts of your Friends/Fans/Followers e
 #### Supported Networks:
 
 * Facebook
-* Google+ (Alpha Support)
 * Twitter
-* Linked In (Alpha Support)
 * Youtube
 * Vimeo
-* Feedburner
 
 
 #### Plugin Usage
 
-**Feedburner Instructions**
-If you wish to use the Feedburner stats you must enable access by logging into your Feedburner admin panel http://feedburner.google.com, selecting the feed you want Social Crowd to access, Click on the "Publicize" tab, Select "Awareness API" from the Sidebar, and then click the "Activate" button. This will allow Social Crowd to correctly acquire your Feedburner stats and display them for you.
+**Feedburner Update**
+Google has discontinued all feedburner API's thus making it impossible to acquire the stats that the Social Crowd plugin had made available previously, so feedburner support has been discontinued...
+
+**Google+/LinkedIn Update**
+Changes on the Google+ and LinkedIn sites periodically break the ability for the plugin to grab the stats from those networks, so as of the 0.9 release support will be discontinued for now, until a better method for grabbing the stats can be established.
 
 
 **Basic Usage**
@@ -84,23 +84,32 @@ You have two options:
 The available stats are listed in the following order: 
 Type of statistic ('keyword'), use the keyowrd in the Social Crowd function to retrieve the desired content. 
 
-* Feedburner subscriber count  (' **feedburner** ')  *Number of subscribers to your feed.*
-* Facebook Friend/Like Count  (' **facebook** ')  *Number of friends or page likes.*
-* Twitter Follower Count  (' **twitter** ')  *Number of followers.*
-* Twitter Friend Count  (' **twitterFriends** ')  *Number of Friends you have.*
-* Twitter Statuses Count  (' **twitterStatuses** ')  *Number of status updates you have sent.*
-* Twitter Listed Count  (' **twitterListed** ')  *Number of lists you have been added to.*
-* Youtube Friend Count  (' **youtube** ')  *Number of friends on Youtube.*
-* Youtube Subscriber Count  (' **youtubeSubscribers** ')  *Number of Youtube subscribers.*
-* Youtube Viewed Count  (' **youtubeViews** ')  *Number of videos you have viewed.*
-* Youtube Uploaded Views Count  (' **youtubeUploadViews** ')  *Number of views your uploaded videos have had on Youtube.*
-* Vimeo Friend Count  (' **vimeo** ')  *Number of friends you have on Vimeo.*
-* Vimeo Uploads Count  (' **vimeoUploads** ')  *Number of videos you have uploaded to Vimeo.*
-* Vimeo Appears In Count  (' **vimeoAppearsIn** ')  *Number of videos you appear in on Vimeo.*
-* Vimeo Likes Count  (' **vimeoLikes** ')  *Number of videos that you have liked on Vimeo.*
-* Google+ Your Circles Count  (' **gplusCircles** ')  *Number of people that you have in your circles.*
-* Google+ Others Circles Count  (' **gplusInCircles** ')  *Number of people that have you in their circles.*
-* Linked In Connections  (' **linkedIn** ')  *Number of Connections.*
+* Facebook Friend/Like Count  
+(' **facebook** ')  *Number of friends or page likes.*
+* Twitter Follower Count  
+(' **twitter** ')  *Number of followers.*
+* Twitter Friend Count  
+(' **twitterFriends** ')  *Number of Friends you have.*
+* Twitter Statuses Count  
+(' **twitterStatuses** ')  *Number of status updates you have sent.*
+* Twitter Listed Count  
+(' **twitterListed** ')  *Number of lists you have been added to.*
+* Youtube Friend Count  
+(' **youtube** ')  *Number of friends on Youtube.*
+* Youtube Subscriber Count  
+(' **youtubeSubscribers** ')  *Number of Youtube subscribers.*
+* Youtube Viewed Count  
+(' **youtubeViews** ')  *Number of videos you have viewed.*
+* Youtube Uploaded Views Count  
+(' **youtubeUploadViews** ')  *Number of views your uploaded videos have had on Youtube.*
+* Vimeo Friend Count  
+(' **vimeo** ')  *Number of friends you have on Vimeo.*
+* Vimeo Uploads Count  
+(' **vimeoUploads** ')  *Number of videos you have uploaded to Vimeo.*
+* Vimeo Appears In Count  
+(' **vimeoAppearsIn** ')  *Number of videos you appear in on Vimeo.*
+* Vimeo Likes Count  
+(' **vimeoLikes** ')  *Number of videos that you have liked on Vimeo.*
 
 I hope to expand this list to include your favorites ( just leave me some comments on the [plugin homepage][1] ). 
 
@@ -224,7 +233,7 @@ Simply place this anywhere within your posts or pages to display your Social Cro
 
 Shortcode Options:
 	icons -> Icon Set to Use ie: icons=aquaticus (aquaticus, elegantmedia, picons, picons_inverted, socialballoon, socialize, socialme, socialnet)
-	networks -> Comma Delimited List of Networks to display or (all) ie: networks=all or networks=facebook,twitter,google
+	networks -> Comma Delimited List of Networks to display or (all) ie: networks=all or networks=facebook,twitter
 	desctext -> Show Description Text ie: desctext=true or desctext=none
 	includecss -> Include Default CSS Style ie: includecss=true
 	newwindow -> Open Links in New Window ie: newwindow=true
@@ -232,19 +241,13 @@ Shortcode Options:
 	facebooktext -> Text Under the Facebook Icon (if none given default will be used)
 	twittericon -> URL for Twitter Icon
 	twittertext -> Text Under the Twitter Icon
-	googleicon -> URL for Google+ Icon
-	googletext -> Text Under the Facebook Icon
-	linkedinicon -> URL for LinkedIn Icon
-	linkedintext -> Text Under the Facebook Icon
 	youtubeicon -> URL for Youtube Icon
 	youtubetext -> Text Under the Facebook Icon
 	vimeoicon -> URL for Vimeo Icon
 	vimeotext -> Text Under the Facebook Icon
-	feedburnericon -> URL for Feedburner Icon
-	feedburnertext -> Text Under the Facebook Icon
 	
 	Example Usage: 
-	[SC_Horiz_Stats icons=socialize desctext=false networks=facebook,twitter,feedburner,vimeo facebooktext=friends facebookicon=http://www.example.com/facebookicon.png ]
+	[SC_Horiz_Stats icons=socialize desctext=false networks=facebook,twitter,vimeo facebooktext=friends facebookicon=http://www.example.com/facebookicon.png ]
 	
 
 = How do I call the function =
@@ -280,25 +283,34 @@ You have two options:
 #### Available Stats
 
 The available stats are listed in the following order: 
-Type of statistic ('keyword'), use the keyowrd in the Social Crowd function to retrieve the desired content. 
+Type of statistic ('keyword'), use the keyword in the Social Crowd function to retrieve the desired content. 
 
-* Feedburner subscriber count  (' **feedburner** ')  *Number of subscribers to your feed.*
-* Facebook Friend/Like Count  (' **facebook** ')  *Number of friends or page likes.*
-* Twitter Follower Count  (' **twitter** ')  *Number of followers.*
-* Twitter Friend Count  (' **twitterFriends** ')  *Number of Friends you have.*
-* Twitter Statuses Count  (' **twitterStatuses** ')  *Number of status updates you have sent.*
-* Twitter Listed Count  (' **twitterListed** ')  *Number of lists you have been added to.*
-* Youtube Friend Count  (' **youtube** ')  *Number of friends on Youtube.*
-* Youtube Subscriber Count  (' **youtubeSubscribers** ')  *Number of Youtube subscribers.*
-* Youtube Viewed Count  (' **youtubeViews** ')  *Number of videos you have viewed.*
-* Youtube Uploaded Views Count  (' **youtubeUploadViews** ')  *Number of views your uploaded videos have had on Youtube.*
-* Vimeo Friend Count  (' **vimeo** ')  *Number of friends you have on Vimeo.*
-* Vimeo Uploads Count  (' **vimeoUploads** ')  *Number of videos you have uploaded to Vimeo.*
-* Vimeo Appears In Count  (' **vimeoAppearsIn** ')  *Number of videos you appear in on Vimeo.*
-* Vimeo Likes Count  (' **vimeoLikes** ')  *Number of videos that you have liked on Vimeo.*
-* Google+ Your Circles Count  (' **gplusCircles** ')  *Number of people that you have in your circles.*
-* Google+ Others Circles Count  (' **gplusInCircles** ')  *Number of people that have you in their circles.*
-* Linked In Connections  (' **linkedIn** ')  *Number of Connections.*
+* Facebook Friend/Like Count  
+(' **facebook** ')  *Number of friends or page likes.*
+* Twitter Follower Count  
+(' **twitter** ')  *Number of followers.*
+* Twitter Friend Count  
+(' **twitterFriends** ')  *Number of Friends you have.*
+* Twitter Statuses Count  
+(' **twitterStatuses** ')  *Number of status updates you have sent.*
+* Twitter Listed Count  
+(' **twitterListed** ')  *Number of lists you have been added to.*
+* Youtube Friend Count  
+(' **youtube** ')  *Number of friends on Youtube.*
+* Youtube Subscriber Count  
+(' **youtubeSubscribers** ')  *Number of Youtube subscribers.*
+* Youtube Viewed Count  
+(' **youtubeViews** ')  *Number of videos you have viewed.*
+* Youtube Uploaded Views Count  
+(' **youtubeUploadViews** ')  *Number of views your uploaded videos have had on Youtube.*
+* Vimeo Friend Count  
+(' **vimeo** ')  *Number of friends you have on Vimeo.*
+* Vimeo Uploads Count  
+(' **vimeoUploads** ')  *Number of videos you have uploaded to Vimeo.*
+* Vimeo Appears In Count  
+(' **vimeoAppearsIn** ')  *Number of videos you appear in on Vimeo.*
+* Vimeo Likes Count  
+(' **vimeoLikes** ')  *Number of videos that you have liked on Vimeo.*
 
 I hope to expand this list to include your favorites ( just leave me some comments on the [plugin homepage][1] ).
 
@@ -315,6 +327,14 @@ I hope to expand this list to include your favorites ( just leave me some commen
 4. Example Designer Custom Usage
 
 == Changelog ==
+
+= 0.9 [2012-12-24] =
+* Updated for Wordpress 3.5
+* Removed Feedburner support (Google discontinued Feedburner API Support)
+* Removed Google+ support (Google Changes have broken existing functionality - possibly will return in a future release)
+* Removed LinkedIn support (Existing implementation was completely broken - possibly will return in a future release)
+* Split plugin into multiple files for easier development/management
+* Fixed an issue that caused the Youtube Stats in the Basic Widget to not display the correct stats
 
 = 0.8.7 [2012-10-16] =
 * Updated for Wordpress 3.4.2
@@ -374,6 +394,24 @@ I hope to expand this list to include your favorites ( just leave me some commen
 
 = 0.2 [2011-06-08] =
 * Added additional statistics gathering for Twitter, Youtube, and Vimeo.
+* Added additional detail and information in the Readme file. 
+* Small UI tweaks to the Admin.
+
+= 0.1 [2011-05-17] = 
+* Initial Release
+
+== Upgrade Notice == 
+
+= 0.9 =
+Removed Feedburner, Google+ and LinkedIn stats - Broken Implementations or discontinued API's forced their removal.
+
+= 0.8.4 =
+Added capacity to specify the type of stats displayed in the Advanced Widget.
+
+= 0.8 =
+Added new widget layouts and a new shortcode.
+
+r, Youtube, and Vimeo.
 * Added additional detail and information in the Readme file. 
 * Small UI tweaks to the Admin.
 

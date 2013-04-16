@@ -112,7 +112,7 @@ if (!class_exists('SC_Widget')) :
 				
 				if($sc_options["get_youtube"]=='1'){
 					?>
-					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /></a><div ><span><?php echo $stats["youtube"] ?> Subscribers</span><br /><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>">Watch us on Youtube</a></div></li>
+					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /></a><div ><span><?php echo $stats["youtubeSubscribers"] ?> Subscribers</span><br /><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>">Watch us on Youtube</a></div></li>
 					<?php
 				}
 				
@@ -185,21 +185,9 @@ if (!class_exists('SC_Widget')) :
 					<?php
 				}
 				
-				if($sc_options["get_gplus"]=='1'){
-					?>
-					<li class="scItems"><a href="http://plus.google.com/<?php echo $sc_options['gplus_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/google.png" ?>" /></a><br /><span>Circles</span><br /><?php echo $stats["gplusInCircles"] ?></li>
-					<?php
-				}
-				
 				if($sc_options["get_twitter"]=='1'){
 					?>
 					<li class="scItems"><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>" /></a><br /><span>Followers</span><br /><?php echo $stats["twitter"] ?></li>
-					<?php
-				}
-				
-				if($sc_options["get_linkedin"]=='1'){
-					?>
-					<li class="scItems"><a href="<?php echo (stristr($sc_options["linkedin_token"],"//")) ? 'http:' : 'http://www.linkedin.com/in/'; echo $sc_options['linkedin_token'] ?>"><img src="<?php echo $img_url."large/".$icon_set."/linkedin.png" ?>" /></a><br /><span>Links</span><br /><?php echo $stats["linkedIn"] ?></li>
 					<?php
 				}
 				
@@ -215,12 +203,6 @@ if (!class_exists('SC_Widget')) :
 					<?php
 				}
 				
-				if($sc_options["get_feedburner"]=='1'){
-					?>
-					<li class="scItems"><a href="http://feedburner.google.com/fb/a/mailverify?uri=<?php echo $sc_options['feedburner_token'] ?>&loc=en_US"><img src="<?php echo $img_url."large/".$icon_set."/feed.png" ?>" /></a><br /><span>Readers</span><br /><?php echo $stats["feedburner"] ?></li>
-					<?php
-				}
-
 			?>
 			</ul>
 			<?php
@@ -276,6 +258,43 @@ if (!class_exists('SC_Widget')) :
 					<?php 
 					$layouts = array("Horizontal" => "horizontal", "Vertical" => "vertical");
 					SocialCrowd_Make_Select($instance['format'],$layouts,"widefat",$this->get_field_id('format'),$this->get_field_name('format'));
+					?>
+					
+				</p>
+				<b>Custom or Default Styling?</b><br>
+				<p>
+					
+				<input class="checkbox" type="checkbox" <?php if ($instance['style']) echo 'checked="checked" '; ?>id="<?php echo $this->get_field_id('style'); ?>" name="<?php echo $this->get_field_name('style'); ?>">
+				<label for="<?php echo $this->get_field_id('style'); ?>">&nbsp;&nbsp;Default Styling</label><br />
+				Check plugin documentation for instructions on using custom styles
+				
+				</p>
+				<b>Share the Love</b>
+				<p>
+				
+				<input class="checkbox" type="checkbox" <?php if ($instance['link']) echo 'checked="checked" '; ?>id="<?php echo $this->get_field_id('link'); ?>" name="<?php echo $this->get_field_name('link'); ?>">
+				<label for="<?php echo $this->get_field_id('link'); ?>">&nbsp;&nbsp;Display "Credit" Link</label>
+			
+			</p>
+			
+<?php
+		}
+	} 
+endif;
+
+// Register the plugin/widget
+if (class_exists('SC_Widget')) :
+
+	function loadSCWidget() {
+		
+		register_widget('SC_Widget');
+	}
+
+	add_action('widgets_init', 'loadSCWidget');
+
+endif;
+
+?>t'));
 					?>
 					
 				</p>
