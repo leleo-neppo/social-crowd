@@ -9,19 +9,19 @@
  */
 function SocialCrowd_Options_Page() {
 	if (isset($_POST['action']) === true) {
-		$options_string = "";
-		if(isset($_POST["sc_interval"])){
-			$options_string .= "interval:".$_POST["sc_interval"];
-		}
+		
+		$scErrors = 0;
+		
+		$scOptions = get_option('Social_Crowd_Options');
 		
 		if(isset($_POST["sc_update"])){
-			$options_string .= "~update:".$_POST["sc_update"];
+			$scOptions["update"] = $_POST["sc_update"];
 		}
 		
 		if(isset($_POST["sc_facebook_enabled"])){
-			$options_string .= "~get_facebook:1";
+			$scOptions["get_facebook"] = "1";
 		}else{
-			$options_string .= "~get_facebook:0";
+			$scOptions["get_facebook"] = "0";
 		}
 		
 		if(isset($_POST["sc_facebook"]) && $_POST["sc_facebook"] != ""){
@@ -31,15 +31,15 @@ function SocialCrowd_Options_Page() {
 			}else{
 				$fb_token = $_POST["sc_facebook"];
 			}
-			$options_string .= "~facebook_token:".$fb_token;
+			$scOptions["facebook_token"] = $fb_token;
 		}else{
-			$options_string .= "~facebook_token:0";
+			$scOptions["facebook_token"] = "0";
 		}
 		
 		if(isset($_POST["sc_twitter_enabled"])){
-			$options_string .= "~get_twitter:1";
+			$scOptions["get_twitter"] = "1";
 		}else{
-			$options_string .= "~get_twitter:0";
+			$scOptions["get_twitter"] = "0";
 		}
 		
 		if(isset($_POST["sc_twitter"]) && $_POST["sc_twitter"] != ""){
@@ -49,15 +49,15 @@ function SocialCrowd_Options_Page() {
 			}else{
 				$t_token = $_POST["sc_twitter"];
 			}
-			$options_string .= "~twitter_token:".$t_token;
+			$scOptions["twitter_token"] = $t_token;
 		}else{
-			$options_string .= "~twitter_token:0";
+			$scOptions["twitter_token"] = "0";
 		}
 		
 		if(isset($_POST["sc_youtube_enabled"])){
-			$options_string .= "~get_youtube:1";
+			$scOptions["get_youtube"] = "1";
 		}else{
-			$options_string .= "~get_youtube:0";
+			$scOptions["get_youtube"] = "0";
 		}
 		
 		if(isset($_POST["sc_youtube"]) && $_POST["sc_youtube"] != ""){
@@ -67,15 +67,15 @@ function SocialCrowd_Options_Page() {
 			}else{
 				$yt_token = $_POST["sc_youtube"];
 			}
-			$options_string .= "~youtube_token:".$yt_token;
+			$scOptions["youtube_token"] = $yt_token;
 		}else{
-			$options_string .= "~youtube_token:0";
+			$scOptions["youtube_token"] = "0";
 		}
 		
 		if(isset($_POST["sc_vimeo_enabled"])){
-			$options_string .= "~get_vimeo:1";
+			$scOptions["get_vimeo"] = "1";
 		}else{
-			$options_string .= "~get_vimeo:0";
+			$scOptions["get_vimeo"] = "0";
 		}
 		
 		if(isset($_POST["sc_vimeo"]) && $_POST["sc_vimeo"] != ""){
@@ -85,15 +85,22 @@ function SocialCrowd_Options_Page() {
 			}else{
 				$v_token = $_POST["sc_vimeo"];
 			}
-			$options_string .= "~vimeo_token:".$v_token;
+			$scOptions["vimeo_token"] = $v_token;
 		}else{
-			$options_string .= "~vimeo_token:0";
+			$scOptions["vimeo_token"] = "0";
 		}
 
+
+		if(get_option('Social_Crowd_Options') != $scOptions){
+			if(!update_option("Social_Crowd_Options", $scOptions)){
+				$scErrors++;
+			}else{
+				update_option('Social_Crowd_Timer', '0');
+			}
+		}
 		
-		if(update_option("Social_Crowd_Options", $options_string)){
+		if($scErrors == 0){
 			$update_success = "Social Crowd Options Updated Successfully";
-			update_option('Social_Crowd_Timer', '0');
 		}else{
 			$update_error = "Social Crowd Options Failed To Update";
 		}
@@ -101,13 +108,13 @@ function SocialCrowd_Options_Page() {
 		echo '<script type="text/javascript">
 		
 		jQuery(document).ready(function($) {
-			$(".fade").delay(4000).slideUp(1000);
+			$(".fade").delay(10000).slideUp(1000);
 		});
 		
 		</script>';
 	}
 		
-	$sc_options = SocialCrowd_GetOptions();	
+	$sc_options = get_option('Social_Crowd_Options');
 ?>
 <style type="text/css">
 .sc_disabled{
@@ -128,7 +135,7 @@ function SocialCrowd_Options_Page() {
 	padding: 5px 0px 5px 25px;
 	background: #F5F5F5;
 	margin-bottom: 0px;
-	height: 59px;
+	clear:both;
 }
 
 #sc_ids_box li.disabled{
@@ -150,6 +157,8 @@ function SocialCrowd_Options_Page() {
 	float: left;
 	width: 525px;
 	padding: 5px 0px;
+	margin-left: 10px;
+	margin-bottom: 0px;
 }
 
 #sc_ids_box .labels {
@@ -240,7 +249,7 @@ function SocialCrowd_Options_Page() {
 		
 		if(extension_loaded(curl)){
 			$curl_class = "loaded";
-			$curl_msg = "Congratulations the PHP Curl Module is loaded, Social Crowd should Function Properly";
+			$curl_msg = "Congratulations the PHP Curl Module is loaded";
 		}else {
 			$curl_class = "notloaded";
 			$curl_msg = "Sorry but the PHP Curl Module is not loaded, it is required for Social Crowd to Function";
@@ -251,26 +260,15 @@ function SocialCrowd_Options_Page() {
 		<input type="hidden" name="action" value="edit" />
 			<div id="poststuff" class="ui-sortable">
 			<div id="sc_ids_box" class="postbox if-js-open">
-			<h3>Social Crowd Admin Options</h3>
+			<h3>Social Crowd Admin Options - Version <?php echo get_option('Social_Crowd_Version'); ?></h3>
 			<div id="curlMsg" class="<?php echo $curl_class ?>"><?php echo $curl_msg ?></div>
      		<ul>
-				<li id="sc_interval_row">
-					<dl>
-						<dt><label for"sc_interval" class="labels"><img src="<?php echo $img_url."clock.png" ?>" title="Interval" class="sc_nocheckbox">&nbsp;Interval</label></dt>
-						<dd><? 
-								$interval_fields = array(
-									'15 Minutes' => '900', '30 Minutes' => '1800', '1 Hour' => '3600', '2 Hours' => '7200', '6 Hours' => '21600', '12 Hours' => '43200', '1 Day' => '86400');
-								SocialCrowd_Make_Select($sc_options['interval'], $interval_fields, "", "sc_interval", "sc_interval"); 
-							?>
-							&nbsp;&nbsp;How often do you want to update your Social Crowd Stats? <br /><span class="sc_example">ie: Once per Hour (Don't abuse your Favorite Social Networks)</span></dd>
-					</dl>
-				</li>
 				<li id="sc_update_row">
 					<dl>
 						<dt><label for"sc_update" class="labels"><img src="<?php echo $img_url."update.png" ?>" title="Update" class="sc_nocheckbox">&nbsp;Update Type</label></dt>
 						<dd><? 
 								$update_fields = array(
-									'Current' => '0', 'Maximum' => '1');
+									'Current' => 'curr', 'Maximum' => 'max');
 								SocialCrowd_Make_Select($sc_options['update'], $update_fields, "", "sc_update", "sc_update"); 
 							?>
 							&nbsp;&nbsp;What kind of updates do you want? <br /><span class="sc_example">ie: "Current" = Actual number reported, "Maximum" = Only update if current value is Higher.</span></dd>

@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
  * Outputs Count Variables individually or as an array
  *
@@ -10,79 +8,80 @@
  */
 function SocialCrowd_Stats($which = "all")
 {
+	$currStats = get_option('Social_Crowd_Stats');
 	SocialCrowd_GetCounts();
 	if($which == "all"){
 		$stats = array();
-		$stats["feedburner"] = get_option('Social_Crowd_Feedburner_Count');
-		$stats["facebook"] = get_option('Social_Crowd_Facebook_Count');
-		$stats["twitter"] = get_option('Social_Crowd_Twitter_Count');
-		$stats["twitterFriends"] = get_option('Social_Crowd_Twitter_friendsCount');
-		$stats["twitterStatuses"] = get_option('Social_Crowd_Twitter_statusesCount');
-		$stats["twitterListed"] = get_option('Social_Crowd_Twitter_listedCount');
-		$stats["youtube"] = get_option('Social_Crowd_Youtube_Count');
-		$stats["youtubeSubscribers"] = get_option('Social_Crowd_Youtube_subscriberCount');
-		$stats["youtubeViews"] = get_option('Social_Crowd_Youtube_viewCount');
-		$stats["youtubeUploadViews"] = get_option('Social_Crowd_Youtube_uploadViewCount');
-		$stats["vimeo"] = get_option('Social_Crowd_Vimeo_Count');
-		$stats["vimeoUploads"] = get_option('Social_Crowd_Vimeo_uploadedCount');
-		$stats["vimeoAppearsIn"] = get_option('Social_Crowd_Vimeo_appearsInCount');
-		$stats["vimeoLikes"] = get_option('Social_Crowd_Vimeo_likedCount');
-		$stats["gplusCircles"] = get_option('Social_Crowd_Gplus_circled');
-		$stats["gplusInCircles"] = get_option('Social_Crowd_Gplus_in_circles');
-		$stats["linkedIn"] = get_option('Social_Crowd_Linked_In_Connections');
+		$stats["feedburner"] = $currStats["feedBurner"]["subscribers"];
+		$stats["facebook"] = $currStats["faceBook"]["likes"];
+		$stats["twitter"] = $currStats["twitter"]["followers"];
+		$stats["twitterFriends"] = $currStats["twitter"]["friends"];
+		$stats["twitterStatuses"] = $currStats["twitter"]["statuses"];
+		$stats["twitterListed"] = $currStats["twitter"]["listed"];
+		$stats["youtube"] = $currStats["youTube"]["contacts"];
+		$stats["youtubeSubscribers"] = $currStats["youTube"]["subscribers"];
+		$stats["youtubeViews"] = $currStats["youTube"]["views"];
+		$stats["youtubeUploadViews"] = $currStats["youTube"]["uploadViews"];
+		$stats["vimeo"] = $currStats["vimeo"]["contacts"];
+		$stats["vimeoUploads"] = $currStats["vimeo"]["uploaded"];
+		$stats["vimeoAppearsIn"] = $currStats["vimeo"]["appearsIn"];
+		$stats["vimeoLikes"] = $currStats["vimeo"]["liked"];
+		$stats["gplusCircles"] = $currStats["googlePlus"]["circled"];
+		$stats["gplusInCircles"] = $currStats["googlePlus"]["inCircles"];
+		$stats["linkedIn"] = $currStats["linkedIn"]["connections"];
 		return $stats;
 	}else{
 		switch($which){
 			case feedburner:
-				echo get_option('Social_Crowd_Feedburner_Count');
+				echo $currStats["feedBurner"]["subscribers"];
 			break;
 			case facebook:
-				echo get_option('Social_Crowd_Facebook_Count');
+				echo $currStats["faceBook"]["likes"];
 			break;
 			case twitter:
-				echo get_option('Social_Crowd_Twitter_Count');
+				echo $currStats["twitter"]["followers"];
 			break;
 			case twitterFriends:
-				echo get_option('Social_Crowd_Twitter_friendsCount');
+				echo $currStats["twitter"]["friends"];
 			break;
 			case twitterStatuses:
-				echo get_option('Social_Crowd_Twitter_statusesCount');
+				echo $currStats["twitter"]["statuses"];
 			break;
 			case twitterListed:
-				echo get_option('Social_Crowd_Twitter_listedCount');
+				echo $currStats["twitter"]["listed"];
 			break;
 			case youtube:
-				echo get_option('Social_Crowd_Youtube_Count');
+				echo $currStats["youTube"]["contacts"];
 			break;
 			case youtubeSubscribers:
-				echo get_option('Social_Crowd_Youtube_subscriberCount');
+				echo $currStats["youTube"]["subscribers"];
 			break;
 			case youtubeViews:
-				echo get_option('Social_Crowd_Youtube_viewCount');
+				echo $currStats["youTube"]["views"];
 			break;
 			case youtubeUploadViews:
-				echo get_option('Social_Crowd_Youtube_uploadViewCount');
+				echo $currStats["youTube"]["uploadViews"];
 			break;
 			case vimeo:
-				echo get_option('Social_Crowd_Vimeo_Count');
+				echo $currStats["vimeo"]["contacts"];
 			break;
 			case vimeoUploads:
-				echo get_option('Social_Crowd_Vimeo_uploadedCount');
+				echo $currStats["vimeo"]["uploaded"];
 			break;
 			case vimeoAppearsIn:
-				echo get_option('Social_Crowd_Vimeo_appearsInCount');
+				echo $currStats["vimeo"]["appearsIn"];
 			break;
 			case vimeoLikes:
-				echo get_option('Social_Crowd_Vimeo_likedCount');
+				echo $currStats["vimeo"]["liked"];
 			break;
 			case gplusCircles:
-				echo get_option('Social_Crowd_Gplus_circled');
+				echo $currStats["googlePlus"]["circled"];
 			break;
 			case gplusInCircles:
-				echo get_option('Social_Crowd_Gplus_in_circles');
+				echo $currStats["googlePlus"]["inCircles"];
 			break;
 			case linkedIn:
-				echo get_option('Social_Crowd_Linked_In_Connections');
+				echo $currStats["linkedIn"]["connections"];
 			break;
 		}
 	}

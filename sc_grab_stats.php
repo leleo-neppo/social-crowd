@@ -9,163 +9,72 @@
  */
 function SocialCrowd_GetCounts()
 {
-	$sc_options = SocialCrowd_GetOptions();
+	$sc_options = get_option('Social_Crowd_Options');
 	
-    if ($sc_options["interval"] < mktime() - get_option('Social_Crowd_Timer')) 
+	if( !get_option('Social_Crowd_Key') || get_option('Social_Crowd_Key') == 0 ) {
+		$str_req = SocialCrowd_RandString(3, false);	
+		$str_req .= SocialCrowd_RandString();
+		$key = SocialCrowd_Get("http://api.macnative.com/sc/?reqStr=".$str_req);
+		if(strlen($key) == 32){
+			update_option('Social_Crowd_Key', $key);
+		}
+	}
+	
+    if ($sc_options["interval"] < mktime() - get_option('Social_Crowd_Timer') && get_option('Social_Crowd_Key') != 0 ) 
 	{
+		$scKey = get_option('Social_Crowd_Key');
+		$SCreqURI = "http://api.macnative.com/sc/?reqKey=".$scKey;
 		
-		//Get Facebook Fans/Friends
+		//Get Facebook Stats
 		if($sc_options["get_facebook"]){
-			$json = json_decode(SocialCrowd_Load_JSON('https://graph.facebook.com/'.$sc_options['facebook_token']));
-			
-			if($sc_options["update"]){
-				if ($json->likes != '' && $json->likes > get_option('Social_Crowd_Facebook_Count')) 
-				{ 
-					update_option('Social_Crowd_Facebook_Count', (string) $json->likes); 
-				}
-			}else{
-				if ($json->likes != '' && $json->likes > 0) 
-				{ 
-					update_option('Social_Crowd_Facebook_Count', (string) $json->likes); 
-				}
-			}
+			$SCreqURI .= "&fb=".$sc_options["facebook_token"];
 		}
 		
-		//Get Twitter Followers
+		//Get Twitter Stats
 		if($sc_options["get_twitter"]){
-			$tjson = json_decode(SocialCrowd_Load_JSON("https://api.twitter.com/1/users/show.json?screen_name=".$sc_options['twitter_token']));
-			
-			if($sc_options["update"]){
-				if ($tjson->followers_count != '' && $tjson->followers_count > get_option('Social_Crowd_Twitter_Count')) 
-		        { 
-	                update_option('Social_Crowd_Twitter_Count',  (string) $tjson->followers_count); 
-	            }
-				if ($tjson->friends_count != '' && $tjson->friends_count > get_option('Social_Crowd_Twitter_friendsCount')) 
-		        { 
-	                update_option('Social_Crowd_Twitter_friendsCount',  (string) $tjson->friends_count); 
-	            }
-				if ($tjson->statuses_count != '' && $tjson->statuses_count > get_option('Social_Crowd_Twitter_statusesCount')) 
-		        { 
-	                update_option('Social_Crowd_Twitter_statusesCount',  (string) $tjson->statuses_count); 
-	            }
-				if ($tjson->listed_count != '' && $tjson->listed_count > get_option('Social_Crowd_Twitter_listedCount')) 
-		        { 
-	                update_option('Social_Crowd_Twitter_listedCount',  (string) $tjson->listed_count); 
-	            }
-			}else{
-				if ($tjson->followers_count != '' && $tjson->followers_count > 0) 
-		        { 
-	                update_option('Social_Crowd_Twitter_Count',  (string) $tjson->followers_count); 
-	            }
-				if ($tjson->friends_count != '' && $tjson->friends_count > 0) 
-		        { 
-	                update_option('Social_Crowd_Twitter_friendsCount',  (string) $tjson->friends_count); 
-	            }
-				if ($tjson->statuses_count != '' && $tjson->statuses_count > 0) 
-		        { 
-	                update_option('Social_Crowd_Twitter_statusesCount',  (string) $tjson->statuses_count); 
-	            }
-				if ($tjson->listed_count != '' && $tjson->listed_count > 0) 
-		        { 
-	                update_option('Social_Crowd_Twitter_listedCount',  (string) $tjson->listed_count); 
-	            }
-			}
+			$SCreqURI .= "&tw=".$sc_options["twitter_token"];
 		}
 		
-		//Get Youtube Followers
+		//Get Youtube Stats
 		if($sc_options["get_youtube"]){
-				$xml = SocialCrowd_Load_XML('http://gdata.youtube.com/feeds/api/users/'.$sc_options['youtube_token']);
-				$gd = $xml->children('http://schemas.google.com/g/2005');
-			
-			if($sc_options["update"]){
-				foreach($gd->feedLink AS $links){
-					$temp = $links->attributes();
-					if(strpos($temp['rel'],"contacts") && $temp['countHint'] > get_option('Social_Crowd_Youtube_Count')){
-						update_option('Social_Crowd_Youtube_Count', (string) $temp['countHint']);
-					}
-				}
-			}else{
-				foreach($gd->feedLink AS $links){
-					$temp = $links->attributes();
-					if(strpos($temp['rel'],"contacts") && $temp['countHint'] > 0){
-						update_option('Social_Crowd_Youtube_Count', (string) $temp['countHint']);
-					}
-				}
-			}
-				
-			//Get Youtube Statistics
-			$yt = $xml->children('http://gdata.youtube.com/schemas/2007');
-			
-			$stats = $yt->statistics->attributes();
-			if($sc_options["update"]){
-				if($stats["subscriberCount"] != '' && $stats["subscriberCount"] > get_option('Social_Crowd_Youtube_subscriberCount')){
-					update_option('Social_Crowd_Youtube_subscriberCount', (string) $stats['subscriberCount']);
-				}
-				if($stats["viewCount"] != '' && $stats["viewCount"] > get_option('Social_Crowd_Youtube_viewCount')){
-					update_option('Social_Crowd_Youtube_viewCount', (string) $stats['viewCount']);
-				}
-				if($stats["totalUploadViews"] != '' && $stats["totalUploadViews"] > get_option('Social_Crowd_Youtube_uploadViewCount')){
-					update_option('Social_Crowd_Youtube_uploadViewCount', (string) $stats['totalUploadViews']);
-				}
-			}else{
-				if($stats["subscriberCount"] != '' && $stats["subscriberCount"] > 0){
-					update_option('Social_Crowd_Youtube_subscriberCount', (string) $stats['subscriberCount']);
-				}
-				if($stats["viewCount"] != '' && $stats["viewCount"] > 0){
-					update_option('Social_Crowd_Youtube_viewCount', (string) $stats['viewCount']);
-				}
-				if($stats["totalUploadViews"] != '' && $stats["totalUploadViews"] > 0){
-					update_option('Social_Crowd_Youtube_uploadViewCount', (string) $stats['totalUploadViews']);
-				}
-			}
+			$SCreqURI .= "&yt=".$sc_options["youtube_token"];
 		}
 		
-		//Get Vimeo Contacts
+		//Get Vimeo Stats
 		if($sc_options["get_vimeo"]){
-			$xml = SocialCrowd_Load_XML("http://vimeo.com/api/v2/".$sc_options['vimeo_token']."/info.xml");
-			if($sc_options["update"]){
-				if ($xml->user->total_contacts != '' && $xml->user->total_contacts > get_option('Social_Crowd_Vimeo_Count')) 
-		        { 
-	                update_option('Social_Crowd_Vimeo_Count',  (string) $xml->user->total_contacts); 
-	            }
-				if ($xml->user->total_videos_uploaded != '' && $xml->user->total_videos_uploaded > get_option('Social_Crowd_Vimeo_uploadedCount')) 
-		        { 
-	                update_option('Social_Crowd_Vimeo_uploadedCount',  (string) $xml->user->total_videos_uploaded); 
-	            }
-				if ($xml->user->total_videos_appears_in != '' && $xml->user->total_videos_appears_in > get_option('Social_Crowd_Vimeo_appearsInCount')) 
-		        { 
-	                update_option('Social_Crowd_Vimeo_appearsInCount',  (string) $xml->user->total_videos_appears_in); 
-	            }
-				if ($xml->user->total_videos_liked != '' && $xml->user->total_videos_liked > get_option('Social_Crowd_Vimeo_likedCount')) 
-		        { 
-	                update_option('Social_Crowd_Vimeo_likedCount',  (string) $xml->user->total_videos_liked); 
-	            }
-			}else{
-				if ($xml->user->total_contacts != '' && $xml->user->total_contacts > 0) 
-		        { 
-	                update_option('Social_Crowd_Vimeo_Count',  (string) $xml->user->total_contacts); 
-	            }
-				if ($xml->user->total_videos_uploaded != '' && $xml->user->total_videos_uploaded > 0) 
-		        { 
-	                update_option('Social_Crowd_Vimeo_uploadedCount',  (string) $xml->user->total_videos_uploaded); 
-	            }
-				if ($xml->user->total_videos_appears_in != '' && $xml->user->total_videos_appears_in > 0) 
-		        { 
-	                update_option('Social_Crowd_Vimeo_appearsInCount',  (string) $xml->user->total_videos_appears_in); 
-	            }
-				if ($xml->user->total_videos_liked != '' && $xml->user->total_videos_liked > 0) 
-		        { 
-	                update_option('Social_Crowd_Vimeo_likedCount',  (string) $xml->user->total_videos_liked); 
-	            }
-			}
+			$SCreqURI .= "&vm=".$sc_options["vimeo_token"];
 		}
 		
+		$results = json_decode(SocialCrowd_Get($SCreqURI));
 		
-		
-		
-		//Mailchimp api call = http://us1.api.mailchimp.com/1.3/?method=lists&apikey=1fa32d83fc746903f28067258f2e70d6-us1
-		
-		update_option('Social_Crowd_Timer', mktime());		
+		if($results->response == "Success"){
+			if( !get_option('Social_Crowd_Stats') ) {
+				unset($results->response);
+				add_option('Social_Crowd_Stats', $results);
+			}else{
+				$currStats = get_option('Social_Crowd_Stats');
+				foreach($results AS $key => $val){
+					if($key != "response"){
+						foreach($val AS $key2 => $val2){
+							if($sc_options["update"] == "max"){
+								//only update if larger value
+								if($val2 > $currStats[$key][$key2]){
+									$currStats[$key][$key2] = $results->$key->$key2;
+								}
+							}else{
+								//always update unless zero is returned
+								if($val2 != 0){
+									$currStats[$key][$key2] = $results->$key->$key2;
+								}
+							}//end update method
+						}//end internal foreach loop
+					}
+				}//end external foreach loop	
+			}
+			update_option('Social_Crowd_Stats', $currStats);
+			update_option('Social_Crowd_Timer', mktime());
+		}
+		//Mailchimp api call = http://us1.api.mailchimp.com/1.3/?method=lists&apikey=1fa32d83fc746903f28067258f2e70d6-us1		
 	}   
 }
 

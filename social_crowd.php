@@ -2,14 +2,14 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 0.9.2
+ * @version 0.9.6
  */
 /*
 Plugin Name: Social Crowd
 Plugin URI: http://www.macnative.com/socialCrowd
 Description: This plugin retrieves the raw number of Friends/Followers/Fans etc from your favorite social networks and allows you to show that raw number on any page of your wordpress blog using a simple php function **Requires PHP Curl Module**
 Author: Randall Hinton
-Version: 0.9.2
+Version: 0.9.6
 Author URI: http://www.macnative.com/
 */
 
@@ -28,7 +28,7 @@ function SocialCrowd_Activate() {
 
 if ( is_admin() ) {
 	add_action('admin_menu', 'SocialCrowd_Add_Option_Menu');
-	add_action('admin_menu', 'SocialCrowd_DefaultSettings');
+	//add_action('admin_menu', 'SocialCrowd_DefaultSettings');
 }
 
 /**
@@ -64,51 +64,43 @@ add_filter("plugin_action_links_$plugin", 'SocialCrowd_Add_Settings_Link' );
  * @author randall@macnative.com
  */
 function SocialCrowd_DefaultSettings() {
+	
+	//Initiallize 
+	if( !get_option('Social_Crowd_Options') ) {
+		$socialCrowdOptions = array("interval" => "21600", "update" => "max", "get_facebook" => 0, "facebook_token" => 0, "get_twitter" => 0, "twitter_token" => 0, "get_youtube" => 0, "youtube_token" => 0, "get_vimeo" => 0, "vimeo_token" => 0, "get_gplus" => 0, "gplus_token" => 0, "get_linkedin" => 0, "linkedin_token" => 0, "get_feedburner" => 0, "feedburner_token" => 0);
+		add_option('Social_Crowd_Options', $socialCrowdOptions);
+	}
+	
+	//Initialize Stats Array
+	if( !get_option('Social_Crowd_Stats') ) {
+		$scStats = array("faceBook" => array("likes" => 0, "talkingAbout" => 0), "twitter" => array("followers" => 0,"friends" => 0,"statuses" => 0,"listed" => 0), "youTube" => array("contacts"=> 0,"subscribers" => 0,"views" => 0,"uploadViews"=> 0), "vimeo" => array("contacts" => 0,"uploaded" => 0,"appearsIn" => 0,"liked" => 0), "googlePlus" => array("circled" => 0, "inCircles" => 0), "feedBurner" => array("subscribers" => 0), "linkedIn" => array("connections" => 0));
+		
+		add_option('Social_Crowd_Stats', $scStats);
+	}
+	
+	//Mark Current Installed Version
+	if( !get_option('Social_Crowd_Version') ) {
+		add_option('Social_Crowd_Version', '0.9.6');
+		if($scTimer = get_option('Social_Crowd_Timer')){
+			Social_Crowd_Update();
+		}
+	}
+	
+	//Create and reset the timer
 	if( !get_option('Social_Crowd_Timer') ) {
 		add_option('Social_Crowd_Timer', '0');
 	}
-	if( !get_option('Social_Crowd_Facebook_Count') ) {
-		add_option('Social_Crowd_Facebook_Count', '0');
-	}
-	if( !get_option('Social_Crowd_Twitter_Count') ) {
-		add_option('Social_Crowd_Twitter_Count', '0');
-	}
-	if( !get_option('Social_Crowd_Twitter_friendsCount') ) {
-		add_option('Social_Crowd_Twitter_friendsCount', '0');
-	}
-	if( !get_option('Social_Crowd_Twitter_statusesCount') ) {
-		add_option('Social_Crowd_Twitter_statusesCount', '0');
-	}
-	if( !get_option('Social_Crowd_Twitter_listedCount') ) {
-		add_option('Social_Crowd_Twitter_listedCount', '0');
-	}
-	if( !get_option('Social_Crowd_Youtube_Count') ) {
-		add_option('Social_Crowd_Youtube_Count', '0');
-	}
-	if( !get_option('Social_Crowd_Youtube_subscriberCount') ) {
-		add_option('Social_Crowd_Youtube_subscriberCount', '0');
-	}
-	if( !get_option('Social_Crowd_Youtube_viewCount') ) {
-		add_option('Social_Crowd_Youtube_viewCount', '0');
-	}
-	if( !get_option('Social_Crowd_Youtube_uploadViewCount') ) {
-		add_option('Social_Crowd_Youtube_uploadViewCount', '0');
-	}
-	if( !get_option('Social_Crowd_Vimeo_Count') ) {
-		add_option('Social_Crowd_Vimeo_Count', '0');
-	}
-	if( !get_option('Social_Crowd_Vimeo_uploadedCount') ) {
-		add_option('Social_Crowd_Vimeo_uploadedCount', '0');
-	}
-	if( !get_option('Social_Crowd_Vimeo_appearsInCount') ) {
-		add_option('Social_Crowd_Vimeo_appearsInCount', '0');
-	}
-	if( !get_option('Social_Crowd_Vimeo_likedCount') ) {
-		add_option('Social_Crowd_Vimeo_likedCount', '0');
-	}
-
-	if( !get_option('Social_Crowd_Options') ) {
-		add_option('Social_Crowd_Options', 'interval:7200~get_feedburner:0~feedburner_token:0~get_facebook:0~facebook_token:0~get_twitter:0~twitter_token:0~get_youtube:0~youtube_token:0~get_vimeo:0~vimeo_token:0~get_gplus:0~gplus_token:0get_linkedin:0~linkedin_token:0');
+	
+	//Get Web Service Key
+	if( !get_option('Social_Crowd_Key') ) {
+		$str_req = SocialCrowd_RandString(3, false);	
+		$str_req .= SocialCrowd_RandString();
+		$key = SocialCrowd_Get("http://api.macnative.com/sc/?reqStr=".$str_req);
+		if(strlen($key) == 32){
+			update_option('Social_Crowd_Key', $key);
+		}else{
+			add_option('Social_Crowd_Key', '0');
+		}
 	}
 }
 

@@ -103,25 +103,25 @@ if (!class_exists('SC_Widget_Advanced')) :
 				
 				if($instance['facebook']){
 					?>
-						<li class="scItems"><a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/facebook.png" ?>" /></a><div><span><?php echo str_replace('%s', $stats["facebook"], $facebook_stat) ?></span><br /><a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $facebook_link ?></a></div></li>
+						<li class="scItems"><a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/facebook.png" ?>"  alt="Facebook" /></a><div><span><?php echo str_replace('%s', $stats["facebook"], $facebook_stat) ?></span><br /><a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $facebook_link ?></a></div></li>
 					<?php
 				}
 				
 				if($instance['twitter']){
 					?>
-					<li class="scItems"><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats[$twitter_type], $twitter_stat) ?></span><br /><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $twitter_link ?></a></div></li>
+					<li class="scItems"><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>"  alt="Twitter" /></a><div ><span><?php echo str_replace('%s', $stats[$twitter_type], $twitter_stat) ?></span><br /><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $twitter_link ?></a></div></li>
 					<?php
 				}
 				
 				if($instance['youtube']){
 					?>
-					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats[$youtube_type], $youtube_stat) ?></span><br /><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $youtube_link ?></a></div></li>
+					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" alt="You Tube" /></a><div ><span><?php echo str_replace('%s', $stats[$youtube_type], $youtube_stat) ?></span><br /><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $youtube_link ?></a></div></li>
 					<?php
 				}
 				
 				if($instance['vimeo']){
 					?>
-					<li class="scItems"><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/vimeo.png" ?>" /></a><div ><span><?php echo str_replace('%s', $stats[$vimeo_type], $vimeo_stat) ?></span><br /><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $vimeo_link ?></a></div></li>
+					<li class="scItems"><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/vimeo.png" ?>" alt="Vimeo" /></a><div ><span><?php echo str_replace('%s', $stats[$vimeo_type], $vimeo_stat) ?></span><br /><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><?php echo $vimeo_link ?></a></div></li>
 					<?php
 				}
 				
@@ -177,25 +177,25 @@ if (!class_exists('SC_Widget_Advanced')) :
 				
 				if($instance['facebook']){
 					?>
-						<li class="scItems"><a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/facebook.png" ?>" /></a><br /><span><?php echo $facebook_stat ?></span><br /><?php echo $stats["facebook"] ?></li>
+						<li class="scItems"><a href="http://www.facebook.com/<?php echo $sc_options['facebook_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/facebook.png" ?>"  alt="Facebook" /></a><br /><span><?php echo $facebook_stat ?></span><br /><?php echo $stats["facebook"] ?></li>
 					<?php
 				}
 				
 				if($instance['twitter']){
 					?>
-					<li class="scItems"><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>" /></a><br /><span><?php echo $twitter_stat ?></span><br /><?php echo $stats[$twitter_type] ?></li>
+					<li class="scItems"><a href="http://www.twitter.com/<?php echo $sc_options['twitter_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/twitter.png" ?>" alt="Twitter" /></a><br /><span><?php echo $twitter_stat ?></span><br /><?php echo $stats[$twitter_type] ?></li>
 					<?php
 				}
 				
 				if($instance['youtube']){
 					?>
-					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" /></a><br /><span><?php echo $youtube_stat ?></span><br /><?php echo $stats[$youtube_type] ?></li>
+					<li class="scItems"><a href="http://www.youtube.com/<?php echo $sc_options['youtube_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/youtube.png" ?>" alt="You Tube" /></a><br /><span><?php echo $youtube_stat ?></span><br /><?php echo $stats[$youtube_type] ?></li>
 					<?php
 				}
 				
 				if($instance['vimeo']){
 					?>
-					<li class="scItems"><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/vimeo.png" ?>" /></a><br /><span><?php echo $vimeo_stat ?></span><br /><?php echo $stats[$vimeo_type] ?></li>
+					<li class="scItems"><a href="http://www.vimeo.com/<?php echo $sc_options['vimeo_token'] ?>" <?php echo ($newWindow) ? 'target="_blank"' : '' ?>><img src="<?php echo $img_url."large/".$icon_set."/vimeo.png" ?>" alt="Vimeo" /></a><br /><span><?php echo $vimeo_stat ?></span><br /><?php echo $stats[$vimeo_type] ?></li>
 					<?php
 				}
 				
