@@ -2,14 +2,14 @@
 /**
  * @package Social_Crowd
  * @author Randall Hinton
- * @version 0.9.6
+ * @version 0.9.6.1
  */
 /*
 Plugin Name: Social Crowd
 Plugin URI: http://www.macnative.com/socialCrowd
 Description: This plugin retrieves the raw number of Friends/Followers/Fans etc from your favorite social networks and allows you to show that raw number on any page of your wordpress blog using a simple php function **Requires PHP Curl Module**
 Author: Randall Hinton
-Version: 0.9.6
+Version: 0.9.6.1
 Author URI: http://www.macnative.com/
 */
 
@@ -67,7 +67,7 @@ function SocialCrowd_DefaultSettings() {
 	
 	//Initiallize 
 	if( !get_option('Social_Crowd_Options') ) {
-		$socialCrowdOptions = array("interval" => "21600", "update" => "max", "get_facebook" => 0, "facebook_token" => 0, "get_twitter" => 0, "twitter_token" => 0, "get_youtube" => 0, "youtube_token" => 0, "get_vimeo" => 0, "vimeo_token" => 0, "get_gplus" => 0, "gplus_token" => 0, "get_linkedin" => 0, "linkedin_token" => 0, "get_feedburner" => 0, "feedburner_token" => 0);
+		$socialCrowdOptions = array("interval" => "21600", "update" => "max", "get_facebook" => 0, "facebook_token" => "", "get_twitter" => 0, "twitter_token" => "", "get_youtube" => 0, "youtube_token" => "", "get_vimeo" => 0, "vimeo_token" => "", "get_gplus" => 0, "gplus_token" => "", "get_linkedin" => 0, "linkedin_token" => "", "get_feedburner" => 0, "feedburner_token" => "");
 		add_option('Social_Crowd_Options', $socialCrowdOptions);
 	}
 	
@@ -80,10 +80,12 @@ function SocialCrowd_DefaultSettings() {
 	
 	//Mark Current Installed Version
 	if( !get_option('Social_Crowd_Version') ) {
-		add_option('Social_Crowd_Version', '0.9.6');
+		add_option('Social_Crowd_Version', '0.9.6.1');
 		if($scTimer = get_option('Social_Crowd_Timer')){
 			Social_Crowd_Update();
 		}
+	}else{
+		update_option('Social_Crowd_Version', '0.9.6.1');
 	}
 	
 	//Create and reset the timer
@@ -97,7 +99,7 @@ function SocialCrowd_DefaultSettings() {
 		$str_req .= SocialCrowd_RandString();
 		$key = SocialCrowd_Get("http://api.macnative.com/sc/?reqStr=".$str_req);
 		if(strlen($key) == 32){
-			update_option('Social_Crowd_Key', $key);
+			add_option('Social_Crowd_Key', $key);
 		}else{
 			add_option('Social_Crowd_Key', '0');
 		}

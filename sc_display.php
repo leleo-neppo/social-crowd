@@ -8,8 +8,11 @@
  */
 function SocialCrowd_Stats($which = "all")
 {
-	$currStats = get_option('Social_Crowd_Stats');
+	
 	SocialCrowd_GetCounts();
+	
+	$currStats = get_option('Social_Crowd_Stats');
+	
 	if($which == "all"){
 		$stats = array();
 		$stats["feedburner"] = $currStats["feedBurner"]["subscribers"];

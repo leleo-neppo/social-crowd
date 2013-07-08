@@ -53,6 +53,9 @@ function SocialCrowd_GetCounts()
 				add_option('Social_Crowd_Stats', $results);
 			}else{
 				$currStats = get_option('Social_Crowd_Stats');
+				if(!is_array($currStats)){
+					$currStats = array();
+				}
 				foreach($results AS $key => $val){
 					if($key != "response"){
 						foreach($val AS $key2 => $val2){

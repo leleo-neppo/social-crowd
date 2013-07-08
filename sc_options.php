@@ -12,98 +12,120 @@ function SocialCrowd_Options_Page() {
 		
 		$scErrors = 0;
 		
-		$scOptions = get_option('Social_Crowd_Options');
-		
-		if(isset($_POST["sc_update"])){
-			$scOptions["update"] = $_POST["sc_update"];
-		}
-		
-		if(isset($_POST["sc_facebook_enabled"])){
-			$scOptions["get_facebook"] = "1";
-		}else{
-			$scOptions["get_facebook"] = "0";
-		}
-		
-		if(isset($_POST["sc_facebook"]) && $_POST["sc_facebook"] != ""){
-			if(stristr($_POST["sc_facebook"],"http")){
-				$temp = explode("/",$_POST["sc_facebook"]);
-				$fb_token = $temp[3];
+		if($_POST["reset"]){
+			$newOptions = array("interval" => "3600", "update" => "max", "get_facebook" => 0, "facebook_token" => "", "get_twitter" => 0, "twitter_token" => "", "get_youtube" => 0, "youtube_token" => "", "get_vimeo" => 0, "vimeo_token" => "", "get_gplus" => 0, "gplus_token" => "", "get_linkedin" => 0, "linkedin_token" => "", "get_feedburner" => 0, "feedburner_token" => "");
+			
+			$newStats = array("faceBook" => array("likes" => 0, "talkingAbout" => 0), "twitter" => array("followers" => 0,"friends" => 0,"statuses" => 0,"listed" => 0), "youTube" => array("contacts"=> 0,"subscribers" => 0,"views" => 0,"uploadViews"=> 0), "vimeo" => array("contacts" => 0,"uploaded" => 0,"appearsIn" => 0,"liked" => 0), "googlePlus" => array("circled" => 0, "inCircles" => 0), "feedBurner" => array("subscribers" => 0), "linkedIn" => array("connections" => 0));
+			
+			update_option('Social_Crowd_Stats', $newStats);
+			update_option('Social_Crowd_Timer', '0');
+			update_option('Social_Crowd_Key', '0');
+			
+			if(update_option('Social_Crowd_Options',$newOptions)){
+				$update_success = "Social Crowd Options Successfully Reset";
 			}else{
-				$fb_token = $_POST["sc_facebook"];
+				$update_error = "Social Crowd Options Failed To Be Reset";
 			}
-			$scOptions["facebook_token"] = $fb_token;
+			
+			
 		}else{
-			$scOptions["facebook_token"] = "0";
-		}
-		
-		if(isset($_POST["sc_twitter_enabled"])){
-			$scOptions["get_twitter"] = "1";
-		}else{
-			$scOptions["get_twitter"] = "0";
-		}
-		
-		if(isset($_POST["sc_twitter"]) && $_POST["sc_twitter"] != ""){
-			if(stristr($_POST["sc_twitter"],"http")){
-				$temp = explode("/",$_POST["sc_twitter"]);
-				$t_token = $temp[3];
+			$scOptions = get_option('Social_Crowd_Options');
+			if(!is_array($scOptions)){
+				$scOptions = array("interval" => "3600");
+			}
+			if(isset($_POST["sc_update"])){
+				$scOptions["update"] = $_POST["sc_update"];
+			}
+
+			if(isset($_POST["sc_facebook_enabled"])){
+				$scOptions["get_facebook"] = "1";
 			}else{
-				$t_token = $_POST["sc_twitter"];
+				$scOptions["get_facebook"] = "0";
 			}
-			$scOptions["twitter_token"] = $t_token;
-		}else{
-			$scOptions["twitter_token"] = "0";
-		}
-		
-		if(isset($_POST["sc_youtube_enabled"])){
-			$scOptions["get_youtube"] = "1";
-		}else{
-			$scOptions["get_youtube"] = "0";
-		}
-		
-		if(isset($_POST["sc_youtube"]) && $_POST["sc_youtube"] != ""){
-			if(stristr($_POST["sc_youtube"],"http")){
-				$temp = explode("/",$_POST["sc_youtube"]);
-				$yt_token = $temp[4];
+
+			if(isset($_POST["sc_facebook"]) && $_POST["sc_facebook"] != ""){
+				if(stristr($_POST["sc_facebook"],"http")){
+					$temp = explode("/",$_POST["sc_facebook"]);
+					$fb_token = $temp[3];
+				}else{
+					$fb_token = $_POST["sc_facebook"];
+				}
+				$scOptions["facebook_token"] = $fb_token;
 			}else{
-				$yt_token = $_POST["sc_youtube"];
+				$scOptions["facebook_token"] = "0";
 			}
-			$scOptions["youtube_token"] = $yt_token;
-		}else{
-			$scOptions["youtube_token"] = "0";
-		}
-		
-		if(isset($_POST["sc_vimeo_enabled"])){
-			$scOptions["get_vimeo"] = "1";
-		}else{
-			$scOptions["get_vimeo"] = "0";
-		}
-		
-		if(isset($_POST["sc_vimeo"]) && $_POST["sc_vimeo"] != ""){
-			if(stristr($_POST["sc_vimeo"],"http")){
-				$temp = explode("/",$_POST["sc_vimeo"]);
-				$v_token = $temp[3];
+
+			if(isset($_POST["sc_twitter_enabled"])){
+				$scOptions["get_twitter"] = "1";
 			}else{
-				$v_token = $_POST["sc_vimeo"];
+				$scOptions["get_twitter"] = "0";
 			}
-			$scOptions["vimeo_token"] = $v_token;
-		}else{
-			$scOptions["vimeo_token"] = "0";
-		}
+
+			if(isset($_POST["sc_twitter"]) && $_POST["sc_twitter"] != ""){
+				if(stristr($_POST["sc_twitter"],"http")){
+					$temp = explode("/",$_POST["sc_twitter"]);
+					$t_token = $temp[3];
+				}else{
+					$t_token = $_POST["sc_twitter"];
+				}
+				$scOptions["twitter_token"] = $t_token;
+			}else{
+				$scOptions["twitter_token"] = "0";
+			}
+
+			if(isset($_POST["sc_youtube_enabled"])){
+				$scOptions["get_youtube"] = "1";
+			}else{
+				$scOptions["get_youtube"] = "0";
+			}
+
+			if(isset($_POST["sc_youtube"]) && $_POST["sc_youtube"] != ""){
+				if(stristr($_POST["sc_youtube"],"http")){
+					$temp = explode("/",$_POST["sc_youtube"]);
+					$yt_token = $temp[4];
+				}else{
+					$yt_token = $_POST["sc_youtube"];
+				}
+				$scOptions["youtube_token"] = $yt_token;
+			}else{
+				$scOptions["youtube_token"] = "0";
+			}
+
+			if(isset($_POST["sc_vimeo_enabled"])){
+				$scOptions["get_vimeo"] = "1";
+			}else{
+				$scOptions["get_vimeo"] = "0";
+			}
+
+			if(isset($_POST["sc_vimeo"]) && $_POST["sc_vimeo"] != ""){
+				if(stristr($_POST["sc_vimeo"],"http")){
+					$temp = explode("/",$_POST["sc_vimeo"]);
+					$v_token = $temp[3];
+				}else{
+					$v_token = $_POST["sc_vimeo"];
+				}
+				$scOptions["vimeo_token"] = $v_token;
+			}else{
+				$scOptions["vimeo_token"] = "0";
+			}
 
 
-		if(get_option('Social_Crowd_Options') != $scOptions){
-			if(!update_option("Social_Crowd_Options", $scOptions)){
-				$scErrors++;
+			if(get_option('Social_Crowd_Options') != $scOptions){
+				if(!update_option("Social_Crowd_Options", $scOptions)){
+					$scErrors++;
+				}else{
+					update_option('Social_Crowd_Timer', '0');
+				}
+			}
+
+			if($scErrors == 0){
+				$update_success = "Social Crowd Options Updated Successfully";
 			}else{
-				update_option('Social_Crowd_Timer', '0');
+				$update_error = "Social Crowd Options Failed To Update";
 			}
 		}
 		
-		if($scErrors == 0){
-			$update_success = "Social Crowd Options Updated Successfully";
-		}else{
-			$update_error = "Social Crowd Options Failed To Update";
-		}
+		
 	
 		echo '<script type="text/javascript">
 		
@@ -333,8 +355,9 @@ function SocialCrowd_Options_Page() {
 
 		
 			<div class="inside">
+				<br>
 			<p class="submit">
-				<input type="submit" name="submit" value="Save Options &raquo;" class="button-primary" />
+				<input type="submit" name="submit" value="Save Options &raquo;" class="button-primary" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="reset" value="Clear and Reset Options &raquo;" class="button-secondary" />
 			</p>
 			</div>
 			</div>
